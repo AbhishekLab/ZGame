@@ -6,24 +6,21 @@ import android.content.ComponentName
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.databinding.DataBindingUtil
+import com.zgame.zgame.databinding.ActivityMainBinding
 import com.zgame.zgame.service.BackgroundService
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val tag = "startService"
     private val jobId = 100
+    private lateinit var mBinding:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        btn_job_start.setOnClickListener {
-            serviceStart()
-        }
-        btn_job_end.setOnClickListener {
-            serviceEnd()
-        }
+
     }
 
     private fun serviceStart() {
