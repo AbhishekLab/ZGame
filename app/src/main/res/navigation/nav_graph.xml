@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_item_home">
+    <fragment
+        android:id="@+id/nav_item_home"
+        android:name="com.zgame.zgame.fragment.FragmentA"
+        android:label="Launcher" />
+    <fragment
+        android:id="@+id/nav_item_help"
+        android:name="com.zgame.zgame.fragment.FragmentB"
+        android:label="FragmentB" />
+    <fragment
+        android:id="@+id/nav_item_profile"
+        android:name="com.zgame.zgame.fragment.UserProfileFragment"
+        android:label="FragmentC" />
+    <fragment
+        android:id="@+id/nav_item_setting"
+        android:name="com.zgame.zgame.fragment.SettingFragment"
+        android:label="FragmentD" />
+</navigation>

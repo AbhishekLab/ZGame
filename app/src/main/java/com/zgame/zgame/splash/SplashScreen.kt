@@ -19,18 +19,13 @@ class SplashScreen : BaseActivity<ActivitySplashBinding>() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
 
-        mBinding.progressBar.progress = 0
-
-        Glide.with(this).load(R.raw.splash_girl).into(mBinding.imgSplashGirl)
+        Glide.with(this).load(R.drawable.splash_screen).into(mBinding.imgSplashGirl)
 
         Thread{
-            for (i in 0 until 11){
-                mBinding.progressBar.progress = i
+            for (i in 0 until 3){
                 Thread.sleep(1000)
             }
             this.startActivity(Intent(this,MainActivity::class.java))
         }.start()
-
-
     }
 }

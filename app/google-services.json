@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "576520680434",
+    "firebase_url": "https://zgame-96a9c.firebaseio.com",
+    "project_id": "zgame-96a9c",
+    "storage_bucket": "zgame-96a9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576520680434:android:2475c29d38684dc99f716b",
+        "android_client_info": {
+          "package_name": "com.zgame.zgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576520680434-uapmr51q7gjani15javenk0jg01qeap7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zgame.zgame",
+            "certificate_hash": "c5fcee371ffbe06ec7d43c608265839c1da1a7fd"
+          }
+        },
+        {
+          "client_id": "576520680434-1amstue8i3areuk9mlhpd3lnvs924to5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJsBlDaiZTC0VbBj-7HgGuV-crb58QejU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576520680434-1amstue8i3areuk9mlhpd3lnvs924to5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

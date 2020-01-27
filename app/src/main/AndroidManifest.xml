@@ -3,6 +3,9 @@
     package="com.zgame.zgame">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".splash.SplashScreen"
+        <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,15 +22,27 @@
             </intent-filter>
         </activity>
 
-        <activity
+       <!-- <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"/>
+-->
+
+        <!--<activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"/>-->
 
         <service
-            android:name=".service.BackgroundService"
+            android:name=".MyBrodcastRecieverService"
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".reciever.Reciever">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
