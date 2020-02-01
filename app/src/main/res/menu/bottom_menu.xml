@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <item android:id="@+id/nav_item_home"
             android:title="Home"
-            android:icon="@drawable/home_enable"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_fab_24dp"
             />
 
-        <item android:id="@+id/nav_item_help"
-            android:title="Help"
-            android:icon="@drawable/help_disable"
-            />
         <item android:id="@+id/nav_item_profile"
             android:title="Profile"
-            android:icon="@drawable/profile_disable"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_profile"
             />
+
         <item android:id="@+id/nav_item_setting"
             android:title="Setting"
-            android:icon="@drawable/ic_settings_24dp"/>
+            android:icon="@drawable/ic_settings_24dp" />
+
 </menu>

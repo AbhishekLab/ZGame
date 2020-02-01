@@ -3,34 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:orientation="vertical"
         tools:context = ".MainActivity">
 
         <fragment
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:itemIconTint="@color/colorWhite"
             app:itemTextColor="@color/colorWhite"
+            app:fabAlignmentMode="center"
+            android:layout_gravity="bottom"
+            app:hideOnScroll="true"
+            style="@style/Widget.MaterialComponents.BottomAppBar"
+            app:navigationIcon="@drawable/ic_toogle"
+            app:fabCradleRoundedCornerRadius="20dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorPrimary"
             app:menu="@menu/bottom_menu"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:backgroundTint="@color/colorAccent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--app:menu="@menu/bottom_menu"-->
+
+
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/bottom_app_bar"
+             />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

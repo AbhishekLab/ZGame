@@ -7,7 +7,6 @@ import com.zgame.zgame.databinding.FragmentSettingBinding
 
 class SettingFragment  : BaseFragment<FragmentSettingBinding>() {
     override fun initNav(view: View) {
-
     }
 
     lateinit var mBinding: FragmentSettingBinding
