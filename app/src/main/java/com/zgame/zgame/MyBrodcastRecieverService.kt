@@ -1,22 +1,12 @@
 package com.zgame.zgame
 
 import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import android.content.BroadcastReceiver
 import android.content.Context
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
+import android.content.Intent
 import android.content.IntentFilter
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import android.os.IBinder
+import android.util.Log.d
 
 
 class MyBrodcastRecieverService : Service() {
@@ -26,10 +16,15 @@ class MyBrodcastRecieverService : Service() {
 
 
     override fun onBind(p0: Intent?): IBinder? {
+
+        d("OnBind","onbindCall")
+
         return null
     }
 
     override fun onCreate() {
+
+        d("OnBind","OnCreateCall")
 
         registerScreenOffReceiver()
 
@@ -38,10 +33,9 @@ class MyBrodcastRecieverService : Service() {
     private fun registerScreenOffReceiver() {
         br_ScreenOffReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                Log.d("Action", "ACTION_SCREEN_OFF")
+                d("Action", "ACTION_SCREEN_OFF")
             }
         }
-
 
         val filter = IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL)
         registerReceiver(br_ScreenOffReceiver, filter)

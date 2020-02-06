@@ -10,4 +10,7 @@
 
     </style>
 
+    <style name="MyTheme">
+        <item name="android:background">#000000</item>
+    </style>
 </resources>

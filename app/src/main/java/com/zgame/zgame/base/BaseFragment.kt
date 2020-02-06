@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 
 
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     lateinit var binding: T
     abstract fun getContentView(): Int
+    lateinit var mAuth: FirebaseAuth
 
     abstract fun initView(binding: T)
     abstract fun initNav(view: View)
@@ -36,6 +38,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        mAuth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, getContentView(), container, false)
         initView(binding)
         return binding.root

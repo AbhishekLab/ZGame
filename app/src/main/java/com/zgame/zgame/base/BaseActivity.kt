@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 
 abstract class BaseActivity<in T : ViewDataBinding> : AppCompatActivity() {
 
     private var progressDialog: ProgressBar? = null
     private var v: View? = null
+    lateinit var mAuth: FirebaseAuth
 
     private lateinit var mBinding: T
 
@@ -21,6 +23,7 @@ abstract class BaseActivity<in T : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mAuth = FirebaseAuth.getInstance()
         mBinding = DataBindingUtil.setContentView(this, contentView())
         initUI(mBinding)
     }

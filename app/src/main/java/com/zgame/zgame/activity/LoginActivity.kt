@@ -1,5 +1,6 @@
 package com.zgame.zgame.activity
 
+import android.content.Intent
 import android.util.Log.d
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -13,14 +14,11 @@ import com.zgame.zgame.utils.Validation
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     lateinit var mBinding: ActivityLoginBinding
-    lateinit var mAuth: FirebaseAuth
 
     override fun contentView(): Int = R.layout.activity_login
 
     override fun initUI(binding: ActivityLoginBinding) {
         mBinding = binding
-
-        mAuth = FirebaseAuth.getInstance()
 
         mBinding.toolBar.imgBack.setOnClickListener { finish() }
         mBinding.toolBar.txtTitle.text = resources.getString(R.string.login_dashboard_title)
@@ -34,40 +32,34 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
     }
 
-
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
 
-        if(mAuth.currentUser !=null){
-            d("Yes","yes User")
-        }else{
-            d("No","No User")
+        if (mAuth.currentUser != null) {
+            d("Yes", "yes User")
+        } else {
+            d("No", "No User")
         }
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-
-        //d("CurrentUser", currentUser!!.displayName)
-    }
-
     private fun userLogin(email: String, password: String) {
-        if (Validation.loginValidation(email, password)) {
+        if (Validation.emailValidation(email, password)) {
 
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                     this
                 ) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        d("sucess", "signInWithEmail:success")
-                        val user = mAuth.currentUser
-                        updateUI(user)
+                        if(mAuth.currentUser?.isEmailVerified!!){
+                            showToast("Login done")
+                        }else{
+                            showToast("Please Verify your account before use")
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
-                        d("sucess", "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            this, "Authentication failed.",
+                            this, "Login failed.",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -79,7 +71,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun userSignUp() {
-
+        startActivity(Intent(this, SignUpActivity::class.java))
     }
 
     private fun forgotPassword() {

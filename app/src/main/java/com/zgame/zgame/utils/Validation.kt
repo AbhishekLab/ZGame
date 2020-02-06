@@ -1,10 +1,12 @@
 package com.zgame.zgame.utils
 
+import android.util.Log.d
+import android.widget.Toast
 import java.util.regex.Pattern
 
-object  Validation {
+object Validation {
 
-    fun loginValidation(email: String, password: String): Boolean {
+    fun emailValidation(email: String, password: String): Boolean {
 
         return if (email.isNullOrBlank() && password.isNullOrBlank()) {
             false

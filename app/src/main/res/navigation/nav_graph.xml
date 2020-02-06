@@ -4,14 +4,14 @@
     app:startDestination="@id/nav_item_home">
     <fragment
         android:id="@+id/nav_item_home"
-        android:name="com.zgame.zgame.fragment.FragmentA"
+        android:name="com.zgame.zgame.fragment.UserGalleryFragment"
         android:label="FragmentA" >
     </fragment>
 
     <fragment
         android:id="@+id/nav_item_profile"
-        android:name="com.zgame.zgame.fragment.FragmentB"
-        android:label="FragmentB" >
+        android:name="com.zgame.zgame.fragment.UserProfileFragment"
+        android:label="UserProfileFragment" >
     </fragment>
 
     <fragment
