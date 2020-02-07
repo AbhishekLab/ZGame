@@ -51,9 +51,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                     this
                 ) { task ->
                     if (task.isSuccessful) {
-                        if(mAuth.currentUser?.isEmailVerified!!){
+                        if (mAuth.currentUser?.isEmailVerified!!) {
                             showToast("Login done")
-                        }else{
+                        } else {
                             showToast("Please Verify your account before use")
                         }
                     } else {

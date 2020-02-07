@@ -9,18 +9,17 @@ import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseFragment
 import com.zgame.zgame.databinding.FragmentUserGalleryBinding
 
-
 class UserGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
 
     private lateinit var mBinding: FragmentUserGalleryBinding
-    private var mStorageRef: StorageReference? = null
 
     override fun getContentView(): Int = R.layout.fragment_user_gallery
 
     override fun initView(binding: FragmentUserGalleryBinding) {
         mBinding = binding
 
-        mStorageRef = FirebaseStorage.getInstance().reference
+
+
 
         if ((activity as MainActivity).checkAuthInstance()) {
             fetchUserResources()
@@ -31,7 +30,7 @@ class UserGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
 
     private fun fetchRandomResources() {
         showToast("fetchRandomResources")
-        d("response","fetchRandomResources")
+        d("response", "fetchRandomResources")
     }
 
     private fun fetchUserResources() {
@@ -45,7 +44,7 @@ class UserGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
                 // ...
             })*/
         showToast("fetchUserResources")
-        d("response","fetchUserResources")
+        d("response", "fetchUserResources")
     }
 
     override fun initNav(view: View) {

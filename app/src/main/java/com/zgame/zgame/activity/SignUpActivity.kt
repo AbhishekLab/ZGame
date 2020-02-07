@@ -91,7 +91,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                             ).show()
                         }
                     }
-                }else {
+                } else {
                     mBinding.progressBar.visibility = View.GONE
                     showToast(resources.getString(R.string.something_went_wrong))
                 }

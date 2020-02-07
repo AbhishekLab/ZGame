@@ -2,19 +2,23 @@ package com.zgame.zgame.fragment
 
 import android.content.Intent
 import android.util.Log
+import android.util.Log.d
 import android.view.View
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.zgame.zgame.R
 import com.zgame.zgame.activity.LoginActivity
-import com.zgame.zgame.activity.SignUpActivity
 import com.zgame.zgame.base.BaseFragment
 import com.zgame.zgame.databinding.FragmentUserProfileBinding
 import com.zgame.zgame.model.UserResponse
 
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
 
-    private var fRootReference: DatabaseReference? = null
+    private var mStorageRef: StorageReference? = null
+    private var fRootReference: DatabaseReference? =  null
+
     lateinit var mBinding: FragmentUserProfileBinding
 
     override fun getContentView(): Int = R.layout.fragment_user_profile
@@ -24,10 +28,9 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
 
     override fun initView(binding: FragmentUserProfileBinding) {
         mBinding = binding
-        mBinding.progressBar.visibility = View.VISIBLE
 
         Glide.with(this).load(R.drawable.user_white).into(mBinding.imgProfile)
-
+        mBinding.progressBar.visibility = View.VISIBLE
         mBinding.txtLogin.setOnClickListener {
             startActivity(
                 Intent(
@@ -36,6 +39,15 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
                 )
             )
         }
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("RandomFile")
+
+       /* mStorageRef?.downloadUrl?.addOnCompleteListener {
+            d("DownloadFile",it.result.toString())
+            d("DownloadFile",it.result.toString())
+        }*/
+
+
     }
 
     override fun onStart() {
@@ -49,7 +61,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
             mBinding.llUserData.visibility = View.GONE
         }
 
-        Log.d("Yes", "onStartCall User")
+        d("Yes", "onStartCall User")
         fRootReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for(userData : DataSnapshot in p0.children){
