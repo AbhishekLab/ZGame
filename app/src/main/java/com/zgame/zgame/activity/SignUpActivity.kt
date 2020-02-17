@@ -11,6 +11,12 @@ import com.zgame.zgame.utils.Validation
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
+    private var userImages : ArrayList<String> ? = null
+
+    override fun onPermissionsGranted(requestCode: Int) {
+
+    }
+
     private lateinit var mBinding: ActivitySignUpBinding
 
     override fun contentView(): Int = R.layout.activity_sign_up

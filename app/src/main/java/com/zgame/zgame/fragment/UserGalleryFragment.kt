@@ -18,8 +18,7 @@ class UserGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
     override fun initView(binding: FragmentUserGalleryBinding) {
         mBinding = binding
 
-
-
+        (activity as MainActivity).permission()
 
         if ((activity as MainActivity).checkAuthInstance()) {
             fetchUserResources()
@@ -29,7 +28,6 @@ class UserGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
     }
 
     private fun fetchRandomResources() {
-        showToast("fetchRandomResources")
         d("response", "fetchRandomResources")
     }
 

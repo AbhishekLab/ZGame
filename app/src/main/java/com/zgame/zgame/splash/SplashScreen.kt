@@ -1,25 +1,22 @@
 package com.zgame.zgame.splash
 
+import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.zgame.zgame.MainActivity
 import com.zgame.zgame.R
-import com.zgame.zgame.base.BaseActivity
-import com.zgame.zgame.databinding.ActivitySplashBinding
+import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashScreen : BaseActivity<ActivitySplashBinding>() {
-
-    lateinit var mBinding:ActivitySplashBinding
-
-    override fun contentView(): Int = R.layout.activity_splash
-
-    override fun initUI(binding: ActivitySplashBinding) {
-        mBinding = binding
+class SplashScreen : Activity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
 
-        Glide.with(this).load(R.drawable.splash_screen).into(mBinding.imgSplashGirl)
+        Glide.with(this).load(R.drawable.splash_screen).into(img_splash_girl)
 
         Thread{
             for (i in 0 until 3){

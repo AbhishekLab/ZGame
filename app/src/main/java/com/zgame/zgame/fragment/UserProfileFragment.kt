@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.zgame.zgame.MainActivity
 import com.zgame.zgame.R
 import com.zgame.zgame.activity.LoginActivity
 import com.zgame.zgame.base.BaseFragment
@@ -46,8 +47,6 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
             d("DownloadFile",it.result.toString())
             d("DownloadFile",it.result.toString())
         }*/
-
-
     }
 
     override fun onStart() {

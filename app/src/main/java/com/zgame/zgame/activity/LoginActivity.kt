@@ -13,6 +13,10 @@ import com.zgame.zgame.utils.Validation
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
+    override fun onPermissionsGranted(requestCode: Int) {
+
+    }
+
     lateinit var mBinding: ActivityLoginBinding
 
     override fun contentView(): Int = R.layout.activity_login

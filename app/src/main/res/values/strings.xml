@@ -1,8 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ZGame</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="sign_up"><u>SignUp Now</u></string>
     <string name="login_dashboard_title">Login</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="permission_text" tools:ignore="ExtraTranslation">Please enable ALL permissions from app settings.</string>
 
 </resources>

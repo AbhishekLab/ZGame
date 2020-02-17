@@ -10,8 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.zgame.zgame.activity.RuntimePermissionsActivity
 
-abstract class BaseActivity<in T : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity() {
 
     private var progressDialog: ProgressBar? = null
     private var v: View? = null
