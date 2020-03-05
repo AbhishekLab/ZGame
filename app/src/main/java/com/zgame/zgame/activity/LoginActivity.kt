@@ -5,6 +5,8 @@ import android.util.Log.d
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.databinding.ActivityLoginBinding
@@ -12,6 +14,7 @@ import com.zgame.zgame.utils.Validation
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
+
 
     override fun onPermissionsGranted(requestCode: Int) {
 
@@ -36,10 +39,24 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
     }
 
+    private fun updateCall() {
+
+       /* var name  = ArrayList<String>()
+        var number  = ArrayList<String>()
+
+        val db:DatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.currentUser!!.uid).child("Abhishek kymar")
+            .child("userContactList").child("abhishje")
+
+        val abc = HashMap<String,String>()
+        abc["abh"] = "33333345453"
+
+        db.setValue("222222")*/
+
+    }
+
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-
         if (mAuth.currentUser != null) {
             d("Yes", "yes User")
         } else {

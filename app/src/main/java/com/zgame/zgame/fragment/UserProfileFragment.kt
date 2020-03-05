@@ -79,7 +79,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>() {
     override fun onResume() {
         super.onResume()
 
-        Log.d("Yes", "yes OnResume")
+        d("Yes", "yes OnResume")
 
     }
 }

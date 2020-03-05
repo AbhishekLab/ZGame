@@ -5,13 +5,8 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import android.util.Log.d
 import android.view.Menu
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.onNavDestinationSelected
@@ -19,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.camera.GalleryActivity
 import com.zgame.zgame.databinding.ActivityMainBinding
-import com.zgame.zgame.reciever.Reciever
 import com.zgame.zgame.service.BackgroundService
 import com.zgame.zgame.utils.Constant
 
@@ -92,10 +86,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
 
-    fun startBroadcastServer() {
+    /*fun startBroadcastServer() {
         val service = Intent(this, Reciever::class.java)
         startService(service)
-    }
+    }*/
 
     private fun serviceStart() {
         val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler

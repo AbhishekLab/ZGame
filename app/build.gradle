@@ -9,7 +9,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.zgame.zgame"
         minSdkVersion 21
@@ -51,6 +51,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation "androidx.cardview:cardview:1.0.0"
 
+    kapt "com.android.databinding:compiler:$compiler_version"
+
+
+
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
@@ -67,6 +71,19 @@ dependencies {
     def camerax_version = '1.0.0-alpha06'
     implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:converter-simplexml:2.5.0"
+
+    //loggingIntercepter
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+
+    //stetho
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
 
 }

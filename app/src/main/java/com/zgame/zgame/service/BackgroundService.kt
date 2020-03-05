@@ -20,8 +20,7 @@ class BackgroundService : JobService() {
         isJobCancelled = false
         return isJobCancelled
     }
-
-
+    
     private fun setInfiniteLoop(){
         Thread {
             var i = 0

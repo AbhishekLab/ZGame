@@ -5,13 +5,16 @@ import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.databinding.ActivitySignUpBinding
 import com.zgame.zgame.model.UserRequest
+import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Validation
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
-    private var userImages : ArrayList<String> ? = null
+    private var userContactList : HashMap<String, String> ? = HashMap()
+    private var name: String = ""
 
     override fun onPermissionsGranted(requestCode: Int) {
 
@@ -20,12 +23,13 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
     private lateinit var mBinding: ActivitySignUpBinding
 
     override fun contentView(): Int = R.layout.activity_sign_up
-    private var name: String = ""
 
     override fun initUI(binding: ActivitySignUpBinding) {
         mBinding = binding
         mBinding.toolBar.txtTitle.text = resources.getString(R.string.sign_up)
         mBinding.toolBar.imgBack.setOnClickListener { finish() }
+
+        userContactList?.put("Abhishek", "123123")
 
         mBinding.txtSignUp.setOnClickListener {
             if (signUpValidation(
@@ -74,12 +78,15 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                                 mBinding.edtLastName.text.trim().toString(),
                                 mBinding.edtEmail.text.trim().toString(),
                                 mBinding.edtPassword.text.trim().toString(),
-                                mBinding.edtMobileNumber.text.trim().toString()
+                                mBinding.edtMobileNumber.text.trim().toString(),
+                                userContactList!!
+
                             )
                             FirebaseDatabase.getInstance().getReference("Users")
                                 .child(mAuth.currentUser!!.uid).child(name)
                                 .setValue(userData).addOnCompleteListener {
                                     if (it.isSuccessful) {
+                                        PreferanceRepository.setString(Constant.userName, name)
                                         showToast("Register successfully. Please check your email for verification")
                                         mBinding.progressBar.visibility = View.GONE
                                         finish()
@@ -92,7 +99,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                             mBinding.progressBar.visibility = View.GONE
                             Toast.makeText(
                                 this,
-                                "Register not done. Email Id use in different account",
+                                "Register not done. Email Id use in different Account",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
