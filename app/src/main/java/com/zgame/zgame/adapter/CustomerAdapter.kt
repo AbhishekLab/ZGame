@@ -10,8 +10,8 @@ import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
 import com.zgame.zgame.model.CustomerData
 
-class CustomerAdapter(val context: FragmentActivity?) :
-    RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
+
+class CustomerAdapter(val context: FragmentActivity?, private val listener : Profile) : RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
 
     private var data: ArrayList<CustomerData>? = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
@@ -37,11 +37,19 @@ class CustomerAdapter(val context: FragmentActivity?) :
             mBinding.tvCustomerAge.text = "${"Age: "}${data?.get(adapterPosition)?.age}"
             mBinding.tvCustomerLocation.text = "${"Location: "}${data?.get(adapterPosition)?.location}"
             mBinding.tvCustomerName.text = data?.get(adapterPosition)?.name
+
             Glide.with(context!!).load(data?.get(adapterPosition)?.image).into(mBinding.ivCustomer)
+            mBinding.cvDetails.setOnClickListener {
+                listener.itemListener(adapterPosition)
+            }
         }
     }
 
     fun addItem(data: ArrayList<CustomerData>?) {
         this.data?.addAll(data!!)
+    }
+
+    interface Profile{
+        fun itemListener(adapterPosition: Int)
     }
 }

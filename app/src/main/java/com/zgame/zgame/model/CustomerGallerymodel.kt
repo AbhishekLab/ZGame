@@ -7,8 +7,10 @@ class CustomerResponse{
 }
 
 class CustomerData{
-    val name : String? = null
     val age : String? = null
+    var id : String? = null
     val image : String? = null
     val location : String? = null
+    val name : String? = null
+
 }

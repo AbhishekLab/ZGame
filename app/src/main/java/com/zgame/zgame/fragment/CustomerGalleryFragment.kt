@@ -11,12 +11,14 @@ import com.zgame.zgame.databinding.FragmentUserGalleryBinding
 import com.zgame.zgame.model.CustomerData
 import com.zgame.zgame.R
 
-class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
+class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile {
 
     private var customerDatabase: FirebaseDatabase? = null
     private var databaseRef: DatabaseReference? = null
     private var customerAdapter : CustomerAdapter? = null
-    private var customerResponse : ArrayList<CustomerData>? = null
+    private var allCustomerResponse : ArrayList<CustomerData>? = null
+    private var customerDetail : ArrayList<CustomerData>? = null
+    private var ref : Query ? = null
 
     private lateinit var mBinding: FragmentUserGalleryBinding
 
@@ -31,7 +33,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
             databaseRef = customerDatabase?.reference?.child("Customers")
         }
 
-        customerResponse = ArrayList()
+        allCustomerResponse = ArrayList()
 
         databaseRef.let {
             it?.addValueEventListener(object : ValueEventListener {
@@ -39,9 +41,9 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
                 }
                 override fun onDataChange(p0: DataSnapshot) {
                     for (userData: DataSnapshot in p0.children.iterator()) {
-                        customerResponse?.add(userData.getValue(CustomerData::class.java)!!)
+                        allCustomerResponse?.add(userData.getValue(CustomerData::class.java)!!)
                     }
-                    customerAdapter?.addItem(customerResponse)
+                    customerAdapter?.addItem(allCustomerResponse)
                     mBinding.rvCustomers.adapter = customerAdapter
                 }
             })
@@ -60,7 +62,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
 
     private fun initRecyclerView() {
         mBinding.rvCustomers.layoutManager = GridLayoutManager(activity, 2)
-        customerAdapter = CustomerAdapter(activity)
+        customerAdapter = CustomerAdapter(activity,this)
 
     }
 
@@ -83,6 +85,33 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>() {
     }
 
     override fun initNav(view: View) {
+    }
+
+    override fun itemListener(adapterPosition: Int) {
+
+        mAuth.uid.let {
+            databaseRef = customerDatabase?.reference?.child("Customers")?.child("User$adapterPosition")
+        }
+        databaseRef.let {
+            ref =  customerDatabase?.getReference("Customers")?.orderByChild("id")?.equalTo(adapterPosition.toString())
+
+            ref?.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {
+                    d("Sucess","failed")
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    customerDetail = ArrayList()
+
+                    for (userData: DataSnapshot in p0.children.iterator()) {
+                        customerDetail?.add(userData.getValue(CustomerData::class.java)!!)
+                    }
+                    d("Sucess","asdfsdfd")
+
+                }
+            })?:showToast("No Data Found")
+        }
+
     }
 }
 
