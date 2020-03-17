@@ -7,7 +7,6 @@ import java.util.regex.Pattern
 object Validation {
 
     fun emailValidation(email: String, password: String): Boolean {
-
         return if (email.isNullOrBlank() && password.isNullOrBlank()) {
             false
         } else
