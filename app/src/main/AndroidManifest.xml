@@ -43,6 +43,7 @@
         <activity android:name=".camera.GalleryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity" />
+        <activity android:name=".activity.CustomerDetailActivity" />
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->
 

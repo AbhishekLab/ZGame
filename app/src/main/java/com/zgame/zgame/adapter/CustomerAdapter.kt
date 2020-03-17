@@ -10,9 +10,7 @@ import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
 import com.zgame.zgame.model.CustomerData
 
-
 class CustomerAdapter(val context: FragmentActivity?, private val listener : Profile) : RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
-
     private var data: ArrayList<CustomerData>? = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         return CustomerViewHolder(

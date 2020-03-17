@@ -1,24 +1,23 @@
 package com.zgame.zgame.fragment
 
+import android.content.Intent
 import android.util.Log.d
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.database.*
 import com.zgame.zgame.MainActivity
+import com.zgame.zgame.R
+import com.zgame.zgame.activity.CustomerDetailActivity
 import com.zgame.zgame.adapter.CustomerAdapter
 import com.zgame.zgame.base.BaseFragment
 import com.zgame.zgame.databinding.FragmentUserGalleryBinding
 import com.zgame.zgame.model.CustomerData
-import com.zgame.zgame.R
 
 class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile {
 
-    private var customerDatabase: FirebaseDatabase? = null
     private var databaseRef: DatabaseReference? = null
     private var customerAdapter : CustomerAdapter? = null
     private var allCustomerResponse : ArrayList<CustomerData>? = null
-    private var customerDetail : ArrayList<CustomerData>? = null
-    private var ref : Query ? = null
 
     private lateinit var mBinding: FragmentUserGalleryBinding
 
@@ -27,13 +26,9 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     override fun initView(binding: FragmentUserGalleryBinding) {
         mBinding = binding
 
-        customerDatabase = FirebaseDatabase.getInstance()
-
-        mAuth.uid.let {
-            databaseRef = customerDatabase?.reference?.child("Customers")
-        }
-
+        (activity as MainActivity).permission()
         allCustomerResponse = ArrayList()
+        databaseRef = FirebaseDatabase.getInstance()?.reference?.child("Customers")
 
         databaseRef.let {
             it?.addValueEventListener(object : ValueEventListener {
@@ -49,15 +44,13 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
             })
         }
 
-        (activity as MainActivity).permission()
+        initRecyclerView()
 
         if ((activity as MainActivity).checkAuthInstance()) {
             fetchUserResources()
         } else {
             fetchRandomResources()
         }
-
-        initRecyclerView()
     }
 
     private fun initRecyclerView() {
@@ -88,33 +81,6 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     }
 
     override fun itemListener(adapterPosition: Int) {
-
-        mAuth.uid.let {
-            databaseRef = customerDatabase?.reference?.child("Customers")?.child("User$adapterPosition")
-        }
-        databaseRef.let {
-            ref =  customerDatabase?.getReference("Customers")?.orderByChild("id")?.equalTo(adapterPosition.toString())
-
-            ref?.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onCancelled(p0: DatabaseError) {
-                    d("Sucess","failed")
-                }
-
-                override fun onDataChange(p0: DataSnapshot) {
-                    customerDetail = ArrayList()
-
-                    for (userData: DataSnapshot in p0.children.iterator()) {
-                        customerDetail?.add(userData.getValue(CustomerData::class.java)!!)
-                    }
-                    d("Sucess","asdfsdfd")
-
-                }
-            })?:showToast("No Data Found")
-        }
-
+        startActivity(Intent(activity,CustomerDetailActivity::class.java).putExtra("position",adapterPosition))
     }
 }
-
-
-
-
