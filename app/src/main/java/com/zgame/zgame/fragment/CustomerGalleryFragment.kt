@@ -10,14 +10,16 @@ import com.zgame.zgame.R
 import com.zgame.zgame.activity.CustomerDetailActivity
 import com.zgame.zgame.adapter.CustomerAdapter
 import com.zgame.zgame.base.BaseFragment
+import com.zgame.zgame.contract.CustomerContract
 import com.zgame.zgame.databinding.FragmentUserGalleryBinding
 import com.zgame.zgame.model.CustomerData
+import com.zgame.zgame.presenter.CustomerPresenter
 
-class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile {
+class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile, CustomerContract.CustomerView {
 
-    private var databaseRef: DatabaseReference? = null
     private var customerAdapter : CustomerAdapter? = null
     private var allCustomerResponse : ArrayList<CustomerData>? = null
+    private lateinit var presenter : CustomerPresenter
 
     private lateinit var mBinding: FragmentUserGalleryBinding
 
@@ -26,23 +28,12 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     override fun initView(binding: FragmentUserGalleryBinding) {
         mBinding = binding
 
+        presenter = CustomerPresenter(this)
+
         (activity as MainActivity).permission()
         allCustomerResponse = ArrayList()
-        databaseRef = FirebaseDatabase.getInstance()?.reference?.child("Customers")
 
-        databaseRef.let {
-            it?.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                }
-                override fun onDataChange(p0: DataSnapshot) {
-                    for (userData: DataSnapshot in p0.children.iterator()) {
-                        allCustomerResponse?.add(userData.getValue(CustomerData::class.java)!!)
-                    }
-                    customerAdapter?.addItem(allCustomerResponse)
-                    mBinding.rvCustomers.adapter = customerAdapter
-                }
-            })
-        }
+        presenter.customerList()
 
         initRecyclerView()
 
@@ -64,23 +55,25 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     }
 
     private fun fetchUserResources() {
-        /* val localFile = File.createTempFile("images", "jpg")
-        riversRef.getFile(localFile)
-            .addOnSuccessListener(OnSuccessListener<FileDownloadTask.TaskSnapshot> {
-                // Successfully downloaded data to local file
-                // ...
-            }).addOnFailureListener(OnFailureListener {
-                // Handle failed download
-                // ...
-            })*/
-        showToast("fetchUserResources")
         d("response", "fetchUserResources")
     }
 
     override fun initNav(view: View) {
     }
 
-    override fun itemListener(adapterPosition: Int) {
-        startActivity(Intent(activity,CustomerDetailActivity::class.java).putExtra("position",adapterPosition))
+    override fun itemListener(id: String?) {
+        startActivity(Intent(activity,CustomerDetailActivity::class.java).putExtra("id",id))
+    }
+
+    override fun getCustomerList(p0: DataSnapshot) {
+        for (userData: DataSnapshot in p0.children.iterator()) {
+            allCustomerResponse?.add(userData.getValue(CustomerData::class.java)!!)
+        }
+        customerAdapter?.addItem(allCustomerResponse)
+        mBinding.rvCustomers.adapter = customerAdapter
+    }
+
+    override fun getNullValue(message: String) {
+        showToast(message)
     }
 }

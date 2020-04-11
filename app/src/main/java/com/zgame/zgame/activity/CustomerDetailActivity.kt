@@ -9,29 +9,26 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DataSnapshot
 import com.zgame.zgame.R
-import com.google.firebase.database.*
-import com.zgame.zgame.adapter.DemoAdapter
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.databinding.ActivityCustomerDetailBinding
 import com.zgame.zgame.model.CustomerData
-import com.zgame.zgame.utils.Validation
+import com.zgame.zgame.presenter.CustomerDetailPresenter
 
-
-class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>() {
+class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
+    CustomerDetailContract.CustomerDetailView {
 
     private lateinit var mBinding: ActivityCustomerDetailBinding
 
-    private var databaseRef: DatabaseReference? = null
     private var customerDetail: ArrayList<CustomerData>? = null
     private var customerDetailResponse: CustomerData? = null
-    private var ref: Query? = null
-    private var position: Int = 0
+    private var nameId: String? = ""
     private var alertDialog: AlertDialog? = null
     private var progressBar : ProgressBar? = null
-
+    private lateinit var presenter: CustomerDetailPresenter
 
     override fun onPermissionsGranted(requestCode: Int) {
     }
@@ -41,46 +38,43 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>() {
     override fun initUI(binding: ActivityCustomerDetailBinding) {
         mBinding = binding
 
+        presenter = CustomerDetailPresenter(this@CustomerDetailActivity)
+
         mBinding.toolbar.apply { setUpToolbar()}
-        setupRecyclerView()
+        mBinding.llWink.setOnClickListener { presenter.wink()}
+
         if (mAuth.currentUser == null) {
             setDialog()
         }
+        nameId = intent?.getStringExtra("id")
+        presenter.customerDetail(nameId!!)
 
-        position = intent.getIntExtra("position", 0)
-        databaseRef = FirebaseDatabase.getInstance().reference.child("Customers")
-
-        databaseRef.let {
-            ref = FirebaseDatabase.getInstance().getReference("Customers").orderByChild("id")
-                .equalTo(position.toString())
-            ref?.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                }
-
-                override fun onDataChange(p0: DataSnapshot) {
-                    customerDetail = ArrayList()
-
-                    for (userData: DataSnapshot in p0.children.iterator()) {
-                        customerDetailResponse = userData.getValue(CustomerData::class.java)
-                    }
-                    Glide.with(this@CustomerDetailActivity).load(customerDetailResponse?.image).into(mBinding.imgUser)
-                }
-            }) ?: showToast("No Data Found")
-        }
     }
 
-    private fun setupRecyclerView() {
-        mBinding.rvDemo.adapter = DemoAdapter()
+    override fun getCustomerDetail(p0: DataSnapshot) {
+        customerDetail = ArrayList()
+        for (userData: DataSnapshot in p0.children.iterator()) {
+            customerDetailResponse = userData.getValue(CustomerData::class.java)
+        }
+        Glide.with(this@CustomerDetailActivity).load(customerDetailResponse?.image)
+            .into(mBinding.imgUser)
+    }
+
+    override fun loginSuccess() {
+        showToast("Welcome User")
+        progressBar?.visibility = View.GONE
+        alertDialog?.dismiss()
+    }
+
+    override fun loginFailed(message: String) {
+        showToast(message)
+        progressBar?.visibility = View.GONE
     }
 
     private fun setUpToolbar() {
         setSupportActionBar(mBinding.toolbar)
-        if (supportActionBar != null) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
         supportActionBar?.title = ""
-        mBinding.toolbar.navigationIcon = ContextCompat.getDrawable(this,R.drawable.ic_action_back)
-        mBinding.toolbar.setNavigationOnClickListener { finish() }
+        mBinding.ivBack.setOnClickListener { finish() }
     }
 
     private fun setDialog() {
@@ -98,7 +92,8 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>() {
         alertDialog?.show()
         alertDialog?.setCancelable(false)
         dialogButton.setOnClickListener {
-            doLogin(etLogin.text.toString(), etPassword.text.toString())
+            progressBar?.visibility = View.VISIBLE
+            presenter.dialogLogin(etLogin.text.toString(), etPassword.text.toString())
         }
         close.setOnClickListener { finish() }
         etLogin.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
@@ -109,32 +104,8 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>() {
         }
 
     }
+    override fun winkAdded() {
 
-    private fun doLogin(email: String, password: String) {
-        progressBar?.visibility = View.VISIBLE
-        if (Validation.emailValidation(email, password)) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                    this
-                ) { task ->
-                    if (task.isSuccessful) {
-                        if (mAuth.currentUser != null) {
-                            showToast("Welcome User")
-                            progressBar?.visibility = View.GONE
-                            alertDialog?.dismiss()
-                        } else {
-                            showToast("Something went wrong")
-                            progressBar?.visibility = View.GONE
-                        }
-                    } else {
-                        progressBar?.visibility = View.GONE
-                        showToast("Please check your credential")
-                    }
-                }
-
-        } else {
-            showToast("Please Enter valid EmailId")
-            progressBar?.visibility = View.GONE
-        }
     }
+
 }

@@ -10,14 +10,22 @@ import com.zgame.zgame.databinding.ActivitySignUpBinding
 import com.zgame.zgame.model.UserRequest
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Validation
+import java.util.*
+import kotlin.collections.HashMap
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
-
-    private var userContactList : HashMap<String, String> ? = HashMap()
-    private var name: String = ""
+    private var idName: String = ""
+    private var fullName: String = ""
+    private var firstName: String = ""
+    private var lastName: String = ""
+    private var email: String = ""
+    private var password: String = ""
+    private var number: String = ""
+    private var userContactList: HashMap<String, String>? = HashMap()
+    private var wink: HashMap<String, String>? = HashMap()
+    private var message: HashMap<String, String>? = HashMap()
 
     override fun onPermissionsGranted(requestCode: Int) {
-
     }
 
     private lateinit var mBinding: ActivitySignUpBinding
@@ -29,7 +37,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         mBinding.toolBar.txtTitle.text = resources.getString(R.string.sign_up)
         mBinding.toolBar.imgBack.setOnClickListener { finish() }
 
-        userContactList?.put("Abhishek", "123123")
+
 
         mBinding.txtSignUp.setOnClickListener {
             if (signUpValidation(
@@ -47,8 +55,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                         mBinding.edtPassword.text.trim().toString()
                     )
                 ) {
-                    name = "${mBinding.edtFirstName.text} ${mBinding.edtLastName.text}"
-
+                    fullName = "${mBinding.edtFirstName.text} ${mBinding.edtLastName.text}"
                     userSignUp()
 
                 } else {
@@ -63,6 +70,18 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     private fun userSignUp() {
         mBinding.progressBar.visibility = View.VISIBLE
+
+        idName = mBinding.edtNickName.text.trim().toString()
+        firstName = mBinding.edtFirstName.text.trim().toString()
+        lastName = mBinding.edtLastName.text.trim().toString()
+        email = mBinding.edtEmail.text.trim().toString()
+        password = mBinding.edtPassword.text.trim().toString()
+        number = mBinding.edtMobileNumber.text.trim().toString()
+        userContactList?.put(firstName + lastName, number)
+        wink?.put(idName, "Hi")
+        message?.put(idName, "Hello")
+
+
         mAuth.createUserWithEmailAndPassword(
             mBinding.edtEmail.text.trim().toString(),
             mBinding.edtPassword.text.trim().toString()
@@ -73,20 +92,23 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                 if (task.isSuccessful) {
                     mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener { it ->
                         if (it.isSuccessful) {
-                            val userData = UserRequest(
-                                mBinding.edtFirstName.text.trim().toString(),
-                                mBinding.edtLastName.text.trim().toString(),
-                                mBinding.edtEmail.text.trim().toString(),
-                                mBinding.edtPassword.text.trim().toString(),
-                                mBinding.edtMobileNumber.text.trim().toString(),
-                                userContactList!!
+                            val userData = UserRequest()
 
-                            )
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                .child(mAuth.currentUser!!.uid).child(name)
+                            userData.id = idName
+                            userData.firstName = firstName
+                            userData.lastName = lastName
+                            userData.email = email
+                            userData.password = password
+                            userData.number = number
+                            userData.userContactList = userContactList!!
+                            userData.wink = wink!!
+                            userData.message = message!!
+
+                        FirebaseDatabase.getInstance().getReference(Constant.DbName)
+                            .child(idName)
                                 .setValue(userData).addOnCompleteListener {
                                     if (it.isSuccessful) {
-                                        PreferanceRepository.setString(Constant.userName, name)
+                                        PreferanceRepository.setString(Constant.uniqueName, idName)
                                         showToast("Register successfully. Please check your email for verification")
                                         mBinding.progressBar.visibility = View.GONE
                                         finish()

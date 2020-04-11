@@ -12,5 +12,4 @@ class CustomerData{
     val image : String? = null
     val location : String? = null
     val name : String? = null
-
 }

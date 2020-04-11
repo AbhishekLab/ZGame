@@ -44,6 +44,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.CustomerDetailActivity" />
+        <activity android:name=".activity.SignUp1Activity" />
+        <activity android:name=".activity.SignUp2Activity" />
+        <activity android:name=".activity.SignUp3Activity" />
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->
 

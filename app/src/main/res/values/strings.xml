@@ -4,6 +4,41 @@
     <string name="sign_up"><u>SignUp Now</u></string>
     <string name="login_dashboard_title">Login</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="register_done">Register Done</string>
     <string name="permission_text" tools:ignore="ExtraTranslation">Please enable ALL permissions from app settings.</string>
+    <string name="multiple_selection">You can select multiple ones</string>
+
+    <string-array name="i_am_a">
+        <item>Female</item>
+        <item>Male</item>
+        <item>Couple(FM)</item>
+        <item>Couple(FF)</item>
+        <item>Couple(MM)</item>
+    </string-array>
+
+    <!--seeking string-->
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="couple_fm">Couple(FM)</string>
+    <string name="couple_ff">Couple(FF)</string>
+    <string name="couple_mm">Couple(MM)</string>
+
+    <!--age string-->
+    <string name="one">18–25</string>
+    <string name="two">25–30</string>
+    <string name="three">30–40</string>
+    <string name="four">40–60</string>
+    <string name="five">60–above</string>
+
+    <!--i_am_a-->
+    <string name="i_am_male">Female</string>
+    <string name="i_am_female">Male</string>
+    <string name="i_am_couple_fm">Couple(FM)</string>
+    <string name="i_am_couple_ff">Couple(FF)</string>
+    <string name="i_am_couple_mm">Couple(MM)</string>
+    <string name="search_country">Search Country..</string>
+    <string name="search_state">Search State..</string>
+    <string name="term_n_condition">By continuing I confirm that i have reviewed and agree to the Service Agreement an the Privacy Policy. </string>
+
 
 </resources>

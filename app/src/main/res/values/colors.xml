@@ -8,5 +8,7 @@
     <color name="light_gray">#A6ACAF</color>
     <color name="green">#008000</color>
     <color name="red">#7E191B</color>
+    <color name="dark_brown">#641E16</color>
+    <color name="light_white">#F0F3F4</color>
 
 </resources>

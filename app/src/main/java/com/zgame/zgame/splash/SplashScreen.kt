@@ -19,7 +19,7 @@ class SplashScreen : Activity() {
         Glide.with(this).load(R.drawable.splash_screen).into(img_splash_girl)
 
         Thread{
-            for (i in 0 until 3){
+            for (i in 0 until 1){
                 Thread.sleep(1000)
             }
             this.startActivity(Intent(this,MainActivity::class.java))

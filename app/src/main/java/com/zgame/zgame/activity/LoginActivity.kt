@@ -92,7 +92,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun userSignUp() {
-        startActivity(Intent(this, SignUpActivity::class.java))
+        startActivity(Intent(this, SignUp1Activity::class.java))
     }
 
     private fun forgotPassword() {

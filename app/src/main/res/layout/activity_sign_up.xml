@@ -42,6 +42,29 @@
                 android:textColor="@color/light_gray"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:text="Nick Name"/>
+
+            <EditText
+                android:id="@+id/edt_nick_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#11000000"
+                android:padding="12dp"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/colorWhite"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Nick Name"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/light_gray"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="First Name"/>
 
             <EditText
@@ -89,7 +112,6 @@
             android:textSize="15sp"
             android:textColor="@color/light_gray"
             android:paddingLeft="15dp"
-
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="Email"/>
