@@ -1,5 +1,6 @@
 package com.zgame.zgame.contract
 
+import android.net.Uri
 import com.zgame.zgame.model.SignUpModel
 
 class SignUpContract {
@@ -13,7 +14,10 @@ class SignUpContract {
     }
 
     interface SignUpPresenter {
-        fun doSignUp(signUpModel: SignUpModel)
+        fun doSignUp(
+            signUpModel: SignUpModel,
+            profilePhoto: Uri?
+        )
         fun checkUserName(uniqueName:String)
     }
 

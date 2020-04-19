@@ -9,9 +9,10 @@ import com.bumptech.glide.Glide
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
 import com.zgame.zgame.model.CustomerData
+import com.zgame.zgame.model.SignUpModel
 
 class CustomerAdapter(val context: FragmentActivity?, private val listener : Profile) : RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
-    private var data: ArrayList<CustomerData>? = ArrayList()
+    private var data: ArrayList<SignUpModel>? = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         return CustomerViewHolder(
             DataBindingUtil.inflate(
@@ -33,17 +34,17 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
 
         fun execute() {
             mBinding.tvCustomerAge.text = "${"Age: "}${data?.get(adapterPosition)?.age}"
-            mBinding.tvCustomerLocation.text = "${"Location: "}${data?.get(adapterPosition)?.location}"
-            mBinding.tvCustomerName.text = data?.get(adapterPosition)?.id
+            mBinding.tvCustomerLocation.text = "${"Location: "}${data?.get(adapterPosition)?.state}"
+            mBinding.tvCustomerName.text = data?.get(adapterPosition)?.userName
 
-            Glide.with(context!!).load(data?.get(adapterPosition)?.image).into(mBinding.ivCustomer)
+           /* Glide.with(context!!).load(data?.get(adapterPosition)?.image).into(mBinding.ivCustomer)
             mBinding.cvDetails.setOnClickListener {
                 listener.itemListener(data?.get(adapterPosition)?.id)
-            }
+            }*/
         }
     }
 
-    fun addItem(data: ArrayList<CustomerData>?) {
+    fun addItem(data: ArrayList<SignUpModel>?) {
         this.data?.addAll(data!!)
     }
 

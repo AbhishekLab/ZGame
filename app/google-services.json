@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "576520680434-jl0i7dj4jtsuu2fd94gpreq9lgvqpnrh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zgame.zgame",
+            "certificate_hash": "384a4d35fa1293f5947c598a308f649c0e90c80f"
+          }
+        },
+        {
           "client_id": "576520680434-uapmr51q7gjani15javenk0jg01qeap7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

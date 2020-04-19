@@ -1,59 +1,130 @@
 package com.zgame.zgame.presenter
 
-import com.google.firebase.database.*
+import android.net.Uri
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.zgame.zgame.activity.SignUp3Activity
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.SignUpContract
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.utils.Constant.DbName
+import com.zgame.zgame.utils.Constant.dbUserName
 import com.zgame.zgame.utils.Constant.uniqueName
 import java.util.regex.Pattern
 
 
-class SignUpPresenter (view: SignUpContract.SignUpView) : SignUpContract.SignUpPresenter {
-
-    private var databaseRef: DatabaseReference? = null
+class SignUpPresenter(view: SignUpContract.SignUpView) : SignUpContract.SignUpPresenter {
 
     private val context = view as SignUp3Activity
+    private var db: FirebaseFirestore? = null
+    private var query: Query? = null
+    private var mStorageRef: StorageReference? = null
+    private var userNameQuery: CollectionReference? = null
+    private var userName : String? = null
 
-    override fun doSignUp(signUpModel: SignUpModel) {
+    override fun doSignUp(
+        signUpModel: SignUpModel, profilePhoto: Uri?
+    ) {
+
+        mStorageRef = FirebaseStorage.getInstance().reference;
+        db = FirebaseFirestore.getInstance()
+        userName = signUpModel.userName
+
 
         context.mAuth.createUserWithEmailAndPassword(signUpModel.email!!, signUpModel.password!!)
-            .addOnCompleteListener(context){ it ->
-                if(it.isSuccessful){
-                    FirebaseDatabase.getInstance().getReference(DbName)
-                        .child(signUpModel.userName!!)
-                        .setValue(signUpModel).addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                PreferanceRepository.setString(uniqueName, signUpModel.userName!!)
-                                context.registerDone()
-                            } else {
-                                context.registerNotDone(it.exception?.message)
-                            }
-                        }
-                }else{
+            .addOnCompleteListener(context) { it ->
+                if (it.isSuccessful) {
+                    uploadProfilePic(profilePhoto, signUpModel)
+                } else{
                     context.registerNotDone(it.exception?.message)
-                }
+            }
+            }
+    }
 
+    private fun uploadProfilePic(profilePhoto: Uri?, signUpModel: SignUpModel) {
+        if(profilePhoto!=null){
+            mStorageRef?.child(signUpModel.userName!!)?.child("ProfileImage")?.child("profilePic")
+                ?.putFile(profilePhoto)?.addOnCompleteListener { it ->
+                    if(it.isSuccessful){
+                        mStorageRef?.child(signUpModel.userName!!)?.child("ProfileImage")?.child("profilePic")?.downloadUrl?.addOnCompleteListener {
+                            if(it.isSuccessful) {
+                                signUpModel.profilePic = it.result.toString()
+                                dataUpload(signUpModel)
+                            }else{
+                                dataUpload(signUpModel)
+                            }
+                        }?.addOnFailureListener {
+                            dataUpload(signUpModel)
+                        }
+                    }else{
+                        dataUpload(signUpModel)
+                    }
+                }?.addOnFailureListener {
+                    dataUpload(signUpModel)
+                }
+        }else{
+            dataUpload(signUpModel)
         }
+
+
+        /*if(profilePhoto!=null) {
+            mStorageRef?.child(signUpModel.userName!!)?.child("ProfileImage")?.child("profilePic")
+                ?.putFile(profilePhoto)?.addOnSuccessListener {
+                    mStorageRef?.downloadUrl?.addOnSuccessListener {
+                        signUpModel.profilePic = it.toString()
+                        dataUpload(signUpModel)
+                    }?.addOnFailureListener {
+                        d("errorsdfsdfs", it.message.toString())
+                        dataUpload(signUpModel)
+                    }
+
+                }?.addOnFailureListener {
+                    dataUpload(signUpModel)
+                }
+        }else{
+            dataUpload(signUpModel)
+        }*/
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private fun dataUpload(signUpModel: SignUpModel) {
+        db?.collection(DbName)?.document(signUpModel.userName!!)?.set(signUpModel)
+            ?.addOnSuccessListener {
+                PreferanceRepository.setString(uniqueName, signUpModel.userName!!)
+                context.registerDone()
+            }?.addOnFailureListener {
+                context.registerNotDone(it.message)
+            }
     }
 
     override fun checkUserName(uniqueName: String) {
-        databaseRef = FirebaseDatabase.getInstance().reference.child(DbName).child(uniqueName)
-        val eventListener: ValueEventListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) { //create new user
-                    context.uniqueNameCorrect()
-                }else{
-                    context.uniqueNameInCorrect()
-                }
+        db = FirebaseFirestore.getInstance()
+        userNameQuery = db?.collection(DbName)
+        query = userNameQuery?.whereEqualTo(dbUserName, uniqueName)
+        query?.get()?.addOnSuccessListener {
+            if (it.documents.size == 0) {
+                context.uniqueNameInCorrect()
+            } else {
+                context.uniqueNameCorrect()
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                context.databaseError(databaseError.message)
-            }
+        }?.addOnFailureListener {
+            context.databaseError(it.message!!)
         }
-        databaseRef?.addListenerForSingleValueEvent(eventListener)
     }
 
     fun emailValidation(email: String): Boolean {

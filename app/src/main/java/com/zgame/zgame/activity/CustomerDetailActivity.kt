@@ -104,6 +104,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         }
 
     }
+
     override fun winkAdded() {
 
     }

@@ -2,6 +2,7 @@ package com.zgame.zgame.activity
 
 import android.content.Intent
 import android.util.Log.d
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -9,15 +10,17 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.contract.LoginContract
 import com.zgame.zgame.databinding.ActivityLoginBinding
+import com.zgame.zgame.presenter.LoginPresenter
 import com.zgame.zgame.utils.Validation
 
 
-class LoginActivity : BaseActivity<ActivityLoginBinding>() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.LoginView {
 
+    private var presenter : LoginPresenter? = null
 
     override fun onPermissionsGranted(requestCode: Int) {
-
     }
 
     lateinit var mBinding: ActivityLoginBinding
@@ -26,68 +29,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun initUI(binding: ActivityLoginBinding) {
         mBinding = binding
+        mBinding.toolBar.txtTitle.text = resources.getString(R.string.login_dashboard_title)
+        presenter = LoginPresenter(this)
+
 
         mBinding.toolBar.imgBack.setOnClickListener { finish() }
-        mBinding.toolBar.txtTitle.text = resources.getString(R.string.login_dashboard_title)
         mBinding.txtForgotPassword.setOnClickListener { forgotPassword() }
         mBinding.txtSignUp.setOnClickListener { userSignUp() }
         mBinding.txtLogin.setOnClickListener {
-            userLogin(
-                mBinding.edtEmail.text.toString(),
-                mBinding.edtPassword.text.toString()
-            )
-        }
-    }
-
-    private fun updateCall() {
-
-       /* var name  = ArrayList<String>()
-        var number  = ArrayList<String>()
-
-        val db:DatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.currentUser!!.uid).child("Abhishek kymar")
-            .child("userContactList").child("abhishje")
-
-        val abc = HashMap<String,String>()
-        abc["abh"] = "33333345453"
-
-        db.setValue("222222")*/
-
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        if (mAuth.currentUser != null) {
-            d("Yes", "yes User")
-        } else {
-            d("No", "No User")
-        }
-    }
-
-    private fun userLogin(email: String, password: String) {
-        if (Validation.emailValidation(email, password)) {
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                    this
-                ) { task ->
-                    if (task.isSuccessful) {
-                        if (mAuth.currentUser?.isEmailVerified!!) {
-                            showToast("Login done")
-                        } else {
-                            showToast("Please Verify your account before use")
-                        }
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(
-                            this, "Login failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-        } else {
-            showToast("Please Enter valid EmailId")
+            mBinding.progressBar.visibility = View.VISIBLE
+            presenter?.dialogLogin( mBinding.edtEmail.text.toString(),mBinding.edtPassword.text.toString())
         }
     }
 
@@ -97,5 +48,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private fun forgotPassword() {
 
+    }
+
+    override fun loginSuccess() {
+        mBinding.progressBar.visibility = View.GONE
+        showToast("Login Success ")
+    }
+
+    override fun loginFailed(message: String) {
+        mBinding.progressBar.visibility = View.GONE
+        showToast(message)
     }
 }

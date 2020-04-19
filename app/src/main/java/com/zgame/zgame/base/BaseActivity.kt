@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.anupcowkur.reservoir.Reservoir
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.activity.RuntimePermissionsActivity
+import java.io.IOException
 
 abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity() {
 
@@ -27,6 +29,11 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
         mAuth = FirebaseAuth.getInstance()
         mBinding = DataBindingUtil.setContentView(this, contentView())
         initUI(mBinding)
+
+        try {
+            Reservoir.init(this, 200000) //in bytes
+        } catch (e: IOException) {
+        }
     }
 
     abstract fun contentView(): Int

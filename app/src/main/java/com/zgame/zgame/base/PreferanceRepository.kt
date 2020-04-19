@@ -26,6 +26,7 @@ object PreferanceRepository {
 
     fun getBolean(key: String): Boolean = sharedPreferences.getBoolean(key, false)
 
+
     fun logout() {
         editor.clear()
         editor.apply()

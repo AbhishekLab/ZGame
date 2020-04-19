@@ -9,10 +9,13 @@ import com.zgame.zgame.adapter.AgeAdapter
 import com.zgame.zgame.adapter.GenderAdapter
 import com.zgame.zgame.adapter.SeekingAdapter
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.databinding.ActivitySignUp1Binding
 import com.zgame.zgame.model.AgeModule
 import com.zgame.zgame.model.GenderModule
 import com.zgame.zgame.model.SeekingModule
+import com.zgame.zgame.utils.Constant
+
 
 class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
 
@@ -22,9 +25,15 @@ class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
     private var ageAdapter: AgeAdapter? = null
     private var genderAdapter: GenderAdapter? = null
 
-    private var seekingSelectedValue: ArrayList<SeekingModule>? = null
-    private var ageSelectedValue: ArrayList<AgeModule>? = null
+    private var seekingSelectedValue: ArrayList<SeekingModule>? = ArrayList()
+    private var ageSelectedValue: ArrayList<AgeModule>? = ArrayList()
     private var genderSelectedValue: ArrayList<GenderModule>? = ArrayList()
+
+    private var male: String? = null
+    private var female: String? = null
+    private var coupleFM: String? = null
+    private var coupleFF: String? = null
+    private var coupleMM: String? = null
 
     override fun onPermissionsGranted(requestCode: Int) {
     }
@@ -95,7 +104,7 @@ class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
         gender.add(GenderModule(false, resources.getString(R.string.i_am_couple_ff)))
         gender.add(GenderModule(false, resources.getString(R.string.i_am_couple_mm)))
 
-        genderAdapter = GenderAdapter(this,gender)
+        genderAdapter = GenderAdapter(this, gender)
         mBinding.rvGender.adapter = genderAdapter
 
         mBinding.rvGender.addItemDecoration(
@@ -116,15 +125,42 @@ class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
 
         mBinding.btnSubmit.setOnClickListener {
             genderSelectedValue?.clear()
+            seekingSelectedValue?.clear()
+            ageSelectedValue?.clear()
             seekingSelectedValue = seekingAdapter?.getSelected()
+
+            for (i in seekingSelectedValue!!.indices) {
+                when (seekingSelectedValue!![i].name) {
+                    "Male" -> male = "Male"
+                    "Female" -> female = "Female"
+                    "Couple(FM)" -> coupleFM = "Couple(FM)"
+                    "Couple(FF)" -> coupleFF = "Couple(FF)"
+                    "Couple(MM)" -> coupleMM = "Couple(MM)"
+                }
+            }
+
+            PreferanceRepository.setString(Constant.male, male)
+            PreferanceRepository.setString(Constant.female, female)
+            PreferanceRepository.setString(Constant.coupleFF, coupleFF)
+            PreferanceRepository.setString(Constant.coupleFM, coupleFM)
+            PreferanceRepository.setString(Constant.coupleMM, coupleMM)
+
             ageSelectedValue = ageAdapter?.getSelected()
             genderSelectedValue?.add(genderAdapter?.getSelected()!!)
 
+
+
             if (seekingSelectedValue?.size != 0 && ageSelectedValue?.size != 0 && genderSelectedValue?.size != 0) {
-                startActivity(Intent(this,SignUp2Activity::class.java)
-                    .putExtra("I_Am",genderSelectedValue)
-                    .putExtra("Seeking",seekingSelectedValue)
-                    .putExtra("Age_Range",ageSelectedValue))
+                startActivity(
+                    Intent(this, SignUp2Activity::class.java)
+                        .putExtra("I_Am", genderSelectedValue)
+                        .putExtra("Age_Range", ageSelectedValue)
+                        .putExtra(Constant.male, male)
+                        .putExtra(Constant.female, female)
+                        .putExtra(Constant.coupleFF, coupleFF)
+                        .putExtra(Constant.coupleFM, coupleFM)
+                        .putExtra(Constant.coupleMM, coupleMM)
+                )
             } else {
                 showToast("please select SEEKING and AGE for more filter option")
             }

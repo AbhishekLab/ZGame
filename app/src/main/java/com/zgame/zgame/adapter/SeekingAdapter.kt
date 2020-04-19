@@ -56,4 +56,7 @@ class SeekingAdapter(private  val context: Context?, private  val employees: Arr
         return selected
     }
 
+
+
+
 }

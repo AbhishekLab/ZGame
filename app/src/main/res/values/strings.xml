@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ZGame</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="sign_up"><u>SignUp Now</u></string>
+    <string name="sign_up"><u>SignUp Now?</u></string>
     <string name="login_dashboard_title">Login</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="register_done">Register Done</string>
@@ -39,6 +39,12 @@
     <string name="search_country">Search Country..</string>
     <string name="search_state">Search State..</string>
     <string name="term_n_condition">By continuing I confirm that i have reviewed and agree to the Service Agreement an the Privacy Policy. </string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="file_selection">You need to be in the photo and also, \n no naughty bits!</string>
+    <string name="take_a_photo">Take a photo!</string>
+    <string name="choose_from_facebook">Choose from Faceboook</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_existing">choose Existing</string>
 
 
 </resources>

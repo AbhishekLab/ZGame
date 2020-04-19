@@ -10,12 +10,17 @@ import android.view.Menu
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.onNavDestinationSelected
+import com.anupcowkur.reservoir.Reservoir
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.camera.GalleryActivity
 import com.zgame.zgame.databinding.ActivityMainBinding
 import com.zgame.zgame.service.BackgroundService
 import com.zgame.zgame.utils.Constant
+import com.zgame.zgame.utils.Constant.reservoir_key
+import java.io.IOException
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -39,13 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setSupportActionBar(mBinding.bottomAppBar)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-        checkAuthInstance()
-
         mBinding.bottomAppBar.setNavigationOnClickListener {
-
-            if (mAuth.currentUser != null) {
-                mAuth.signOut()
-            }
+            logOut()
         }
 
         mBinding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
@@ -59,6 +59,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    private fun logOut() {
+        if (mAuth.currentUser != null) {
+            PreferanceRepository.logout()
+            try {
+                Reservoir.delete(reservoir_key)
+            } catch (e: IOException) {
+            }
+            mAuth.signOut()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.bottom_menu, menu)
@@ -67,11 +78,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun fabClick() {
         startActivity(Intent(this, GalleryActivity::class.java))
-    }
-
-
-    fun checkAuthInstance(): Boolean {
-        return mAuth.currentUser != null
     }
 
     fun permission() {
@@ -117,6 +123,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun callUtils() {
         showToast("CalllUtils")
     }
-
-
 }
