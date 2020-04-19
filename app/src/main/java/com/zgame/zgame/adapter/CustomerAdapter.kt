@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
-import com.zgame.zgame.model.CustomerData
 import com.zgame.zgame.model.SignUpModel
 
 class CustomerAdapter(val context: FragmentActivity?, private val listener : Profile) : RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
@@ -37,8 +36,9 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
             mBinding.tvCustomerLocation.text = "${"Location: "}${data?.get(adapterPosition)?.state}"
             mBinding.tvCustomerName.text = data?.get(adapterPosition)?.userName
 
-           /* Glide.with(context!!).load(data?.get(adapterPosition)?.image).into(mBinding.ivCustomer)
-            mBinding.cvDetails.setOnClickListener {
+            Glide.with(context!!).load(data?.get(adapterPosition)?.profilePic).into(mBinding.ivCustomer)
+
+            /*mBinding.cvDetails.setOnClickListener {
                 listener.itemListener(data?.get(adapterPosition)?.id)
             }*/
         }

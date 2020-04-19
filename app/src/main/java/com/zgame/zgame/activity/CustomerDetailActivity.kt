@@ -15,7 +15,7 @@ import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.databinding.ActivityCustomerDetailBinding
-import com.zgame.zgame.model.CustomerData
+import com.zgame.zgame.model.ContactRandomData
 import com.zgame.zgame.presenter.CustomerDetailPresenter
 
 class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
@@ -23,8 +23,8 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     private lateinit var mBinding: ActivityCustomerDetailBinding
 
-    private var customerDetail: ArrayList<CustomerData>? = null
-    private var customerDetailResponse: CustomerData? = null
+    private var customerDetail: ArrayList<ContactRandomData>? = null
+    private var customerDetailResponse: ContactRandomData? = null
     private var nameId: String? = ""
     private var alertDialog: AlertDialog? = null
     private var progressBar : ProgressBar? = null
@@ -54,7 +54,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     override fun getCustomerDetail(p0: DataSnapshot) {
         customerDetail = ArrayList()
         for (userData: DataSnapshot in p0.children.iterator()) {
-            customerDetailResponse = userData.getValue(CustomerData::class.java)
+            customerDetailResponse = userData.getValue(ContactRandomData::class.java)
         }
         Glide.with(this@CustomerDetailActivity).load(customerDetailResponse?.image)
             .into(mBinding.imgUser)

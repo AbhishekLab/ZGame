@@ -9,9 +9,11 @@ class CustomerContract {
         fun getCustomerRandomList(p0: DataSnapshot)
         fun getUsersFilterList(userFilterList: ArrayList<SignUpModel>?)
         fun getNullValue(message : String)
+        fun setContactImages(images: ArrayList<String>)
     }
     interface CustomerPresenter{
         fun customerRandomList()
         fun usersFilterList()
+        fun getContactRandomImages()
     }
 }

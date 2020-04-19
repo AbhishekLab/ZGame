@@ -1,8 +1,6 @@
 package com.zgame.zgame.presenter
 
-import android.util.Log.d
 import com.anupcowkur.reservoir.Reservoir
-import com.anupcowkur.reservoir.ReservoirGetCallback
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.*
@@ -12,7 +10,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.CustomerContract
-import com.zgame.zgame.model.CustomerData
+import com.zgame.zgame.model.ContactRandomData
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.DbName
@@ -22,7 +20,7 @@ import java.lang.NullPointerException
 class CustomerPresenter (private val view: CustomerContract.CustomerView) : CustomerContract.CustomerPresenter {
 
     private var databaseRef: DatabaseReference? = null
-    private var allCustomerResponse : ArrayList<CustomerData>? = ArrayList()
+    private var allCustomerResponse : ArrayList<ContactRandomData>? = ArrayList()
     private var userList : ArrayList<SignUpModel>? = ArrayList()
 
     private var db : FirebaseFirestore? = null
@@ -40,6 +38,8 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
     private var coupleMM: String? = ""
     private var currentUserData : SignUpModel? = SignUpModel()
 
+    private var images : ArrayList<String> = ArrayList()
+
     override fun customerRandomList() {
         allCustomerResponse?.clear()
         databaseRef = FirebaseDatabase.getInstance().getReference("Customers")
@@ -50,7 +50,7 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
                 }
                 override fun onDataChange(p0: DataSnapshot) {
                     for (userData in p0.children.iterator()) {
-                        allCustomerResponse?.add(userData.getValue(CustomerData::class.java)!!)
+                        allCustomerResponse?.add(userData.getValue(ContactRandomData::class.java)!!)
                     }
                 view.getCustomerRandomList(p0)
                 }
@@ -58,10 +58,22 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
     }
 
     override fun usersFilterList() {
-
-        //toGetData()
-
         sortedUsersData()
+    }
+
+    override fun getContactRandomImages() {
+        databaseRef = FirebaseDatabase.getInstance().getReference("RandomPic")
+        databaseRef?.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+              view.getNullValue(p0.message)
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                for(i in p0.children.iterator()){
+                   images.add(i.getValue(String::class.java)!!)
+                }
+                view.setContactImages(images)
+            }
+        })
     }
 
 

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_customers_contact"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/toolbar_gradient"
+      android:orientation="horizontal"
+      tools:listitem="@layout/row_customer_contact"/>
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_customers"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/colorPrimary"/>
+      tools:listitem="@layout/row_customer_adapter"/>
 
 </LinearLayout>
 </layout>

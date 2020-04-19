@@ -3,17 +3,15 @@ package com.zgame.zgame.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
-import com.zgame.zgame.model.CustomerData
+import com.zgame.zgame.model.ContactRandomData
 
 
 class DemoAdapter : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
-    private var data: ArrayList<CustomerData>? = ArrayList()
+    private var data: ArrayList<ContactRandomData>? = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DemoViewHolder {
         return DemoViewHolder(
             DataBindingUtil.inflate(

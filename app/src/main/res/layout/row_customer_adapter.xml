@@ -14,7 +14,7 @@
             app:cardElevation="15dp"
             app:cardCornerRadius="5dp"
             app:cardPreventCornerOverlap="true"
-            app:cardBackgroundColor="@color/colorPrimary">
+            app:cardBackgroundColor="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 <ImageView
                     android:id="@+id/iv_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="200dp"
                     android:scaleType="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:textStyle="bold"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:lines="1"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/colorWhite"
                     android:text="Age Of Customers"/>
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/colorWhite"
