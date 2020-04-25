@@ -130,6 +130,7 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
                     signUpModel.ageRange?.add(ageSelectedValue!![i].name!!)
                 }
 
+                signUpModel.name = name
                 signUpModel.male = male
                 signUpModel.female = female
                 signUpModel.coupleFF = coupleFF

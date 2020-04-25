@@ -8,10 +8,17 @@ class CustomerDetailContract {
         fun loginSuccess()
         fun loginFailed(message:String)
         fun winkAdded()
+        fun winkRemove()
+        fun followDone()
+        fun unFollowDone()
+        fun followError(message: String)
     }
     interface CustomerDetailPresenter{
         fun dialogLogin(email: String, password: String)
         fun customerDetail(id: String)
-        fun wink()
+        fun wink(myUniqueName:String)
+        fun winkRemove(myUniqueName:String)
+        fun follow(follow: String?, follower: String)
+        fun unFollow(follow: String?, follower: String)
     }
 }

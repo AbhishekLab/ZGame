@@ -1,15 +1,16 @@
 package com.zgame.zgame.base
 
+import android.R
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.anupcowkur.reservoir.Reservoir
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.activity.RuntimePermissionsActivity
 import java.io.IOException
@@ -65,6 +66,15 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
             }
         }
         trans.commit()
+    }
+
+    protected open fun showSnackbar(message: String) {
+        val view = findViewById<View>(R.id.content)
+        if (view != null) {
+            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {

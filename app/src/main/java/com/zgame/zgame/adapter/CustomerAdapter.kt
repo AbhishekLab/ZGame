@@ -33,14 +33,14 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
 
         fun execute() {
             mBinding.tvCustomerAge.text = "${"Age: "}${data?.get(adapterPosition)?.age}"
-            mBinding.tvCustomerLocation.text = "${"Location: "}${data?.get(adapterPosition)?.state}"
+            mBinding.tvCustomerGender.text = data?.get(adapterPosition)?.gender!![0]
             mBinding.tvCustomerName.text = data?.get(adapterPosition)?.userName
 
             Glide.with(context!!).load(data?.get(adapterPosition)?.profilePic).into(mBinding.ivCustomer)
 
-            /*mBinding.cvDetails.setOnClickListener {
-                listener.itemListener(data?.get(adapterPosition)?.id)
-            }*/
+            mBinding.cvDetails.setOnClickListener {
+                listener.userDetailPage(adapterPosition)
+            }
         }
     }
 
@@ -49,6 +49,6 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
     }
 
     interface Profile{
-        fun itemListener(id: String?)
+        fun userDetailPage(position: Int?)
     }
 }

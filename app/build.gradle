@@ -95,6 +95,15 @@ dependencies {
     //caching
     implementation 'com.anupcowkur:reservoir:3.1.0'
 
+    //pulse View
+    implementation 'pl.bclogic:pulsator4droid:1.0.3'
+
+    //gifView
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //photo Editor
+    implementation 'ja.burhanrashid52:photoeditor:1.0.0'
 
 
 

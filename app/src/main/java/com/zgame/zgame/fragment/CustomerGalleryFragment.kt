@@ -37,6 +37,8 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
 
         presenter = CustomerPresenter(this)
 
+        mBinding.pulsator.start()
+
         initRecyclerView()
 
         (activity as MainActivity).permission()
@@ -50,13 +52,11 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
 
         presenter.getContactRandomImages()
 
-
     }
 
     private fun initRecyclerView() {
-        mBinding.rvCustomers.layoutManager = GridLayoutManager(activity, 2)
+        mBinding.rvCustomers.layoutManager = GridLayoutManager(activity, 3)
         customerAdapter = CustomerAdapter(activity,this)
-
         mBinding.rvCustomersContact.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         contactAdapter = CustomerContactAdapter(context = context!!)
 
@@ -66,8 +66,8 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     override fun initNav(view: View) {
     }
 
-    override fun itemListener(id: String?) {
-        startActivity(Intent(activity,CustomerDetailActivity::class.java).putExtra("id",id))
+    override fun userDetailPage(position: Int?) {
+        startActivity(Intent(activity,CustomerDetailActivity::class.java).putExtra(Constant.uniqueName,userLists!![position!!]))
     }
 
     override fun getCustomerRandomList(p0: DataSnapshot) {
@@ -77,6 +77,9 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     }
 
     override fun getUsersFilterList(userFilterList: ArrayList<SignUpModel>?) {
+        mBinding.rvCustomers.visibility = View.VISIBLE
+        mBinding.cvGif.visibility = View.GONE
+        mBinding.pulsator.stop()
         for(i in userFilterList!!.indices){
             if(userFilterList[i].userName != PreferanceRepository.getString(Constant.uniqueName)){
                 userLists?.add(userFilterList[i])
@@ -96,6 +99,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     }
 
     override fun setContactImages(images: ArrayList<String>) {
+        mBinding.rvCustomersContact.visibility = View.VISIBLE
         contactAdapter?.addItem(images)
         mBinding.rvCustomersContact.adapter = contactAdapter
     }

@@ -33,7 +33,7 @@ class DemoAdapter : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
         fun execute() {
             mBinding.tvCustomerAge.text = "27"
-            mBinding.tvCustomerLocation.text = "Ranchi"
+            //mBinding.tvCustomerLocation.text = "Ranchi"
             mBinding.tvCustomerName.text = "Abhishek"
         }
     }

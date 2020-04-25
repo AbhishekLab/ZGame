@@ -6,14 +6,14 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".base.AppClass"
@@ -24,29 +24,45 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".splash.SplashScreen"
+        <activity
+            android:name=".splash.SplashScreen"
             android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="fullSensor"/>
+            android:screenOrientation="fullSensor" />
 
-        <activity android:name=".activity.SignUpActivity"
-            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:screenOrientation="fullSensor" />
 
-        <activity android:name=".camera.GalleryActivity"
-            android:screenOrientation="fullSensor"/>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".activity.CustomerDetailActivity" />
-        <activity android:name=".activity.SignUp1Activity" />
-        <activity android:name=".activity.SignUp2Activity" />
-        <activity android:name=".activity.SignUp3Activity" />
+        <activity
+            android:name=".activity.GalleryActivity"
+            android:screenOrientation="fullSensor" />
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="fullSensor" />
+
+        <activity
+            android:name=".activity.CustomerDetailActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".activity.SignUp1Activity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".activity.SignUp2Activity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".activity.SignUp3Activity"
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".activity.GalleryActivity" />
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->
 
@@ -59,7 +75,8 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <receiver android:name=".reciever.Reciever"
+        <receiver
+            android:name=".reciever.Reciever"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
@@ -67,6 +84,25 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.zgame.zgame.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+
+        </provider>
+
+
 
     </application>
 

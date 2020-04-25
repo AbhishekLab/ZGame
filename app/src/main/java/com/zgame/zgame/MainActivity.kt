@@ -7,14 +7,15 @@ import android.content.ComponentName
 import android.content.Intent
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.anupcowkur.reservoir.Reservoir
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.base.PreferanceRepository
-import com.zgame.zgame.camera.GalleryActivity
+import com.zgame.zgame.activity.GalleryActivity
 import com.zgame.zgame.databinding.ActivityMainBinding
 import com.zgame.zgame.service.BackgroundService
 import com.zgame.zgame.utils.Constant
@@ -27,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val tag = "startService"
     private val jobId = 100
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
 
     override fun onPermissionsGranted(requestCode: Int) {
         when (requestCode) {
@@ -37,26 +38,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun contentView() = R.layout.activity_main
 
+
     override fun initUI(binding: ActivityMainBinding) {
         mBinding = binding
         mAuth = FirebaseAuth.getInstance()
 
+        navController = findNavController(this, R.id.nav_host_fragment)
+
         setSupportActionBar(mBinding.bottomAppBar)
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
 
         mBinding.bottomAppBar.setNavigationOnClickListener {
             logOut()
         }
 
-        mBinding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
-            menuItem.onNavDestinationSelected(navController)
-        }
+        /*mBinding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            menuItem.onNavDestinationSelected(navController!!)
+        }*/
 
         mBinding.fab.setImageResource(R.drawable.ic_fab_24dp)
 
         mBinding.fab.setOnClickListener {
             fabClick()
         }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if(navController?.currentDestination?.label == "CustomerGalleryFragment" && item.toString() == "Home" || navController?.currentDestination?.label == "UserProfileFragment" &&
+            item.toString() == "Profile"){
+            false
+        }else{
+            item.onNavDestinationSelected(navController!!)
+            true
+        }
+
     }
 
     private fun logOut() {
@@ -121,6 +137,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun callUtils() {
-        showToast("CalllUtils")
+        //showToast("CalllUtils")
     }
 }

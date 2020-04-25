@@ -12,23 +12,34 @@ import android.widget.ProgressBar
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.zgame.zgame.R
+import com.zgame.zgame.adapter.FeedAdapter
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.databinding.ActivityCustomerDetailBinding
 import com.zgame.zgame.model.ContactRandomData
+import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerDetailPresenter
+import com.zgame.zgame.utils.Constant
 
 class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
-    CustomerDetailContract.CustomerDetailView {
+    CustomerDetailContract.CustomerDetailView, FeedAdapter.Wink {
 
     private lateinit var mBinding: ActivityCustomerDetailBinding
 
     private var customerDetail: ArrayList<ContactRandomData>? = null
     private var customerDetailResponse: ContactRandomData? = null
-    private var nameId: String? = ""
     private var alertDialog: AlertDialog? = null
-    private var progressBar : ProgressBar? = null
+    private var progressBar: ProgressBar? = null
     private lateinit var presenter: CustomerDetailPresenter
+    private var followPersonName: String = ""
+    private var myUniqueName = ""
+    private var followSingleTask: Boolean = true
+    private var winkSingleTask : Boolean = true
+
+    private lateinit var feedAdapter: FeedAdapter
+
+    private var userList: SignUpModel? = SignUpModel()
 
     override fun onPermissionsGranted(requestCode: Int) {
     }
@@ -38,17 +49,69 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     override fun initUI(binding: ActivityCustomerDetailBinding) {
         mBinding = binding
 
-        presenter = CustomerDetailPresenter(this@CustomerDetailActivity)
-
-        mBinding.toolbar.apply { setUpToolbar()}
-        mBinding.llWink.setOnClickListener { presenter.wink()}
+        myUniqueName = PreferanceRepository.getString(Constant.uniqueName)
 
         if (mAuth.currentUser == null) {
-            setDialog()
+            if (followSingleTask) {
+                followSingleTask = false
+                setDialog()
+            }
         }
-        nameId = intent?.getStringExtra("id")
-        presenter.customerDetail(nameId!!)
 
+        feedAdapter = FeedAdapter(this, this)
+        presenter = CustomerDetailPresenter(this@CustomerDetailActivity)
+
+        userList = intent.getSerializableExtra(Constant.uniqueName) as SignUpModel
+        followPersonName = userList?.userName!!
+
+        setUpRecyclerView()
+
+
+
+        mBinding.toolbar.apply { setUpToolbar() }
+
+        setDetailPage()
+
+        mBinding.txtFollow.setOnClickListener {
+            follow()
+        }
+        mBinding.imgUnFollow.setOnClickListener {
+            unFollow()
+        }
+        //presenter.customerDetail(nameId!!)
+    }
+
+    private fun unFollow() {
+        presenter.unFollow(followPersonName, myUniqueName)
+        showToast("UnFollow")
+    }
+
+    private fun follow() {
+        presenter.follow(followPersonName, myUniqueName)
+    }
+
+    private fun setUpRecyclerView() {
+        mBinding.rvFeed.adapter = feedAdapter
+        mBinding.rvFeed.setHasFixedSize(true)
+    }
+
+    private fun setDetailPage() {
+        Glide.with(this).load(userList?.profilePic).into(mBinding.imgUser)
+        mBinding.txtNameAge.text = "${userList?.name}, ${userList?.age}"
+        mBinding.txtIAm.text = userList?.gender!![0]
+        mBinding.txtHeight.text = userList?.height
+
+        if (userList?.follower != null) {
+            userList?.follower?.forEach {
+                if (myUniqueName == it) {
+                    mBinding.txtFollow.visibility = View.GONE
+                    mBinding.imgUnFollow.visibility = View.VISIBLE
+                } else {
+                    mBinding.txtFollow.visibility = View.VISIBLE
+                    mBinding.imgUnFollow.visibility = View.GONE
+                }
+            }
+        }
     }
 
     override fun getCustomerDetail(p0: DataSnapshot) {
@@ -105,8 +168,37 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     }
 
-    override fun winkAdded() {
-
+    override fun followDone() {
+        followSingleTask = true
+        mBinding.txtFollow.visibility = View.GONE
+        mBinding.imgUnFollow.visibility = View.VISIBLE
+        showToast("you follow $followPersonName")
     }
 
+
+    override fun unFollowDone() {
+        mBinding.txtFollow.visibility = View.VISIBLE
+        mBinding.imgUnFollow.visibility = View.GONE
+        showToast("UnFollow $followPersonName")
+    }
+
+    override fun followError(message: String) {
+        showToast(message)
+    }
+
+    override fun addWink(position: Int?) {
+        if(winkSingleTask){
+            winkSingleTask = false
+
+        }
+
+        showToast("Add Wink")
+    }
+    override fun winkAdded() {
+        winkSingleTask = true
+    }
+
+    override fun winkRemove() {
+        winkSingleTask = true
+    }
 }

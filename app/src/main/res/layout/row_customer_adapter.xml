@@ -10,7 +10,10 @@
             android:id="@+id/cv_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="3dp"
             app:cardElevation="15dp"
             app:cardCornerRadius="5dp"
             app:cardPreventCornerOverlap="true"
@@ -23,7 +26,7 @@
                 <ImageView
                     android:id="@+id/iv_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:scaleType="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -52,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:lines="1"
@@ -66,21 +69,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="13sp"
+                    android:textSize="10sp"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/colorWhite"
                     android:text="Age Of Customers"/>
 
                 <TextView
-                    android:id="@+id/tv_customer_location"
+                    android:id="@+id/tv_customer_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="13sp"
+                    android:textSize="10sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/colorWhite"
-                    android:text="Location Of Customers"/>
+                    android:text="Gender"/>
 
                 </LinearLayout>
 
