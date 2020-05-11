@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchor="@id/bottom_app_bar"
-            app:rippleColor="@color/colorPink"
+            app:rippleColor="@color/dark_brown"
             app:elevation="5dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

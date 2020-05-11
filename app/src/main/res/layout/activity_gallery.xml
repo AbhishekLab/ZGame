@@ -22,11 +22,76 @@
             android:id="@+id/photoEditorView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:photo_src="@drawable/white_page"
             app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:photo_src="@drawable/wp" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <ImageView
+            android:id="@+id/txt_add_gradient"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_plus"
+            android:background="@drawable/gradient_plus"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_add_gradient"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_1"/>
+        <TextView
+            android:id="@+id/txt_gradient_3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_2"/>
+        <TextView
+            android:id="@+id/txt_gradient_4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_3"/>
+        <TextView
+            android:id="@+id/txt_gradient_5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_4"/>
+
 
         <ImageView
             android:id="@+id/imgUndo"
@@ -79,6 +144,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvConstraintTools"
@@ -137,9 +203,9 @@
             android:background="@color/semi_black_transparent"
             android:padding="8dp"
             android:src="@drawable/ic_share"
-            app:layout_constraintBottom_toBottomOf="@+id/photoEditorView"
-            app:layout_constraintEnd_toStartOf="@+id/imgUndo"
-            app:layout_constraintStart_toEndOf="@+id/imgCamera" />
+            app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

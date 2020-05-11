@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.activity.GalleryActivity
+import com.zgame.zgame.activity.PostImageActivity
 import com.zgame.zgame.databinding.ActivityMainBinding
 import com.zgame.zgame.service.BackgroundService
 import com.zgame.zgame.utils.Constant
@@ -93,7 +94,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun fabClick() {
-        startActivity(Intent(this, GalleryActivity::class.java))
+        startActivity(Intent(this, PostImageActivity::class.java))
+        //startActivity(Intent(this, GalleryActivity::class.java))
     }
 
     fun permission() {

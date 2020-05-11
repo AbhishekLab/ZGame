@@ -10,6 +10,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.zgame.zgame.activity.SignUp3Activity
+import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.SignUpContract
 import com.zgame.zgame.model.SignUpModel
@@ -37,7 +38,7 @@ class SignUpPresenter(view: SignUpContract.SignUpView) : SignUpContract.SignUpPr
         userName = signUpModel.userName
 
 
-        context.mAuth.createUserWithEmailAndPassword(signUpModel.email!!, signUpModel.password!!)
+        mAuth.createUserWithEmailAndPassword(signUpModel.email!!, signUpModel.password!!)
             .addOnCompleteListener(context) { it ->
                 if (it.isSuccessful) {
                     uploadProfilePic(profilePhoto, signUpModel)

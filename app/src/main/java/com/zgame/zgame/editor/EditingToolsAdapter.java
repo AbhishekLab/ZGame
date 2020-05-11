@@ -1,4 +1,4 @@
-package com.zgame.zgame.camera;
+package com.zgame.zgame.editor;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
         mToolList.add(new ToolModel("Brush", R.drawable.ic_brush, ToolType.BRUSH));
         mToolList.add(new ToolModel("Text", R.drawable.ic_text, ToolType.TEXT));
         mToolList.add(new ToolModel("Eraser", R.drawable.ic_eraser, ToolType.ERASER));
-        mToolList.add(new ToolModel("Filter", R.drawable.ic_photo_filter, ToolType.FILTER));
+        //mToolList.add(new ToolModel("Filter", R.drawable.ic_photo_filter, ToolType.FILTER));
         mToolList.add(new ToolModel("Emoji", R.drawable.ic_insert_emoticon, ToolType.EMOJI));
         mToolList.add(new ToolModel("Sticker", R.drawable.ic_sticker, ToolType.STICKER));
     }
@@ -74,12 +74,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
             super(itemView);
             imgToolIcon = itemView.findViewById(R.id.imgToolIcon);
             txtTool = itemView.findViewById(R.id.txtTool);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemSelected.onToolSelected(mToolList.get(getLayoutPosition()).mToolType);
-                }
-            });
+            itemView.setOnClickListener(v -> mOnItemSelected.onToolSelected(mToolList.get(getLayoutPosition()).mToolType));
         }
     }
 }

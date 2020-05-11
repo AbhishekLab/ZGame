@@ -19,7 +19,6 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
 
     private var progressDialog: ProgressBar? = null
     private var v: View? = null
-    lateinit var mAuth: FirebaseAuth
 
     private lateinit var mBinding: T
 
@@ -80,5 +79,6 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
     companion object {
         const val ADD_FRAGMENT = 0
         const val REPLACE_FRAGMENT = 1
+        lateinit var mAuth : FirebaseAuth
     }
 }

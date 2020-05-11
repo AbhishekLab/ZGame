@@ -1,4 +1,4 @@
-package com.zgame.zgame.camera;
+package com.zgame.zgame.editor;
 
 import android.content.Context;
 import android.graphics.Color;

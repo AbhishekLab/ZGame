@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ja.burhanrashid52.photoeditor.PhotoEditorView
+            android:id="@+id/img_pic_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_gallery"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="20dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:src="@drawable/camera_gallery"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="20dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/cv_gallery">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:src="@drawable/camer_camera"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="45dp"
+            app:borderWidth="3dp"
+            android:outlineAmbientShadowColor="@color/gray_scale"
+            app:rippleColor="@color/dark_brown"
+            android:clickable="true"
+            android:visibility="gone"
+            android:backgroundTint="@color/white"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:focusable="true" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:textSize="24sp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/dk_crayon_crumble"
+                android:text="Share"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/txt_add_gradient"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_plus"
+            android:alpha=".4"
+            android:background="@drawable/gradient_plus"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:alpha=".8"
+            android:background="@drawable/gradient_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_add_gradient"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:alpha=".8"
+            android:visibility="gone"
+            android:background="@drawable/gradient_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_1"/>
+        <TextView
+            android:id="@+id/txt_gradient_3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:alpha=".8"
+            android:background="@drawable/gradient_3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_2"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:alpha=".8"
+            android:background="@drawable/gradient_4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_3"/>
+
+        <TextView
+            android:id="@+id/txt_gradient_5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:alpha=".8"
+            android:background="@drawable/gradient_5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gradient_4"/>
+
+        <ImageView
+            android:id="@+id/img_emoji"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_insert_emoticon"
+            android:alpha=".6"
+            android:background="@drawable/gradient_plus"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/img_brush"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_brush"
+            android:alpha=".6"
+            android:background="@drawable/gradient_plus"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_emoji"/>
+
+        <ImageView
+            android:id="@+id/img_eraser"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_eraser"
+            android:alpha=".6"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:background="@drawable/gradient_plus"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_brush"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

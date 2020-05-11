@@ -34,4 +34,5 @@ class SignUpModel : Serializable {
     var following : ArrayList<String>? = ArrayList()
     var follower : ArrayList<String>? = ArrayList()
     var wink : String? = null
+    var message : String? = null
 }

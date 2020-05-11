@@ -1,17 +1,13 @@
-package com.zgame.zgame.camera;
+package com.zgame.zgame.editor;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,20 +16,20 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.zgame.zgame.R;
 
-public class StickerBSFragment extends BottomSheetDialogFragment {
+import java.util.ArrayList;
 
-    public StickerBSFragment() {
+import ja.burhanrashid52.photoeditor.PhotoEditor;
+
+public class EmojiBSFragment extends BottomSheetDialogFragment {
+
+    public EmojiBSFragment() {
         // Required empty public constructor
     }
 
-    private StickerListener mStickerListener;
+    private EmojiListener mEmojiListener;
 
-    public void setStickerListener(StickerListener stickerListener) {
-        mStickerListener = stickerListener;
-    }
-
-    public interface StickerListener {
-        void onStickerClick(Bitmap bitmap);
+    public interface EmojiListener {
+        void onEmojiClick(String emojiUnicode);
     }
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
@@ -51,7 +47,6 @@ public class StickerBSFragment extends BottomSheetDialogFragment {
         }
     };
 
-
     @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
@@ -67,72 +62,54 @@ public class StickerBSFragment extends BottomSheetDialogFragment {
         ((View) contentView.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         RecyclerView rvEmoji = contentView.findViewById(R.id.rvEmoji);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
         rvEmoji.setLayoutManager(gridLayoutManager);
-        StickerAdapter stickerAdapter = new StickerAdapter();
-        rvEmoji.setAdapter(stickerAdapter);
+        EmojiAdapter emojiAdapter = new EmojiAdapter();
+        rvEmoji.setAdapter(emojiAdapter);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    public void setEmojiListener(EmojiListener emojiListener) {
+        mEmojiListener = emojiListener;
     }
 
-    public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHolder> {
 
-        int[] stickerList = new int[]{R.drawable.aa, R.drawable.bb};
+    public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.ViewHolder> {
+
+        ArrayList<String> emojisList = PhotoEditor.getEmojis(getActivity());
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_sticker, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_emoji, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.imgSticker.setImageResource(stickerList[position]);
+            holder.txtEmoji.setText(emojisList.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return stickerList.length;
+            return emojisList.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView imgSticker;
+            TextView txtEmoji;
 
             ViewHolder(View itemView) {
                 super(itemView);
-                imgSticker = itemView.findViewById(R.id.imgSticker);
+                txtEmoji = itemView.findViewById(R.id.txtEmoji);
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mStickerListener != null) {
-                            mStickerListener.onStickerClick(
-                                    BitmapFactory.decodeResource(getResources(),
-                                            stickerList[getLayoutPosition()]));
+                        if (mEmojiListener != null) {
+                            mEmojiListener.onEmojiClick(emojisList.get(getLayoutPosition()));
                         }
                         dismiss();
                     }
                 });
             }
         }
-    }
-
-    private String convertEmoji(String emoji) {
-        String returnedEmoji = "";
-        try {
-            int convertEmojiToInt = Integer.parseInt(emoji.substring(2), 16);
-            returnedEmoji = getEmojiByUnicode(convertEmojiToInt);
-        } catch (NumberFormatException e) {
-            returnedEmoji = "";
-        }
-        return returnedEmoji;
-    }
-
-    private String getEmojiByUnicode(int unicode) {
-        return new String(Character.toChars(unicode));
     }
 }

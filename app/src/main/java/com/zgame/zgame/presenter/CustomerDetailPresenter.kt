@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
 import com.zgame.zgame.activity.CustomerDetailActivity
+import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Validation
@@ -21,10 +22,10 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
 
     override fun dialogLogin(email: String, password: String) {
         if (Validation.emailValidation(email, password)) {
-            context.mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     if (task.isSuccessful) {
-                        if (context.mAuth.currentUser != null) {
+                        if (mAuth.currentUser != null) {
                             view.loginSuccess()
                         } else {
                             view.loginFailed("Something went wrong, Please try again later")

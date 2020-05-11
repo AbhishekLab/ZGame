@@ -1,4 +1,4 @@
-package com.zgame.zgame.camera;
+package com.zgame.zgame.editor;
 
 public enum ToolType {
     BRUSH,

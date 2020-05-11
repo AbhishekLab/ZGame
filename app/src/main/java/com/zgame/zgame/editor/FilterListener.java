@@ -1,4 +1,4 @@
-package com.zgame.zgame.camera;
+package com.zgame.zgame.editor;
 
 import ja.burhanrashid52.photoeditor.PhotoFilter;
 

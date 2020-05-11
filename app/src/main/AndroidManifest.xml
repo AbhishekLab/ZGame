@@ -22,11 +22,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".splash.SplashScreen"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,33 +38,35 @@
 
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.SignUpActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.GalleryActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.CustomerDetailActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SignUp1Activity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SignUp2Activity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SignUp3Activity"
-            android:screenOrientation="fullSensor" />
-        <activity android:name=".activity.GalleryActivity" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.PostImageActivity"
+            android:screenOrientation="portrait"/>
+
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->
 

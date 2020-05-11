@@ -56,7 +56,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.LoginV
     }
 
     override fun loginFailed(message: String) {
+        mAuth.signOut()
         mBinding.progressBar.visibility = View.GONE
         showToast(message)
+
     }
 }

@@ -4,6 +4,7 @@ import com.anupcowkur.reservoir.Reservoir
 import com.anupcowkur.reservoir.ReservoirPutCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zgame.zgame.activity.LoginActivity
+import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.LoginContract
 import com.zgame.zgame.model.SignUpModel
@@ -19,16 +20,16 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
     private var email: String? = null
     private var currentUser : SignUpModel? = null
 
-
     override fun dialogLogin(email: String, password: String) {
         if (Validation.emailValidation(email, password)) {
             this.email = email
-            context.mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(context) { task ->
                     task.addOnSuccessListener {
                         if (it.user != null) {
                             getCurrentUserData()
                         }
+
                     }.addOnFailureListener {
                         view.loginFailed(it.message!!)
                     }
@@ -38,7 +39,9 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
         }
     }
 
+
     private fun getCurrentUserData() {
+
         db = FirebaseFirestore.getInstance()
         val userData = db?.collection(DbName)?.whereEqualTo(Constant.email, email)?.get()
         userData?.addOnSuccessListener {
