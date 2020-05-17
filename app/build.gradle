@@ -67,7 +67,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    //material desiign
+    //material design
     implementation 'com.google.android.material:material:1.0.0'
 
 
@@ -105,9 +105,9 @@ dependencies {
     //photo Editor
     implementation 'ja.burhanrashid52:photoeditor:1.0.0'
 
+    //Round corner layout
+    implementation 'com.github.chirag-kachhadiya:RoundedImageView:1.0'
 
-    //coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.6'
 
 
 

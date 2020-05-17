@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_item_home"
+        android:title="Home"
+            android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/nav_item_profile"
+        android:title="Profile"
+        app:actionViewClass="android.widget.TextView"
+        android:icon="@drawable/ic_nav_profile"/>
+
+    <item android:id="@+id/nav_item_mail"
+        android:title="Mail Box"
+        android:icon="@drawable/ic_mail"/>
+
+    <item android:id="@+id/nav_item_collection"
+        android:title="Collection"
+        android:icon="@drawable/ic_collections"/>
+
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_item_setting"
+                android:title="Setting"
+                android:icon="@drawable/ic_nav_setting"/>
+
+            <item
+                android:id="@+id/nav_item_support"
+                android:title="Support"
+                android:icon="@drawable/ic_nav_support"/>
+
+            <item
+                android:id="@+id/nav_item_about"
+                android:title="About Us"
+                android:icon="@drawable/ic_nav_about_us"/>
+
+            <item
+                android:id="@+id/nav_item_logout"
+                android:title="Log Out"
+                android:icon="@drawable/ic_nav_logout"/>
+
+        </menu>
+    </item>
+
+</menu>

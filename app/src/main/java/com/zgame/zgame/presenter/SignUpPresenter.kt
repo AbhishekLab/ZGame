@@ -33,7 +33,7 @@ class SignUpPresenter(view: SignUpContract.SignUpView) : SignUpContract.SignUpPr
         signUpModel: SignUpModel, profilePhoto: Uri?
     ) {
 
-        mStorageRef = FirebaseStorage.getInstance().reference;
+        mStorageRef = FirebaseStorage.getInstance().reference
         db = FirebaseFirestore.getInstance()
         userName = signUpModel.userName
 

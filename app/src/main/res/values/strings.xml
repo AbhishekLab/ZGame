@@ -58,5 +58,14 @@
     <string name="comments">Comments</string>
     <string name="label_brush">Brush</string>
 
+    <!--navigationDrawer-->
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="mail_box">Mail Box</string>
+    <string name="collection">Collection</string>
+    <string name="setting">Setting</string>
+    <string name="support">Support</string>
+    <string name="about_us">About Us</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

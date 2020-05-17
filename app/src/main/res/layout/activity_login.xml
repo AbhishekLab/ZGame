@@ -75,7 +75,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/txt_login"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -83,8 +83,8 @@
                     android:layout_marginLeft="72dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="72dp"
-                    android:background="@drawable/toolbar_gradient"
                     android:gravity="center"
+                    android:background="@drawable/toolbar_gradient"
                     android:text="login"
                     android:textAllCaps="false"
                     android:textColor="@color/dark_brown"

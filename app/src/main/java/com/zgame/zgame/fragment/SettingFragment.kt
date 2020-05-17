@@ -2,10 +2,11 @@ package com.zgame.zgame.fragment
 
 import android.view.View
 import com.zgame.zgame.R
+import com.zgame.zgame.adapter.DemoAdapter
 import com.zgame.zgame.base.BaseFragment
 import com.zgame.zgame.databinding.FragmentSettingBinding
 
-class SettingFragment  : BaseFragment<FragmentSettingBinding>() {
+class SettingFragment : BaseFragment<FragmentSettingBinding>() {
     override fun initNav(view: View) {
     }
 
@@ -15,5 +16,6 @@ class SettingFragment  : BaseFragment<FragmentSettingBinding>() {
     override fun initView(binding: FragmentSettingBinding) {
         mBinding = binding
 
+        //mBinding.rvUserProfile.adapter = DemoAdapter()
     }
 }

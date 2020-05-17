@@ -137,7 +137,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     private fun setUpToolbar() {
         setSupportActionBar(mBinding.toolbar)
         supportActionBar?.title = ""
-        mBinding.ivBack.setOnClickListener { finish() }
+        //mBinding.ivBack.setOnClickListener { finish() }
     }
 
     private fun setDialog() {

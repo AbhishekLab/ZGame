@@ -4,6 +4,7 @@ object Constant{
     const val STORAGE_PERMISSION = 100
     const val CAMERA_PERMISSION = 101
     const val PICK_REQUEST = 102
+    const val SAVE_REQUEST = 103
     const val uniqueName = "uniqueName"
     const val seeking = "seeking"
     const val age = "age"
@@ -15,6 +16,8 @@ object Constant{
     const val coupleFF = "coupleFF"
     const val coupleMM = "coupleMM"
     const val coupleFM = "coupleFM"
+    const val profilePic = "profilePic"
+    const val firebaseUserGallery = "firebaseUserGallery"
 
     const val reservoir_key = "reservoirKey"
 

@@ -8,11 +8,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.zgame.zgame.MainActivity
 import com.zgame.zgame.R
 import com.zgame.zgame.base.BaseActivity
+import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.LoginContract
 import com.zgame.zgame.databinding.ActivityLoginBinding
 import com.zgame.zgame.presenter.LoginPresenter
+import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Validation
 
 
@@ -53,6 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.LoginV
     override fun loginSuccess() {
         mBinding.progressBar.visibility = View.GONE
         showToast("Login Success ")
+        finish()
     }
 
     override fun loginFailed(message: String) {

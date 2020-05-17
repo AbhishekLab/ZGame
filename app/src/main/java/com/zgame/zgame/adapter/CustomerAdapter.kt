@@ -24,7 +24,6 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
     override fun getItemCount(): Int = data!!.size
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
-
         holder.execute()
     }
 
@@ -38,7 +37,7 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
 
             Glide.with(context!!).load(data?.get(adapterPosition)?.profilePic).into(mBinding.ivCustomer)
 
-            mBinding.cvDetails.setOnClickListener {
+            mBinding.clDetail.setOnClickListener {
                 listener.userDetailPage(adapterPosition)
             }
         }

@@ -57,6 +57,7 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
                     PreferanceRepository.setString(Constant.coupleFM, currentUser?.coupleFM)
                     PreferanceRepository.setString(Constant.coupleMM, currentUser?.coupleMM)
                     PreferanceRepository.setString(Constant.uniqueName, currentUser?.userName!!)
+                    PreferanceRepository.setString(Constant.profilePic, currentUser?.profilePic.toString())
                 }
 
                 override fun onFailure(e: Exception) {
