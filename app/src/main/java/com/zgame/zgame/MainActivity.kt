@@ -73,7 +73,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         mBinding.layoutDrawer.txtLogin.setOnClickListener{
             closeDrawer()
-            startActivity(Intent(this,LoginActivity::class.java))}
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
+        mBinding.bottomAppBar.setNavigationOnClickListener {
+            mBinding.dlLayout.openDrawer(GravityCompat.START)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

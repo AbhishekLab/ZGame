@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowCustomerAdapterBinding
 import com.zgame.zgame.model.SignUpModel
@@ -35,7 +37,10 @@ class CustomerAdapter(val context: FragmentActivity?, private val listener : Pro
             mBinding.tvCustomerGender.text = data?.get(adapterPosition)?.gender!![0]
             mBinding.tvCustomerName.text = data?.get(adapterPosition)?.userName
 
-            Glide.with(context!!).load(data?.get(adapterPosition)?.profilePic).into(mBinding.ivCustomer)
+            Glide.with(context!!).load(data?.get(adapterPosition)?.apply {
+                RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
+                RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
+            }?.profilePic).into(mBinding.ivCustomer)
 
             mBinding.clDetail.setOnClickListener {
                 listener.userDetailPage(adapterPosition)

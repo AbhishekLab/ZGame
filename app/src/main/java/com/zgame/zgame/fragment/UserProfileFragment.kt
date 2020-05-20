@@ -3,19 +3,17 @@ package com.zgame.zgame.fragment
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
 import com.zgame.zgame.MainActivity
 import com.zgame.zgame.R
 import com.zgame.zgame.activity.LoginActivity
-import com.zgame.zgame.adapter.CustomerAdapter
-import com.zgame.zgame.adapter.CustomerContactAdapter
 import com.zgame.zgame.adapter.UserProfileAdapter
 import com.zgame.zgame.base.BaseFragment
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.UserProfileContract
 import com.zgame.zgame.databinding.FragmentUserProfileBinding
+import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.UserProfilePresenter
 import com.zgame.zgame.utils.Constant
@@ -73,9 +71,18 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),  UserPro
         }
     }
 
-    override fun fetchSuccessfully(userGalleryImages: ArrayList<String>) {
+    override fun fetchSuccessfully(userGalleryImages: ArrayList<PostModel>?) {
         //rv_update
-        profileAdapter.addImages(userGalleryImages)
+        if(userGalleryImages.isNullOrEmpty()){
+            showToast("No Data Found")
+        }else{
+            userGalleryImages.forEachIndexed{index , it ->
+                if(!it.image.isNullOrEmpty()){
+                    profileAdapter.addImages(it.image!![index].values)
+                }
+            }
+
+        }
     }
 
     override fun error(message: String) {

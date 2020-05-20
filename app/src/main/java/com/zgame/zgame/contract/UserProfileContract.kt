@@ -1,8 +1,10 @@
 package com.zgame.zgame.contract
 
+import com.zgame.zgame.model.PostModel
+
 class  UserProfileContract{
     interface UserProfileView{
-        fun fetchSuccessfully(userGalleryImages: ArrayList<String>)
+        fun fetchSuccessfully(userGalleryImages: ArrayList<PostModel>?)
         fun error(message:String)
     }
 

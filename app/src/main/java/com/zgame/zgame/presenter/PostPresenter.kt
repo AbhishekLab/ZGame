@@ -1,11 +1,12 @@
 package com.zgame.zgame.presenter
 
 import android.net.Uri
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.zgame.zgame.contract.PostContract
+import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.firebaseUserGallery
 
@@ -15,6 +16,7 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
     private var randomImageName: String = ""
     private var db: FirebaseFirestore? = null
     private var imageUrl : String = ""
+    private var postModel : PostModel = PostModel()
 
     override fun postImage(imageFile: Uri?, userUniqueName: String?) {
         if (imageFile != null && userUniqueName != null) {
@@ -27,12 +29,13 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
 
     private fun uploadProfilePic(profilePhoto: Uri?, userUniqueName: String, randomImageName: String) {
         mStorageRef = FirebaseStorage.getInstance().reference
-        mStorageRef?.child(userUniqueName)?.child(firebaseUserGallery)?.child("$userUniqueName $randomImageName")
+        mStorageRef?.child(userUniqueName)?.child(firebaseUserGallery)?.child("$userUniqueName$randomImageName")
             ?.putFile(profilePhoto!!)?.addOnCompleteListener { it ->
                 if (it.isSuccessful) {
-                    mStorageRef?.child(userUniqueName)?.child(firebaseUserGallery)?.child("$userUniqueName $randomImageName")?.downloadUrl
+                    mStorageRef?.child(userUniqueName)?.child(firebaseUserGallery)?.child("$userUniqueName$randomImageName")?.downloadUrl
                         ?.addOnCompleteListener {
                             if(it.isSuccessful){
+                                //    postModel.image?.put(randomImageName , it.result.toString())
                                 imageUrl = it.result.toString()
                                 addUrlToUserDatabase(imageUrl,userUniqueName)
                             }
@@ -49,13 +52,13 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
             }
     }
 
-    private fun addUrlToUserDatabase(imageUrl: String,userUniqueName: String) {
+    private fun addUrlToUserDatabase(imageUrl: String, userUniqueName: String) {
         db = FirebaseFirestore.getInstance()
         val hashMap:HashMap<String,String> = HashMap()
-        hashMap["$userUniqueName $randomImageName"] = imageUrl
+        hashMap["$userUniqueName$randomImageName"] = imageUrl
 
         db?.collection(Constant.DbName)?.document(userUniqueName)?.collection(userUniqueName)?.document(firebaseUserGallery)
-            ?.set(hashMap,SetOptions.merge())
+            ?.update("image",FieldValue.arrayUnion(hashMap))
             ?.addOnCompleteListener {
                 view.postSuccess()
             }?.addOnFailureListener {

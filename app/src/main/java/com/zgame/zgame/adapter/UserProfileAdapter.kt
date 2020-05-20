@@ -31,8 +31,8 @@ class UserProfileAdapter(private val context : Context) : RecyclerView.Adapter<U
         }
     }
 
-    fun addImages(listOfImages: ArrayList<String>?) {
-        this.listOfImages.addAll(listOfImages!!)
+    fun addImages(listOfImages: MutableCollection<String>) {
+        this.listOfImages.addAll(listOfImages)
         notifyDataSetChanged()
     }
 }

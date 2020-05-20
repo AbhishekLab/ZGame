@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.zgame.zgame.R
@@ -18,6 +19,7 @@ import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.databinding.ActivityCustomerDetailBinding
 import com.zgame.zgame.model.ContactRandomData
+import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerDetailPresenter
 import com.zgame.zgame.utils.Constant
@@ -36,6 +38,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     private var myUniqueName = ""
     private var followSingleTask: Boolean = true
     private var winkSingleTask : Boolean = true
+    private var images : ArrayList<String>? = null
 
     private lateinit var feedAdapter: FeedAdapter
 
@@ -64,13 +67,11 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         userList = intent.getSerializableExtra(Constant.uniqueName) as SignUpModel
         followPersonName = userList?.userName!!
 
-        setUpRecyclerView()
-
-
 
         mBinding.toolbar.apply { setUpToolbar() }
 
         setDetailPage()
+        setUserImages()
 
         mBinding.txtFollow.setOnClickListener {
             follow()
@@ -81,6 +82,10 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         //presenter.customerDetail(nameId!!)
     }
 
+    private fun setUserImages() {
+        presenter.getSelectedUserImage(uniqueName = followPersonName )
+    }
+
     private fun unFollow() {
         presenter.unFollow(followPersonName, myUniqueName)
         showToast("UnFollow")
@@ -88,11 +93,6 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     private fun follow() {
         presenter.follow(followPersonName, myUniqueName)
-    }
-
-    private fun setUpRecyclerView() {
-        mBinding.rvFeed.adapter = feedAdapter
-        mBinding.rvFeed.setHasFixedSize(true)
     }
 
     private fun setDetailPage() {
@@ -182,16 +182,14 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         showToast("UnFollow $followPersonName")
     }
 
-    override fun followError(message: String) {
+    override fun error(message: String) {
         showToast(message)
     }
 
     override fun addWink(position: Int?) {
         if(winkSingleTask){
             winkSingleTask = false
-
         }
-
         showToast("Add Wink")
     }
     override fun winkAdded() {
@@ -200,5 +198,19 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     override fun winkRemove() {
         winkSingleTask = true
+    }
+
+    override fun setSelectedUserImage(userImage: PostModel) {
+        mBinding.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mBinding.rvFeed.adapter = feedAdapter
+
+        images = ArrayList()
+        userImage.image?.map { it ->
+            it.mapValues {
+                images?.add(it.value)
+            }
+        }
+
+        feedAdapter.addItem(images)
     }
 }

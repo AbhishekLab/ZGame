@@ -115,15 +115,16 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
         val combinedTask: Task<*> = Tasks.whenAllSuccess<QuerySnapshot>(maleQuery?.get(),femaleQuery?.get(), coupleMMQuery?.get(),
             coupleFFQuery?.get(),coupleFMQuery?.get()).addOnSuccessListener {
 
-            for (queryDocumentSnapshots in it) {
+        }.addOnFailureListener {
+            view.getNullValue(it.message!!)
+        }.addOnCompleteListener {
+            for (queryDocumentSnapshots in it.result!!.iterator()) {
                 for (documentSnapshot in queryDocumentSnapshots) {
                     userList?.add(documentSnapshot.toObject(SignUpModel::class.java))
                 }
             }
             view.getUsersFilterList(userList)
 
-        }.addOnFailureListener {
-            view.getNullValue(it.message!!)
         }
     }
 }

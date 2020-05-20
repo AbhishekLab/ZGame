@@ -1,7 +1,6 @@
 package com.zgame.zgame.fragment
 
 import android.content.Intent
-import android.util.Log.e
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,6 @@ import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerPresenter
 import com.zgame.zgame.utils.Constant
 
-
 class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile,
     CustomerContract.CustomerView {
 
@@ -38,10 +36,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         mBinding = binding
 
         presenter = CustomerPresenter(this)
-        mBinding.pulsator.start()
-
-        
-
+        //mBinding.pulsator.start()
 
         initRecyclerView()
 
@@ -64,7 +59,6 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         mBinding.rvCustomersContact.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         contactAdapter = CustomerContactAdapter(context = context!!)
-
 
     }
 
@@ -89,8 +83,8 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     override fun getUsersFilterList(userFilterList: ArrayList<SignUpModel>?) {
         userLists = ArrayList()
         mBinding.rvCustomers.visibility = View.VISIBLE
-        mBinding.cvGif.visibility = View.GONE
-        mBinding.pulsator.stop()
+       // mBinding.cvGif.visibility = View.GONE
+        //mBinding.pulsator.stop()
         for (i in userFilterList!!.indices) {
             if (userFilterList[i].userName != PreferanceRepository.getString(Constant.uniqueName)) {
                 userLists?.add(userFilterList[i])
