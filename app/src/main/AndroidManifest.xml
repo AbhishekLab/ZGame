@@ -77,6 +77,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.PostImageActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditProfileActivity"
+            android:screenOrientation="portrait"/>
 
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->

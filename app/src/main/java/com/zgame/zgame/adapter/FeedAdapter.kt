@@ -56,7 +56,6 @@ class FeedAdapter(private val context : Context, private val callBack : Wink) : 
     }
 
     fun addItem(data: ArrayList<String>?) {
-        e("sdfsdfsdf", data!![0])
         this.data = data!!
     }
 

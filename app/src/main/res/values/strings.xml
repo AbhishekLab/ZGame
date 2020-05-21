@@ -18,6 +18,37 @@
     <string name="label_adjust">Adjust</string>
     <string name="msg_save_image">Are you want to exit without saving image ?</string>
 
+    <string name="arms">Arms</string>
+    <string name="bikini">Bikini</string>
+    <string name="buns">Buns</string>
+    <string name="tummy">Tummy</string>
+    <string name="legs">Legs</string>
+    <string name="every_where">Everywhere</string>
+    <string name="chest">Chest</string>
+    <string name="treasure">Treasure</string>
+    <string name="arm_pits">Arm Pits</string>
+    <string name="shave">Shave</string>
+    <string name="smooth">Smooth</string>
+
+    <string name="with_condoms">With Condoms</string>
+    <string name="body_contact">Body contact</string>
+    <string name="erotic_massage">Erotic Massage</string>
+    <string name="kissing">Kissing</string>
+    <string name="giving_oral_sex">Giving Oral Sex</string>
+    <string name="receiving_oral_sex">Receiving Oral Sex</string>
+    <string name="anal_sex_giving">Anal Sex Giving</string>
+    <string name="anal_sex_receiving">Anal Sex Receiving</string>
+    <string name="polyamory">Polyamory</string>
+
+    <string name="active_involvement">Active Involvement</string>
+    <string name="passive_watching_only">Passive Watching Only</string>
+    <string name="one_on_one">One on One</string>
+    <string name="threesomes">Threesomes</string>
+    <string name="group_sex">Group Sex</string>
+    <string name="masturbation">Masturbation</string>
+    <string name="voyeurism">Voyeurism</string>
+
+
     <string-array name="i_am_a">
         <item>Female</item>
         <item>Male</item>
@@ -57,6 +88,7 @@
     <string name="choose_existing">choose Existing</string>
     <string name="comments">Comments</string>
     <string name="label_brush">Brush</string>
+    <string name="update_profile">Update Profile</string>
 
     <!--navigationDrawer-->
     <string name="home">Home</string>
@@ -68,4 +100,216 @@
     <string name="about_us">About Us</string>
     <string name="log_out">Log Out</string>
 
+    <string-array name="weight">
+        <item>Select Weight</item>
+        <item>80 Lbs.(36 Kg)</item>
+        <item>82 Lbs.(37 Kg)</item>
+        <item>84 Lbs.(38 Kg)</item>
+        <item>86 Lbs.(39 Kg)</item>
+        <item>88 Lbs.(40 Kg)</item>
+        <item>90 Lbs.(41 Kg)</item>
+        <item>92 Lbs.(42 Kg)</item>
+        <item>94 Lbs.(43 Kg)</item>
+        <item>96 Lbs.(44 Kg)</item>
+        <item>98 Lbs.(45 Kg)</item>
+        <item>100 Lbs.(46 Kg)</item>
+        <item>102 Lbs.(47 Kg)</item>
+        <item>104 Lbs.(48 Kg)</item>
+        <item>106 Lbs.(49 Kg)</item>
+        <item>108 Lbs.(50 Kg)</item>
+        <item>110 Lbs.(51 Kg)</item>
+        <item>112 Lbs.(52 Kg)</item>
+        <item>114 Lbs.(53 Kg)</item>
+        <item>116 Lbs.(54 Kg)</item>
+        <item>118 Lbs.(55 Kg)</item>
+        <item>120 Lbs.(56 Kg)</item>
+        <item>122 Lbs.(57 Kg)</item>
+        <item>124 Lbs.(58 Kg)</item>
+        <item>126 Lbs.(59 Kg)</item>
+        <item>120 Lbs.(60 Kg)</item>
+        <item>128 Lbs.(61 Kg)</item>
+        <item>130 Lbs.(62 Kg)</item>
+        <item>132 Lbs.(63 Kg)</item>
+        <item>134 Lbs.(64 Kg)</item>
+        <item>136 Lbs.(65 Kg)</item>
+        <item>140 Lbs.(66 Kg)</item>
+        <item>144 Lbs.(67 Kg)</item>
+        <item>146 Lbs.(68 Kg)</item>
+        <item>148 Lbs.(69 Kg)</item>
+        <item>150 Lbs.(70 Kg)</item>
+        <item>152 Lbs.(71 Kg)</item>
+        <item>154 Lbs.(72 Kg)</item>
+        <item>156 Lbs.(73 Kg)</item>
+        <item>158 Lbs.(74 Kg)</item>
+        <item>160 Lbs.(75 Kg)</item>
+        <item>162 Lbs.(76 Kg)</item>
+        <item>164 Lbs.(77 Kg)</item>
+        <item>166 Lbs.(78 Kg)</item>
+        <item>168 Lbs.(79 Kg)</item>
+        <item>170 Lbs.(80 Kg)</item>
+        <item>172 Lbs.(81 Kg)</item>
+        <item>174 Lbs.(82 Kg)</item>
+        <item>176 Lbs.(83 Kg)</item>
+        <item>178 Lbs.(84 Kg)</item>
+        <item>180 Lbs.(85 Kg)</item>
+        <item>182 Lbs.(86 Kg)</item>
+        <item>184 Lbs.(87 Kg)</item>
+        <item>186 Lbs.(88 Kg)</item>
+        <item>188 Lbs.(89 Kg)</item>
+        <item>190 Lbs.(90 Kg)</item>
+        <item>192 Lbs.(91 Kg)</item>
+        <item>194 Lbs.(92 Kg)</item>
+        <item>196 Lbs.(93 Kg)</item>
+        <item>198 Lbs.(94 Kg)</item>
+        <item>200 Lbs.(95 Kg)</item>
+        <item>202 Lbs.(96 Kg)</item>
+        <item>204 Lbs.(97 Kg)</item>
+        <item>206 Lbs.(98 Kg)</item>
+        <item>208 Lbs.(99 Kg)</item>
+        <item>210 Lbs.(100 Kg)</item>
+        <item>212 Lbs.(101 Kg)</item>
+        <item>214 Lbs.(102 Kg)</item>
+        <item>216 Lbs.(103 Kg)</item>
+        <item>218 Lbs.(104 Kg)</item>
+        <item>220 Lbs.(105 Kg)</item>
+        <item>222 Lbs.(106 Kg)</item>
+        <item>224 Lbs.(107 Kg)</item>
+        <item>226 Lbs.(108 Kg)</item>
+        <item>228 Lbs.(109 Kg)</item>
+        <item>230 Lbs.(110 Kg)</item>
+        <item>232 Lbs.(111 Kg)</item>
+        <item>234 Lbs.(112 Kg)</item>
+        <item>236 Lbs.(113 Kg)</item>
+        <item>238 Lbs.(114 Kg)</item>
+        <item>240 Lbs.(115 Kg)</item>
+        <item>242 Lbs.(116 Kg)</item>
+        <item>244 Lbs.(117 Kg)</item>
+        <item>246 Lbs.(118 Kg)</item>
+        <item>248 Lbs.(119 Kg)</item>
+        <item>250 Lbs.(120 Kg)</item>
+        <item>252 Lbs.(121 Kg)</item>
+        <item>254 Lbs.(122 Kg)</item>
+        <item>256 Lbs.(123 Kg)</item>
+        <item>258 Lbs.(124 Kg)</item>
+        <item>260 Lbs.(125 Kg)</item>
+        <item>262 Lbs.(126 Kg)</item>
+        <item>264 Lbs.(127 Kg)</item>
+        <item>266 Lbs.(128 Kg)</item>
+        <item>268 Lbs.(129 Kg)</item>
+        <item>270 Lbs.(130 Kg)</item>
+        <item>272 Lbs.(131 Kg)</item>
+        <item>274 Lbs.(132 Kg)</item>
+        <item>276 Lbs.(133 Kg)</item>
+        <item>278 Lbs.(134 Kg)</item>
+        <item>280 Lbs.(135 Kg)</item>
+        <item>282 Lbs.(136 Kg)</item>
+        <item>284 Lbs.(137 Kg)</item>
+        <item>286 Lbs.(138 Kg)</item>
+        <item>288 Lbs.(139 Kg)</item>
+        <item>290 Lbs.(140 Kg)</item>
+        <item>292 Lbs.(141 Kg)</item>
+        <item>294 Lbs.(142 Kg)</item>
+        <item>296 Lbs.(143 Kg)</item>
+        <item>298 Lbs.(144 Kg)</item>
+        <item>300 Lbs.(145 Kg)</item>
+        <item>302 Lbs.(146 Kg)</item>
+        <item>304 Lbs.(147 Kg)</item>
+        <item>306 Lbs.(148 Kg)</item>
+        <item>308 Lbs.(149 Kg)</item>
+        <item>310 Lbs.(150 Kg)</item>
+        <item>312 Lbs.(151 Kg)</item>
+        <item>314 Lbs.(152 Kg)</item>
+        <item>316 Lbs.(153 Kg)</item>
+        <item>318 Lbs.(154 Kg)</item>
+        <item>320 Lbs.(155 Kg)</item>
+        <item>322 Lbs.(156 Kg)</item>
+        <item>324 Lbs.(157 Kg)</item>
+        <item>326 Lbs.(158 Kg)</item>
+        <item>328 Lbs.(159 Kg)</item>
+        <item>330 Lbs.(160 Kg)</item>
+    </string-array>
+
+    <string-array name="body_type">
+        <item>Select Body Type</item>
+        <item>Nice and Slim</item>
+        <item>Average</item>
+        <item>Athletic</item>
+        <item>Nicely Shaped</item>
+        <item>A few extra pounds</item>
+        <item>Huggable and Heavy</item>
+        <item>Disabled</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="ethnic_background">
+        <item>Select Body Type</item>
+        <item>Caucasian</item>
+        <item>Hispanic/Latin</item>
+        <item>Asian</item>
+        <item>Black / African-American</item>
+        <item>Indian</item>
+        <item>Arabian</item>
+        <item>Middle Eastern</item>
+        <item>Jewish</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="true_false">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+
+
+    <string-array name="tattoo">
+        <item>None</item>
+        <item>One</item>
+        <item>A few</item>
+        <item>Inked</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="sexuality">
+        <item>Select Sexuality</item>
+        <item>Straight</item>
+        <item>Bi-sexual</item>
+        <item>Bi-curious</item>
+        <item>Gay</item>
+        <item>Lesbian</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+
+    <string-array name="experience">
+        <item>None</item>
+        <item>Curious</item>
+        <item>Newbie</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
+
+    <string-array name="looks_are_important">
+        <item>No</item>
+        <item>Low Importance</item>
+        <item>Medium Importance</item>
+        <item>Very Important</item>
+    </string-array>
+
+    <string-array name="hair_length">
+        <item>Select hair Length</item>
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
+        <item>Bald</item>
+        <item>Shaved</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+
+
 </resources>
+
+
+
+

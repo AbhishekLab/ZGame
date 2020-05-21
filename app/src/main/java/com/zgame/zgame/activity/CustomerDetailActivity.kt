@@ -210,7 +210,14 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
                 images?.add(it.value)
             }
         }
-
-        feedAdapter.addItem(images)
+        if(images?.size != 0){
+            mBinding.rvFeed.visibility = View.VISIBLE
+            mBinding.llDetails.visibility = View.GONE
+            feedAdapter.addItem(images)
+        }else{
+            mBinding.response = userList
+            mBinding.rvFeed.visibility = View.GONE
+            mBinding.llDetails.visibility = View.VISIBLE
+        }
     }
 }

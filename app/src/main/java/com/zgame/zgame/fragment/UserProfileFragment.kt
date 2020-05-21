@@ -3,8 +3,10 @@ package com.zgame.zgame.fragment
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.zgame.zgame.MainActivity
 import com.zgame.zgame.R
 import com.zgame.zgame.activity.LoginActivity
@@ -19,14 +21,16 @@ import com.zgame.zgame.presenter.UserProfilePresenter
 import com.zgame.zgame.utils.Constant
 import java.lang.NullPointerException
 
-class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),  UserProfileContract.UserProfileView {
+class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),
+    UserProfileContract.UserProfileView {
 
-    private var currentUserData : SignUpModel? = SignUpModel()
+    private var currentUserData: SignUpModel? = SignUpModel()
 
     lateinit var mBinding: FragmentUserProfileBinding
-    lateinit var presenter : UserProfilePresenter
-    private var uniqueName : String? = null
-    lateinit var profileAdapter : UserProfileAdapter
+    lateinit var presenter: UserProfilePresenter
+    private var uniqueName: String? = null
+    lateinit var profileAdapter: UserProfileAdapter
+    private var image: ArrayList<String>? = null
 
     override fun getContentView(): Int = R.layout.fragment_user_profile
 
@@ -36,21 +40,22 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),  UserPro
     override fun initView(binding: FragmentUserProfileBinding) {
         mBinding = binding
         presenter = UserProfilePresenter(this)
-        uniqueName  = PreferanceRepository.getString(Constant.uniqueName)
+        uniqueName = PreferanceRepository.getString(Constant.uniqueName)
 
-        initRecyclerView()
+        profileAdapter = UserProfileAdapter(activity!!)
+
         mBinding.txtLogin.setOnClickListener {
             startActivity(Intent(context, LoginActivity::class.java))
         }
 
-        if(mAuth.currentUser!=null){
+        if (mAuth.currentUser != null) {
             mBinding.txtLogin.visibility = View.GONE
             //mBinding.llUserData.visibility = View.VISIBLE
 
             setUserAvailableData()
             getUserImages()
 
-        }else{
+        } else {
             mBinding.txtLogin.visibility = View.VISIBLE
             //mBinding.llUserData.visibility = View.GONE
         }
@@ -61,27 +66,42 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),  UserPro
     }
 
     private fun setUserAvailableData() {
-        try{
-            currentUserData =   Reservoir.get(Constant.reservoir_key, SignUpModel::class.java)
+        try {
+            currentUserData = Reservoir.get(Constant.reservoir_key, SignUpModel::class.java)
             mBinding.userData = currentUserData
-            Glide.with(activity!!).load(currentUserData?.profilePic).into(mBinding.imgProfile)
 
-        }catch (e: NullPointerException){
+            if(currentUserData?.profilePic == null){
+                Glide.with(activity!!).load(R.drawable.ic_white_profile_place_holder).apply {
+                    RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
+                }.into(mBinding.imgProfile)
+
+            }else{
+                Glide.with(activity!!).load(currentUserData?.profilePic).apply {
+                    RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
+                }.into(mBinding.imgProfile)
+            }
+
+
+        } catch (e: NullPointerException) {
             showToast(e.message.toString())
         }
     }
 
-    override fun fetchSuccessfully(userGalleryImages: ArrayList<PostModel>?) {
+    override fun fetchSuccessfully(userGalleryImages: PostModel) {
         //rv_update
-        if(userGalleryImages.isNullOrEmpty()){
-            showToast("No Data Found")
-        }else{
-            userGalleryImages.forEachIndexed{index , it ->
-                if(!it.image.isNullOrEmpty()){
-                    profileAdapter.addImages(it.image!![index].values)
-                }
-            }
+        mBinding.rvMyImages.layoutManager = GridLayoutManager(activity, 3)
+        mBinding.rvMyImages.adapter = profileAdapter
+        image = ArrayList()
 
+        userGalleryImages.image?.map { it ->
+            it.mapValues {
+                image?.add(it.value)
+            }
+        }
+        if (image!!.size == 0) {
+            showToast("No data found")
+        } else {
+            profileAdapter.addImages(image!!)
         }
     }
 
@@ -89,14 +109,11 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(),  UserPro
         //if error(show message and random data)
     }
 
-    private fun initRecyclerView(){
-        mBinding.rvMyImages.layoutManager = GridLayoutManager(activity, 3)
-        profileAdapter = UserProfileAdapter(activity!!)
-        mBinding.rvMyImages.adapter = profileAdapter
-    }
-
     override fun onStart() {
         super.onStart()
-        (activity as MainActivity).setUserImage(PreferanceRepository.getString(Constant.uniqueName), PreferanceRepository.getString(Constant.profilePic))
+        (activity as MainActivity).setUserImage(
+            PreferanceRepository.getString(Constant.uniqueName),
+            PreferanceRepository.getString(Constant.profilePic)
+        )
     }
 }

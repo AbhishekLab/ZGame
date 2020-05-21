@@ -23,6 +23,7 @@ import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.zgame.zgame.activity.EditProfileActivity
 import com.zgame.zgame.activity.LoginActivity
 import com.zgame.zgame.activity.PostImageActivity
 import com.zgame.zgame.adapter.DrawerItemAdapter
@@ -224,7 +225,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
         when (position) {
             1 -> {
-                showToast("Open 1 Fragment")
+                startActivity(Intent(this, EditProfileActivity::class.java))
                 closeDrawer()
             }
             2 -> {

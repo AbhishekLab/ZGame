@@ -15,6 +15,7 @@ import android.view.View
 import com.zgame.zgame.R
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.zgame.zgame.MainActivity
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.contract.SignUpContract
 import com.zgame.zgame.databinding.ActivitySignUp3Binding
@@ -265,6 +266,10 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
     override fun registerDone() {
         showToast(resources.getString(R.string.register_done))
         mBinding.progressBar.visibility = View.GONE
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
     }
 
     override fun registerNotDone(message: String?) {

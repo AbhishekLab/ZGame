@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowUserProfileBinding
 
@@ -27,12 +28,13 @@ class UserProfileAdapter(private val context : Context) : RecyclerView.Adapter<U
         RecyclerView.ViewHolder(mBinding.root) {
 
         fun setImages() {
-           Glide.with(context).load(listOfImages[adapterPosition]).into(mBinding.imgUserPic)
+           Glide.with(context).load(listOfImages[adapterPosition]).apply{
+               RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
+           }.into(mBinding.imgUserPic)
         }
     }
 
-    fun addImages(listOfImages: MutableCollection<String>) {
+    fun addImages(listOfImages: ArrayList<String>) {
         this.listOfImages.addAll(listOfImages)
-        notifyDataSetChanged()
     }
 }

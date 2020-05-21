@@ -94,6 +94,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         if (userLists?.size == 0) {
             showToast("No data available")
         } else {
+
             customerAdapter?.addItem(userLists)
             mBinding.rvCustomers.adapter = customerAdapter
         }
