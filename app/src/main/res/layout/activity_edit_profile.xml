@@ -2,7 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="userData"
+            type="com.zgame.zgame.model.SignUpModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_background"
@@ -10,12 +18,19 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/app_background">
+            android:layout_height="0dp"
+            android:background="@drawable/app_background"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +53,7 @@
                         app:civ_border_width="0.5dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_submit"
+                        android:id="@+id/btn_browse"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
@@ -93,11 +108,12 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/txt_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1.4"
-                            android:text="Name"
+                            android:text="@{userData.name}"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -130,12 +146,12 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/txt_age"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1.4"
-
-                            android:text="Name"
+                            android:text="@{userData.age}"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -168,12 +184,12 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/txt_height"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1.4"
-
-                            android:text="Name"
+                            android:text="@{userData.height}"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -182,6 +198,39 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="8dp"
                         android:background="@color/light_gray" />
+
+                    <LinearLayout
+                        android:id="@+id/hz_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:orientation="vertical"
+                        android:padding="6dp">
+
+                        <TextView
+                            android:id="@+id/txt_marquee"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Please wait... it will take few moments, we will fetch your profile data  "
+                            android:textColor="@color/dark_brown"
+                            android:fadingEdge="horizontal"
+                            android:ellipsize="marquee"
+                            android:scrollHorizontally="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:textSize="16sp"
+                            android:singleLine="true" />
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:max="100"
+                            android:indeterminate="true"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -202,6 +251,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_weight"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -236,6 +286,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_body_type"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -269,6 +320,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_ethnic_background"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -302,6 +354,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_smoke"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -335,6 +388,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_tattoo"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -368,6 +422,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_sexuality"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -401,6 +456,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_experience"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -434,6 +490,7 @@
                             android:textSize="16sp" />
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_looks_are_important"
                             style="@style/spinner_style"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -468,12 +525,13 @@
 
 
                         <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/cg_body_hair"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.4">
 
                             <com.google.android.material.chip.Chip
-                                style="@style/Widget.MaterialComponents.Chip.Entry"
+                                style="@style/Widget.MaterialComponents.Chip.Action"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/arms"
@@ -576,12 +634,13 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.6"
                             android:fontFamily="@font/montserrat_medium"
-                            android:text="My Sexual Comfort Level"
+                            android:text="My Sexual Comfort"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
 
                         <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/cg_mmy_sexual_comfort"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.4">
@@ -688,6 +747,7 @@
 
 
                         <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/cg_what_do_you_like"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.4">
@@ -750,13 +810,146 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@color/light_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:orientation="horizontal"
+                        android:padding="6dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Introduce yourself"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/et_introduction_your_self"
+                            style="@style/spinner_style"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:hint="Introduce yourself in 200 words\n\n"
+                            android:maxLength="200"
+                            android:singleLine="false"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1.4"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:orientation="horizontal"
+                        android:padding="6dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Description"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/dt_description"
+                            style="@style/spinner_style"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Description\n\n\n\n"
+                            android:maxLength="500"
+                            android:layout_marginStart="4dp"
+                            android:gravity="top"
+                            android:singleLine="false"
+                            android:layout_weight="1.4"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:orientation="horizontal"
+                        android:padding="6dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="What you are looking for?"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/et_what_are_you_looking_for"
+                            style="@style/spinner_style"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="What you are looking for?\n\n\n\n"
+                            android:maxLength="2000"
+                            android:gravity="top"
+                            android:singleLine="false"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1.4"/>
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="72dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/toolbar_gradient"
+                        android:gravity="center"
+                        android:text="Update"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_brown"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/dark_brown"/>
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

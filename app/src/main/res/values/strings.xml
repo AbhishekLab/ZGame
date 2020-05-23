@@ -243,7 +243,7 @@
     </string-array>
 
     <string-array name="ethnic_background">
-        <item>Select Body Type</item>
+        <item>Select Ethnic background</item>
         <item>Caucasian</item>
         <item>Hispanic/Latin</item>
         <item>Asian</item>

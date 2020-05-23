@@ -11,13 +11,14 @@ object Constant{
     const val email = "email"
     const val DbName = "Users"
     const val dbUserName = "userName"
+    const val name = "name"
     const val male = "male"
     const val female = "female"
     const val coupleFF = "coupleFF"
     const val coupleMM = "coupleMM"
     const val coupleFM = "coupleFM"
     const val profilePic = "profilePic"
-    const val firebaseUserGallery = "firebaseUserGallery"
+    const val firebaseUserGallery = "userProfile"
 
     const val reservoir_key = "reservoirKey"
 
