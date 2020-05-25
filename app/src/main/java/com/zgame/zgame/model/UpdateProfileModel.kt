@@ -15,4 +15,5 @@ class UpdateProfileModel {
     var introduceYourSelf : String? = ""
     var description : String? = ""
     var whatYouAreLookingFor : String? = ""
+    var profilePic : String? = ""
 }

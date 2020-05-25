@@ -1,6 +1,10 @@
 package com.zgame.zgame.base
 
-import android.R
+import android.app.AlertDialog
+import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -12,10 +16,12 @@ import androidx.fragment.app.Fragment
 import com.anupcowkur.reservoir.Reservoir
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.zgame.zgame.R
 import com.zgame.zgame.activity.RuntimePermissionsActivity
+import com.zgame.zgame.utils.ConnectivityReceiver
 import java.io.IOException
 
-abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity() {
+abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
 
     private var progressDialog: ProgressBar? = null
     private var v: View? = null
@@ -23,6 +29,10 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
     private lateinit var mBinding: T
 
     private var permissionAllowed = false
+
+    var mNetworkReceiver: ConnectivityReceiver? = null
+    var builder: AlertDialog.Builder? = null
+    var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +84,66 @@ abstract class BaseActivity<in T : ViewDataBinding> : RuntimePermissionsActivity
         } else {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
+    }
+    private fun showMessage(isConnected: Boolean) {
+        if (!isConnected) {
+            showNetworkDialog()
+        }
+    }
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        showMessage(isConnected)
+    }
+
+    fun isNetworkAvailable(): Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (cm != null) {
+            val info = cm.activeNetworkInfo
+            if (info != null) {
+                if (info.state == NetworkInfo.State.CONNECTED) {
+                    return true
+                }
+            }
+        }
+        showNetworkDialog()
+        return false
+    }
+
+    fun showNetworkDialog() {
+        if (dialog == null) {
+            builder = AlertDialog.Builder(this)
+            builder!!.setTitle("No Internet Connection")
+            builder!!.setMessage("Please check your internet connection")
+            builder!!.setCancelable(false)
+            builder!!.setPositiveButton("OK") { dia, which ->
+                dia.dismiss()
+                dialog = null
+            }
+            dialog = builder!!.create()
+        }
+        if (!dialog!!.isShowing)
+            dialog!!.show()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (mNetworkReceiver == null) {
+            mNetworkReceiver = ConnectivityReceiver()
+        }
+
+        registerReceiver(mNetworkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mNetworkReceiver != null)
+            unregisterReceiver(mNetworkReceiver)
+    }
+
+    override fun onResume() {
+
+        super.onResume()
+        ConnectivityReceiver.connectivityReceiverListener = this
     }
 
     companion object {

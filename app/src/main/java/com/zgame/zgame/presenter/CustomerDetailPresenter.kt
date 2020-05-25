@@ -108,11 +108,11 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
 
     override fun getSelectedUserImage(uniqueName: String) {
         images = ArrayList()
-        db?.collection(Constant.DbName)?.document(uniqueName)?.collection(uniqueName)?.document(Constant.firebaseUserGallery)?.get()?.addOnCompleteListener {
+        db?.collection(Constant.DbName)?.document(uniqueName)?.collection(uniqueName)?.document(Constant.firebaseGallery)?.get()?.addOnCompleteListener {
             if(it.isSuccessful){
                 if(it.result!!.exists()){
                     postModel = it.result?.toObject(PostModel::class.java)!!
-                    context.setSelectedUserImage(postModel)
+                        context.setSelectedUserImage(postModel)
 
                 }
             }

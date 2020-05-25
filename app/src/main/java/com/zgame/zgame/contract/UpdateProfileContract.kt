@@ -1,5 +1,6 @@
 package com.zgame.zgame.contract
 
+import android.net.Uri
 import com.zgame.zgame.model.UpdateProfileModel
 
 class UpdateProfileContract {
@@ -10,7 +11,10 @@ class UpdateProfileContract {
         fun setUserProfileData(response : UpdateProfileModel)
     }
     interface UpdateProfilePresenter{
-        fun updateProfile(model : UpdateProfileModel)
+        fun updateProfile(
+            model: UpdateProfileModel,
+            profilePhoto: Uri?
+        )
         fun getUserProfileData()
     }
 }

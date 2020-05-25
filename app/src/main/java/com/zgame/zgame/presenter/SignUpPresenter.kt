@@ -48,7 +48,7 @@ class SignUpPresenter(view: SignUpContract.SignUpView) : SignUpContract.SignUpPr
     }
 
     private fun createUserImageProfileModel() {
-        db?.collection(DbName)?.document(userName!!)?.collection(userName!!)?.document(Constant.firebaseUserGallery)
+        db?.collection(DbName)?.document(userName!!)?.collection(userName!!)?.document(Constant.firebaseGallery)
             ?.set(PostModel())
             ?.addOnCompleteListener {
                 e("createUser", "createUserImageProfileModel Done")

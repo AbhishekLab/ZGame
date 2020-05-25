@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.zgame.zgame.contract.UserProfileContract
 import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.utils.Constant
+import com.zgame.zgame.utils.Constant.firebaseGallery
 import com.zgame.zgame.utils.Constant.firebaseUserGallery
 
 class UserProfilePresenter(private val view: UserProfileContract.UserProfileView) :
@@ -17,7 +18,7 @@ class UserProfilePresenter(private val view: UserProfileContract.UserProfileView
             db = FirebaseFirestore.getInstance()
             val userImages =
                 db?.collection(Constant.DbName)?.document(uniqueName)?.collection(uniqueName)
-                    ?.document(firebaseUserGallery)?.get()
+                    ?.document(firebaseGallery)?.get()
 
             userImages?.addOnCompleteListener {
                 if (it.isSuccessful) {

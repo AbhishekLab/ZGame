@@ -19,6 +19,7 @@ object Constant{
     const val coupleFM = "coupleFM"
     const val profilePic = "profilePic"
     const val firebaseUserGallery = "userProfile"
+    const val firebaseGallery = "firebaseGallery"
 
     const val reservoir_key = "reservoirKey"
 

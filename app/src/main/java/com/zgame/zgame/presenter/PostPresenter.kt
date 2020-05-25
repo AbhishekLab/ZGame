@@ -8,6 +8,7 @@ import com.google.firebase.storage.StorageReference
 import com.zgame.zgame.contract.PostContract
 import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.utils.Constant
+import com.zgame.zgame.utils.Constant.firebaseGallery
 import com.zgame.zgame.utils.Constant.firebaseUserGallery
 
 class PostPresenter(private val view: PostContract.PostView) : PostContract.PostPresenter {
@@ -57,7 +58,7 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
         val hashMap:HashMap<String,String> = HashMap()
         hashMap["$userUniqueName$randomImageName"] = imageUrl
 
-        db?.collection(Constant.DbName)?.document(userUniqueName)?.collection(userUniqueName)?.document(firebaseUserGallery)
+        db?.collection(Constant.DbName)?.document(userUniqueName)?.collection(userUniqueName)?.document(firebaseGallery)
             ?.update("image",FieldValue.arrayUnion(hashMap))
             ?.addOnCompleteListener {
                 view.postSuccess()

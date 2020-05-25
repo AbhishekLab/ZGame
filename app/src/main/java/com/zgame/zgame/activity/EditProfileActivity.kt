@@ -1,5 +1,11 @@
 package com.zgame.zgame.activity
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log.e
 import android.view.View
 import com.anupcowkur.reservoir.Reservoir
@@ -15,6 +21,9 @@ import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.model.UpdateProfileModel
 import com.zgame.zgame.presenter.UpdateProfilePresenter
 import com.zgame.zgame.utils.Constant
+import com.zgame.zgame.utils.Constant.PICK_REQUEST
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 
 class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
@@ -25,7 +34,7 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     private var bodyHairChips: ArrayList<String> = ArrayList()
     private var childBodyHairChipsText: StringBuilder? = StringBuilder()
 
-    private var mySexyualComfortChips: ArrayList<String> = ArrayList()
+    private var mySexualComfortChips: ArrayList<String> = ArrayList()
     private var sexualComfortChipsText: StringBuilder? = StringBuilder()
 
     private var whatDoYouLikeChips: ArrayList<String> = ArrayList()
@@ -35,7 +44,12 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     private var uniqueName: String = ""
     private var loginRespponse: SignUpModel = SignUpModel()
 
+    private var profilePhoto : Uri? = null
+
     override fun onPermissionsGranted(requestCode: Int) {
+        when (requestCode) {
+            PICK_REQUEST -> setImageToProfile()
+        }
     }
 
     override fun contentView(): Int = R.layout.activity_edit_profile
@@ -56,10 +70,18 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
         setData()
 
 
-
         mBinding.btnUpdate.setOnClickListener {
             mBinding.progressBar.visibility = View.VISIBLE
-            presenter.updateProfile(getAllValue())
+            presenter.updateProfile(getAllValue(), profilePhoto)
+        }
+
+        mBinding.btnBrowse.setOnClickListener {
+            requestAppPermissions(
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ), R.string.permission_text, PICK_REQUEST
+            )
         }
 
 
@@ -82,9 +104,9 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
             // Set the chip checked change listener
             chip.setOnCheckedChangeListener { view, isChecked ->
                 if (isChecked) {
-                    mySexyualComfortChips.add(view.text.toString())
+                    mySexualComfortChips.add(view.text.toString())
                 } else {
-                    mySexyualComfortChips.remove(view.text.toString())
+                    mySexualComfortChips.remove(view.text.toString())
                 }
             }
         }
@@ -166,10 +188,10 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
         }
 
 
-        if (mySexyualComfortChips != null && mySexyualComfortChips.isNotEmpty()) {
-            mySexyualComfortChips.forEachIndexed { pos, it ->
+        if (mySexualComfortChips != null && mySexualComfortChips.isNotEmpty()) {
+            mySexualComfortChips.forEachIndexed { pos, it ->
                 sexualComfortChipsText?.append(it)
-                if (pos != (mySexyualComfortChips.size - 1)) {
+                if (pos != (mySexualComfortChips.size - 1)) {
                     sexualComfortChipsText?.append(",")
                 }
             }
@@ -201,8 +223,9 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     }
 
     override fun error(message: String) {
-        showToast("Failed to update your profile!! Please try another time")
+        showToast(message)
         mBinding.progressBar.visibility = View.GONE
+        mBinding.hzProgressBar.visibility = View.GONE
     }
 
     override fun updateSuccessfully(update: String) {
@@ -219,20 +242,34 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
         val experienceAdapter = mBinding.spExperience.adapter
         val looksAdapter = mBinding.spLooksAreImportant.adapter
 
-       /* var bodyHair = ArrayList<String>()
+        var bodyHair = ArrayList<String>()
         var mySexualComfort = ArrayList<String>()
         var whatDoYpuLike = ArrayList<String>()
 
-        if(response.bodyHair!!.contains(",")){
-            bodyHair = response.bodyHair?.split(",") as ArrayList<String>
+        if (response.bodyHair!!.isNotEmpty()) {
+            bodyHair = if (response.bodyHair!!.contains(",")) {
+                response.bodyHair?.split(",") as ArrayList<String>
+            } else {
+                arrayListOf(response.bodyHair!!)
+            }
         }
-        if(response.mySexualComfort!!.contains(",")){
-            mySexualComfort = response.mySexualComfort?.split(",") as ArrayList<String>
+
+        if (response.mySexualComfort!!.isNotEmpty()) {
+            mySexualComfort = if (response.mySexualComfort!!.contains(",")) {
+                response.mySexualComfort?.split(",") as ArrayList<String>
+            } else {
+                arrayListOf(response.mySexualComfort!!)
+            }
         }
-        if(response.mySexualComfort!!.contains(",")){
-            whatDoYpuLike = response.whatDoYouLike?.split(",") as ArrayList<String>
+
+        if (response.whatDoYouLike!!.isNotEmpty()) {
+            whatDoYpuLike = if (response.whatDoYouLike!!.contains(",")) {
+                response.whatDoYouLike?.split(",") as ArrayList<String>
+            } else {
+                arrayListOf(response.whatDoYouLike!!)
+            }
         }
-*/
+
         for (position in 0 until weightAdapter.count) {
             if (weightAdapter.getItem(position) == response.weight) {
                 mBinding.spWeight.setSelection(position)
@@ -269,20 +306,91 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
             }
         }
 
-
         for (index in 0 until mBinding.cgBodyHair.childCount) {
             val chip: Chip = mBinding.cgBodyHair.getChildAt(index) as Chip
-
+            if (bodyHair.isNotEmpty()) {
+                bodyHair.forEach {
+                    if (chip.text.toString() == it) {
+                        chip.isChecked = true
+                    }
+                }
+            }
         }
 
         for (index in 0 until mBinding.cgMmySexualComfort.childCount) {
             val chip: Chip = mBinding.cgMmySexualComfort.getChildAt(index) as Chip
-
+            if (mySexualComfort.isNotEmpty()) {
+                mySexualComfort.forEach {
+                    if (chip.text.toString() == it) {
+                        chip.isChecked = true
+                    }
+                }
+            }
         }
+
+        for (index in 0 until mBinding.cgWhatDoYouLike.childCount) {
+            val chip: Chip = mBinding.cgWhatDoYouLike.getChildAt(index) as Chip
+            if (whatDoYpuLike.isNotEmpty()) {
+                whatDoYpuLike.forEach {
+                    if (chip.text.toString() == it) {
+                        chip.isChecked = true
+                    }
+                }
+            }
+        }
+
+        mBinding.etIntroductionYourSelf.setText(response.introduceYourSelf)
+        mBinding.dtDescription.setText(response.description)
+        mBinding.etWhatAreYouLookingFor.setText(response.whatYouAreLookingFor)
+
+        mBinding.hzProgressBar.visibility = View.GONE
     }
 
 
     private fun setData() {
+        mBinding.hzProgressBar.visibility = View.VISIBLE
         presenter.getUserProfileData()
+    }
+
+    private fun setImageToProfile() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                PICK_REQUEST -> {
+                    try {
+                       /* val imgInBitmapDrawable =  data!!.extras!!["data"] as Bitmap?
+
+                        val bytes = ByteArrayOutputStream()
+                        imgInBitmapDrawable?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                        val path = MediaStore.Images.Media.insertImage(contentResolver, imgInBitmapDrawable, "ProfilePic", null)
+                        profilePhoto = Uri.parse(path.toString())
+                        Glide.with(this).load(profilePhoto).into(mBinding.imgProfile)
+*/
+
+                        val uri = data?.data
+                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                        val bytes = ByteArrayOutputStream()
+                        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                        val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "ProfilePic", null)
+                        profilePhoto = Uri.parse(path.toString())
+
+                        Glide.with(this).load(profilePhoto).into(mBinding.imgProfile)
+
+
+                    } catch (e: IOException) {
+                        e("Error", e.message.toString())
+                    }
+                }
+            }
+
+        }
     }
 }

@@ -62,8 +62,10 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
     override fun onPermissionsGranted(requestCode: Int) {
         when (requestCode) {
             Constant.CAMERA_PERMISSION -> takeCamera()
+            Constant.PICK_REQUEST -> openGallery()
         }
     }
+
 
     override fun contentView() = R.layout.activity_sign_up3
 
@@ -192,6 +194,11 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
                 arrayOf(Manifest.permission.CAMERA), R.string.permission_text, Constant.CAMERA_PERMISSION
             )
         }
+        fromExisting.setOnClickListener {
+            requestAppPermissions(
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), R.string.permission_text, Constant.PICK_REQUEST
+            )
+        }
     }
 
 
@@ -199,20 +206,42 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, Constant.CAMERA_PERMISSION)
     }
+    private fun openGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+            Constant.PICK_REQUEST
+        )
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == Constant.CAMERA_PERMISSION && resultCode == Activity.RESULT_OK){
-            val imgInBitmapDrawable =  data!!.extras!!["data"] as Bitmap?
+        if(resultCode == Activity.RESULT_OK){
+            when(requestCode){
+                Constant.CAMERA_PERMISSION -> {
+                    val imgInBitmapDrawable =  data!!.extras!!["data"] as Bitmap?
 
-           // mBinding.userImage.setImageBitmap(profilePhoto)
+                    val bytes = ByteArrayOutputStream()
+                    imgInBitmapDrawable?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(contentResolver, imgInBitmapDrawable, "ProfilePic", null)
+                    profilePhoto = Uri.parse(path.toString())
+                    Glide.with(this).load(profilePhoto).into(mBinding.userImage)
+                    dialog?.dismiss()
+                }
 
-            val bytes = ByteArrayOutputStream()
-            imgInBitmapDrawable?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            val path = MediaStore.Images.Media.insertImage(contentResolver, imgInBitmapDrawable, "ProfilePic", null)
-            profilePhoto = Uri.parse(path.toString())
-            Glide.with(this).load(profilePhoto).into(mBinding.userImage)
+                Constant.PICK_REQUEST -> {
+                    val uri = data?.data
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                    val bytes = ByteArrayOutputStream()
+                    bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "ProfilePic", null)
+                    profilePhoto = Uri.parse(path.toString())
 
+                    Glide.with(this).load(profilePhoto).into(mBinding.userImage)
+                    dialog?.dismiss()
+                }
+            }
         }
     }
 
