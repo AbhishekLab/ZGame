@@ -55,7 +55,7 @@ class UpdateProfilePresenter(private val view: UpdateProfileContract.UpdateProfi
 
             db.collection(Constant.DbName).document(uniqueName).update(Constant.profilePic, downloadedProfilePic).addOnCompleteListener {
                 if(it.isSuccessful){
-                    e("Success", "Success")
+                    view.error("Profile Pic Updated")
                 }
             }.addOnFailureListener {
                 e("FailedDueToThisReason", it.message.toString())
@@ -97,11 +97,9 @@ class UpdateProfilePresenter(private val view: UpdateProfileContract.UpdateProfi
                     response = it.result?.toObject(UpdateProfileModel::class.java)
                     if (response != null) {
                         view.setUserProfileData(response!!)
-                    }else{
-                        view.error("No data found")
                     }
                 } else {
-                    view.error("No Data Found")
+                    view.error("Something went wrong while fetching your data")
                 }
             }.addOnFailureListener {
                 view.error("Something is wrong ${it.message.toString()}")

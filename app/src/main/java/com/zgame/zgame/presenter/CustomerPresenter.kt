@@ -10,7 +10,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.CustomerContract
-import com.zgame.zgame.model.ContactRandomData
+import com.zgame.zgame.model.CircleData
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.DbName
@@ -20,7 +20,7 @@ import java.lang.NullPointerException
 class CustomerPresenter (private val view: CustomerContract.CustomerView) : CustomerContract.CustomerPresenter {
 
     private var databaseRef: DatabaseReference? = null
-    private var allCustomerResponse : ArrayList<ContactRandomData>? = ArrayList()
+    private var circleProfile : ArrayList<CircleData>? = ArrayList()
     private var userList : ArrayList<SignUpModel>? = ArrayList()
 
     private var db : FirebaseFirestore? = null
@@ -41,20 +41,7 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
     private var images : ArrayList<String> = ArrayList()
 
     override fun customerRandomList() {
-        allCustomerResponse?.clear()
-        databaseRef = FirebaseDatabase.getInstance().getReference("Customers")
 
-            databaseRef!!.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                    view.getNullValue(p0.message)
-                }
-                override fun onDataChange(p0: DataSnapshot) {
-                    for (userData in p0.children.iterator()) {
-                        allCustomerResponse?.add(userData.getValue(ContactRandomData::class.java)!!)
-                    }
-                view.getCustomerRandomList(p0)
-                }
-            })
     }
 
     override fun usersFilterList() {
@@ -62,7 +49,7 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
     }
 
     override fun getContactRandomImages() {
-        databaseRef = FirebaseDatabase.getInstance().getReference("RandomPic")
+       /* databaseRef = FirebaseDatabase.getInstance().getReference("RandomPic")
         databaseRef?.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
               view.getNullValue(p0.message)
@@ -73,8 +60,10 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
                 }
                 view.setContactImages(images)
             }
-        })
+        })*/
     }
+
+
 
 
     private fun sortedUsersData(){
@@ -127,4 +116,22 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
 
         }
     }
+
+    override fun circleProfile() {
+        circleProfile?.clear()
+        databaseRef = FirebaseDatabase.getInstance().getReference("Circle")
+
+        databaseRef!!.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                view.getNullValue(p0.message)
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                for (userData in p0.children.iterator()) {
+                    circleProfile?.add(userData.getValue(CircleData::class.java)!!)
+                }
+                view.getCircleProfileData(circleProfile)
+            }
+        })
+    }
+
 }

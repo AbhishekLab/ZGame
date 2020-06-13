@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -22,10 +23,12 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.activity.EditProfileActivity
 import com.zgame.zgame.activity.LoginActivity
 import com.zgame.zgame.activity.PostImageActivity
+import com.zgame.zgame.activity.SettingActivity
 import com.zgame.zgame.adapter.DrawerItemAdapter
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.base.PreferanceRepository
@@ -61,6 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initUI(binding: ActivityMainBinding) {
         mBinding = binding
         mAuth = FirebaseAuth.getInstance()
+
 
         drawerAdapters = DrawerItemAdapter(this, DrawerListModel.drawerRecyclerDataWithIcons(this))
         mBinding.layoutDrawer.recyclerDrawer.adapter = drawerAdapters
@@ -239,7 +243,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
             }
             4 -> {
-                showToast("Open 4 Fragment")
+                startActivity(Intent(this, SettingActivity::class.java))
                 closeDrawer()
             }
 

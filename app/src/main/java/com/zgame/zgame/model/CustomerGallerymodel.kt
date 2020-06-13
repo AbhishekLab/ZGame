@@ -12,4 +12,12 @@ class ContactRandomData{
     val image : String? = null
     val location : String? = null
     val name : String? = null
+    val img : ArrayList<String>? = null
+}
+
+class CircleData{
+    val age : String? = null
+    val listOfImages : ArrayList<String>? = null
+    val location : String? = null
+    val name :String? = null
 }

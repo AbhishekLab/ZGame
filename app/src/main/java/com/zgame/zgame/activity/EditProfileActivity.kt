@@ -231,6 +231,7 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     override fun updateSuccessfully(update: String) {
         showToast(update)
         mBinding.progressBar.visibility = View.GONE
+        finish()
     }
 
     override fun setUserProfileData(response: UpdateProfileModel) {

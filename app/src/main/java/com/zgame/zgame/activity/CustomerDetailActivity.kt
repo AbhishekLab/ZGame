@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.Transition
 import com.google.firebase.database.DataSnapshot
 import com.zgame.zgame.R
 import com.zgame.zgame.adapter.FeedAdapter
@@ -23,6 +25,7 @@ import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerDetailPresenter
 import com.zgame.zgame.utils.Constant
+
 
 class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     CustomerDetailContract.CustomerDetailView, FeedAdapter.Wink {
@@ -97,6 +100,16 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     private fun setDetailPage() {
         Glide.with(this).load(userList?.profilePic).into(mBinding.imgUser)
+
+        mBinding.imgUser.setTransitionListener(object : KenBurnsView.TransitionListener{
+            override  fun onTransitionStart(transition: Transition?) {
+
+            }
+            override fun onTransitionEnd(transition: Transition?) {
+
+            }
+        })
+
         mBinding.txtNameAge.text = "${userList?.name}, ${userList?.age}"
         mBinding.txtIAm.text = userList?.gender!![0]
         mBinding.txtHeight.text = userList?.height

@@ -308,6 +308,13 @@
 
 
 
+    <!--full_screen_unitId-->
+    <string name="full_screen_unit_id">ca-app-pub-9233909923389046/9096211183</string>
+    <!--full_screen_unit_initilize-->
+    <string name="full_screen_unit_app_id">ca-app-pub-9233909923389046/9096211183</string>
+
+
+
 </resources>
 
 
