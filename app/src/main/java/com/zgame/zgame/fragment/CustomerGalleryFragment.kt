@@ -36,6 +36,8 @@ import com.zgame.zgame.model.ContactRandomData
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerPresenter
 import com.zgame.zgame.utils.Constant
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile,
@@ -172,7 +174,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         if (userLists?.size == 0) {
             showToast("No data available")
         } else {
-
+            userLists?.shuffle()
             customerAdapter?.addItem(userLists)
             mBinding.rvCustomers.adapter = customerAdapter
         }
@@ -188,6 +190,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
 
     override fun getCircleProfileData(circleProfile: ArrayList<CircleData>?) {
         mBinding.rvCustomersContact.visibility = View.VISIBLE
+        circleProfile?.shuffle()
         contactAdapter?.addItem(circleProfile)
         mBinding.rvCustomersContact.adapter = contactAdapter
     }

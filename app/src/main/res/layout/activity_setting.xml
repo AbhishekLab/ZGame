@@ -58,21 +58,32 @@
                     <ImageView
                         android:id="@+id/img_background"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="200dp"
                         android:scaleType="centerCrop"
                         android:alpha=".5"
                         android:src="@color/dark_brown" />
 
 
-                    <com.infinityandroid.roundedimageview.RoundedImageView
+                    <!--<de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/user_image"
                         android:layout_width="120dp"
-                        android:layout_height="160dp"
-                        android:layout_marginTop="-80dp"
-                        app:corner_radius="10"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="-60dp"
+                        app:civ_border_width="0.5dp"
                         android:layout_below="@+id/img_background"
                         android:layout_centerHorizontal="true"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitXY" />-->
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="-60dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/img_background"
+                        android:src="@drawable/ic_white_profile_place_holder"
+                        app:civ_border_color="@color/dark_brown"
+                        app:civ_border_width="0.5dp" />
 
                 </RelativeLayout>
 
