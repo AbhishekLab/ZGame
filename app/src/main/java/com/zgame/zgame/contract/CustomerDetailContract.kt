@@ -1,11 +1,11 @@
 package com.zgame.zgame.contract
 
-import com.google.firebase.database.DataSnapshot
 import com.zgame.zgame.model.PostModel
+import com.zgame.zgame.model.UpdateProfileModel
 
 class CustomerDetailContract {
     interface CustomerDetailView{
-        fun getCustomerDetail(p0: DataSnapshot)
+        fun getCustomerDetail(userProfileDetail: UpdateProfileModel)
         fun loginSuccess()
         fun loginFailed(message:String)
         fun winkAdded()
@@ -17,7 +17,7 @@ class CustomerDetailContract {
     }
     interface CustomerDetailPresenter{
         fun dialogLogin(email: String, password: String)
-        fun customerDetail(id: String)
+        fun customerDetail(userName: String)
         fun wink(myUniqueName:String)
         fun winkRemove(myUniqueName:String)
         fun follow(follow: String?, follower: String)

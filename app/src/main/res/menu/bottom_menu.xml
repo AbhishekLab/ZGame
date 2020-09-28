@@ -7,8 +7,8 @@
             app:showAsAction="ifRoom"
             android:icon="@drawable/ic_home_white"/>
 
-        <item android:id="@+id/nav_item_setting"
-            android:title="Setting"
+        <item android:id="@+id/nav_item_message"
+            android:title="Message"
             app:showAsAction="ifRoom"
             android:icon="@drawable/ic_message_white" />
 

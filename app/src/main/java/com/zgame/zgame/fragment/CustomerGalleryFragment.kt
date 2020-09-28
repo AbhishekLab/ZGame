@@ -12,10 +12,9 @@ import android.view.View.OnTouchListener
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -36,12 +35,11 @@ import com.zgame.zgame.model.ContactRandomData
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.CustomerPresenter
 import com.zgame.zgame.utils.Constant
-import java.util.*
+import java.lang.NullPointerException
 import kotlin.collections.ArrayList
 
-
 class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), CustomerAdapter.Profile,
-    CustomerContract.CustomerView , CustomerContactAdapter.StoriesCallBack,
+    CustomerContract.CustomerView, CustomerContactAdapter.StoriesCallBack,
     StoriesProgressView.StoriesListener {
 
     private var customerAdapter: CustomerAdapter? = null
@@ -49,19 +47,20 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     private var allCustomerResponse: ArrayList<ContactRandomData>? = null
     private lateinit var presenter: CustomerPresenter
     private var userLists: ArrayList<SignUpModel>? = null
+    private var currentUserData: SignUpModel? = null
     private var alertDialog: AlertDialog? = null
-    private var storyImages : ImageView ? = null
+    private var storyImages: ImageView? = null
     private var storyCounter = 0
-    private var circleProfileData : CircleData? = null
+    private var circleProfileData: CircleData? = null
     private var pressTime = 0L
     private var limit = 500L
-    private var stories : StoriesProgressView? = null
+    private var stories: StoriesProgressView? = null
     private var options: RequestOptions? = null
 
 
     private val displayMetrics = DisplayMetrics()
-    private var heightOfAlertDialog : Int = 0
-    private var widthOfAlertDialog : Int = 0
+    private var heightOfAlertDialog: Int = 0
+    private var widthOfAlertDialog: Int = 0
 
     private lateinit var mInterstitialAd: InterstitialAd
 
@@ -71,25 +70,28 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
 
     override fun initView(binding: FragmentUserGalleryBinding) {
         mBinding = binding
+
+        (activity as MainActivity).showFloatingButton()
+
         MobileAds.initialize(activity, resources.getString(R.string.full_screen_unit_app_id))
 
         val adRequest = AdRequest.Builder().build()
         mBinding.addView.loadAd(adRequest)
 
         activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
-         heightOfAlertDialog = displayMetrics.heightPixels - 100
-         widthOfAlertDialog = displayMetrics.widthPixels - 50
-
+        heightOfAlertDialog = displayMetrics.heightPixels - 100
+        widthOfAlertDialog = displayMetrics.widthPixels - 50
 
         options = RequestOptions().override(widthOfAlertDialog, heightOfAlertDialog)
 
 
-        mBinding.addView.adListener = object: AdListener() {
+
+        mBinding.addView.adListener = object : AdListener() {
             override fun onAdLoaded() {
-               e("sdfsdfs", "Loded")
+                e("sdfsdfs", "Loded")
             }
 
-            override fun onAdFailedToLoad(errorCode : Int) {
+            override fun onAdFailedToLoad(errorCode: Int) {
                 e("sdfsdfs", "Failed $errorCode")
             }
 
@@ -109,7 +111,6 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
                 e("sdfsdfs", "AddClose")
             }
         }
-
 
 
         //showAdd()
@@ -198,14 +199,21 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     override fun onStart() {
         super.onStart()
         if (mAuth.currentUser != null) {
+            try {
+                currentUserData = Reservoir.get(Constant.reservoir_key, SignUpModel::class.java)
+            } catch (e: NullPointerException) {
+            }
             if (userLists == null) {
                 presenter.usersFilterList()
             }
         }
         (activity as MainActivity).setUserImage(
             PreferanceRepository.getString(Constant.uniqueName),
-            PreferanceRepository.getString(Constant.profilePic)
+            PreferanceRepository.getString(Constant.profilePic),
+            currentUserData?.follower?.size
         )
+
+        //(activity as MainActivity).addDrawer()
     }
 
     override fun openStoriesDialog(circleProfileData: CircleData) {
@@ -213,8 +221,8 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         storyCounter = 0
         val dialogBuilder = AlertDialog.Builder(activity)
         val layoutView: View = layoutInflater.inflate(R.layout.dialog_stories, null)
-        storyImages  = layoutView.findViewById(R.id.imageView)
-        stories  = layoutView.findViewById(R.id.stories)
+        storyImages = layoutView.findViewById(R.id.imageView)
+        stories = layoutView.findViewById(R.id.stories)
         val next = layoutView.findViewById<View>(R.id.skip)
         val reverse = layoutView.findViewById<View>(R.id.reverse)
 
@@ -223,7 +231,7 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         stories?.setStoriesListener(this)
         stories?.startStories(storyCounter)
 
-        next.setOnClickListener{
+        next.setOnClickListener {
             stories?.skip()
         }
         next.setOnTouchListener(onTouchListener)
@@ -241,7 +249,8 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
 
         alertDialog?.window?.setLayout(widthOfAlertDialog, heightOfAlertDialog)
 
-        Glide.with(activity!!).load(circleProfileData.listOfImages!![storyCounter]).apply( options!!).into(storyImages!!)
+        Glide.with(activity!!).load(circleProfileData.listOfImages!![storyCounter]).apply(options!!)
+            .into(storyImages!!)
         alertDialog?.setCancelable(true)
 
     }
@@ -251,12 +260,18 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
     }
 
     override fun onPrev() {
-        if (storyCounter - 1 < 0) {return}else{ Glide.with(activity!!).load(circleProfileData?.listOfImages!![--storyCounter]).apply( options!!).into(storyImages!!)}
+        if (storyCounter - 1 < 0) {
+            return
+        } else {
+            Glide.with(activity!!).load(circleProfileData?.listOfImages!![--storyCounter])
+                .apply(options!!).into(storyImages!!)
+        }
 
     }
 
     override fun onNext() {
-        Glide.with(activity!!).load(circleProfileData?.listOfImages!![++storyCounter]).apply(options!!).into(storyImages!!)
+        Glide.with(activity!!).load(circleProfileData?.listOfImages!![++storyCounter])
+            .apply(options!!).into(storyImages!!)
     }
 
 
@@ -275,7 +290,6 @@ class CustomerGalleryFragment : BaseFragment<FragmentUserGalleryBinding>(), Cust
         }
         false
     }
-
 
 
     /* private fun showAdd() {

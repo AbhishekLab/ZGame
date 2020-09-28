@@ -8,12 +8,30 @@
             name="response"
             type="com.zgame.zgame.model.SignUpModel" />
 
+        <variable
+            name="userProfile"
+            type="com.zgame.zgame.model.UpdateProfileModel" />
+
+        <import type="android.text.TextUtils" />
+
+
+
     </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_background">
+        android:background="@drawable/app_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/al_app_bar"
@@ -192,17 +210,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:background="@drawable/logout_drawer"
+                    android:padding="10dp"
+                    android:background="@color/colorWhite"
                     android:weightSum="2">
 
                     <TextView
+                        android:id="@+id/txt_post"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Post"
-                        android:textColor="@color/black" />
+                        android:textSize="18sp"
+                        android:textColor="@color/light_gray" />
 
                     <View
                         android:layout_width="1dp"
@@ -211,12 +231,14 @@
                         android:background="@color/black" />
 
                     <TextView
+                        android:id="@+id/txt_details"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Detail"
-                        android:textColor="@color/black" />
+                        android:textSize="18sp"
+                        android:textColor="@color/light_gray" />
 
                 </LinearLayout>
 
@@ -314,7 +336,7 @@
                                 android:gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:layout_gravity="center"
-                                android:text="Age" />
+                                android:text="@{response.email}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -415,7 +437,9 @@
                                 android:layout_weight="1"
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
-                                android:text="Agesdfsdfdfsdjdshfijsdhfsdhfdsfdfsdfsdfsdfsdfdsfsdfdsfdsffsdfsdfsdfdsfsdfdsf" />
+                                android:text= "@{TextUtils.isEmpty(userProfile.weight) ? @string/hyphen : userProfile.weight}" />
+
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -482,7 +506,7 @@
                                 android:gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:layout_gravity="center"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.bodyType) ? @string/hyphen : userProfile.bodyType}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -516,7 +540,7 @@
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.smokes) ? @string/hyphen : userProfile.smokes}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -550,7 +574,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.tattoos) ? @string/hyphen : userProfile.tattoos}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -584,7 +608,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.sexuality) ? @string/hyphen : userProfile.sexuality}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -618,7 +642,7 @@
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.bodyHair) ? @string/hyphen : userProfile.bodyHair}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -652,7 +676,7 @@
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.bodyHair) ? @string/hyphen : userProfile.bodyHair}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -686,7 +710,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.mySexualComfort) ? @string/hyphen : userProfile.mySexualComfort}" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -720,7 +744,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="4dp"
                                 android:gravity="center"
-                                android:text="Age" />
+                                android:text="@{TextUtils.isEmpty(userProfile.whatDoYouLike) ? @string/hyphen : userProfile.whatDoYouLike}" />
                         </LinearLayout>
 
 
@@ -734,5 +758,26 @@
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <FrameLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/dark_brown"/>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

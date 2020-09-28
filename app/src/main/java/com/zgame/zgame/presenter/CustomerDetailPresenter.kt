@@ -8,6 +8,7 @@ import com.zgame.zgame.activity.CustomerDetailActivity
 import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.contract.CustomerDetailContract
 import com.zgame.zgame.model.PostModel
+import com.zgame.zgame.model.UpdateProfileModel
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Validation
 
@@ -21,6 +22,8 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
     private var db: FirebaseFirestore? = FirebaseFirestore.getInstance()
     private var images : ArrayList<String>? = null
     private var postModel = PostModel()
+
+    private var profileDetail : UpdateProfileModel = UpdateProfileModel()
 
     override fun dialogLogin(email: String, password: String) {
         if (Validation.emailValidation(email, password)) {
@@ -41,20 +44,20 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
         }
     }
 
-    override fun customerDetail(id: String) {
-        databaseRef = FirebaseDatabase.getInstance().reference.child("Customers")
-        databaseRef.let {
-            ref = FirebaseDatabase.getInstance().getReference("Customers").orderByChild("id")
-                .equalTo(id)
-            ref?.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                }
+    override fun customerDetail(userName: String) {
+        db!!.collection(Constant.DbName).document(userName).collection(userName).document(Constant.firebaseUserGallery).get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                profileDetail = it.result?.toObject(UpdateProfileModel::class.java)!!
+                view.getCustomerDetail(profileDetail)
 
-                override fun onDataChange(p0: DataSnapshot) {
-                    view.getCustomerDetail(p0)
-                }
-            })
+            } else {
+                view.error("No Data Found")
+            }
+
+        }?.addOnFailureListener {
+            view.error("Api Not Working")
         }
+
     }
 
     override fun wink(myUniqueName: String) {

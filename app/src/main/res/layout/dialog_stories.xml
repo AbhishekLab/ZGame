@@ -26,17 +26,20 @@
         app:layout_constraintLeft_toRightOf="@+id/reverse" />
 
 
-    <com.infinityandroid.roundedimageview.RoundedImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:riv_mutate_background="true"
         android:scaleType="centerCrop"
-        app:corner_radius="20"
-        android:padding="4dp"
+        app:riv_corner_radius="20dip"
+        app:riv_border_width="0dip"
+        app:riv_oval="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
 
     <com.zgame.zgame.imageStories.StoriesProgressView
         android:id="@+id/stories"
@@ -56,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/pre_detail_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

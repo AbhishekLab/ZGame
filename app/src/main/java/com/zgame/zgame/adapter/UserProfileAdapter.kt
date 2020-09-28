@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.zgame.zgame.R
 import com.zgame.zgame.databinding.RowUserProfileBinding
 
-class UserProfileAdapter(private val context : Context) : RecyclerView.Adapter<UserProfileAdapter.UserProfileViewHolder>() {
+class UserProfileAdapter(private val context : Context, private var listener:OpenImageListener) : RecyclerView.Adapter<UserProfileAdapter.UserProfileViewHolder>() {
 
     private var listOfImages: ArrayList<String> = ArrayList()
 
@@ -31,10 +31,16 @@ class UserProfileAdapter(private val context : Context) : RecyclerView.Adapter<U
            Glide.with(context).load(listOfImages[adapterPosition]).apply{
                RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
            }.into(mBinding.imgUserPic)
+
+            mBinding.imgUserPic.setOnClickListener { listener.openImage(adapterPosition) }
         }
     }
 
     fun addImages(listOfImages: ArrayList<String>) {
         this.listOfImages.addAll(listOfImages)
+    }
+
+    interface OpenImageListener{
+        fun openImage(adapterPosition: Int)
     }
 }

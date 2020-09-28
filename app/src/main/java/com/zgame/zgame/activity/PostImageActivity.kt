@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Point
@@ -14,6 +15,7 @@ import android.provider.MediaStore
 import android.util.Log.e
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.zgame.zgame.R
@@ -346,6 +348,7 @@ class PostImageActivity : BaseActivity<ActivityPostImageBinding>(), OnPhotoEdito
                 .setClearViewsEnabled(false)
                 .setTransparencyEnabled(true)
                 .build()
+
             mEditor?.saveAsFile(file.absolutePath, saveSettings, object : OnSaveListener {
                 override fun onSuccess(imagePath: String) {
 

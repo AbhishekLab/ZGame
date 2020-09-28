@@ -27,11 +27,11 @@
 
         </androidx.cardview.widget.CardView>-->
 
-        <com.infinityandroid.roundedimageview.RoundedImageView
+        <!--<com.infinityandroid.roundedimageview.RoundedImageView
             android:id="@+id/img_user_pic"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             app:corner_radius="10"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="3dp"
@@ -41,7 +41,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_user_pic"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            app:riv_mutate_background="true"
+            android:scaleType="center"
+            app:riv_corner_radius="20dip"
+            app:riv_border_width="0dip"
+            app:riv_oval="false"
+            />
 
     </LinearLayout>
 

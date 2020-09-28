@@ -1,5 +1,6 @@
 package com.zgame.zgame.presenter
 
+import android.util.Log
 import com.anupcowkur.reservoir.Reservoir
 import com.anupcowkur.reservoir.ReservoirPutCallback
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,14 +42,13 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
 
 
     private fun getCurrentUserData() {
-
         db = FirebaseFirestore.getInstance()
         val userData = db?.collection(DbName)?.whereEqualTo(Constant.email, email)?.get()
         userData?.addOnSuccessListener {
             for (i in it.toList().indices) {
                 currentUser = it.toList()[i].toObject(SignUpModel::class.java)
             }
-
+9
             Reservoir.putAsync(Constant.reservoir_key, currentUser, object : ReservoirPutCallback {
                 override fun onSuccess() {
                     PreferanceRepository.setString(Constant.male, currentUser?.male)
@@ -62,6 +62,7 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
                 }
 
                 override fun onFailure(e: Exception) {
+                    Log.e("Failed to", "Failed to save login data")
                 }
             })
             view.loginSuccess()

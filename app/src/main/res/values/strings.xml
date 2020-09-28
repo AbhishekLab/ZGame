@@ -95,6 +95,7 @@
     <string name="profile">Profile</string>
     <string name="mail_box">Mail Box</string>
     <string name="collection">Collection</string>
+    <string name="upgrade">Upgrade</string>
     <string name="setting">Setting</string>
     <string name="support">Support</string>
     <string name="about_us">About Us</string>
@@ -312,6 +313,8 @@
     <string name="full_screen_unit_id">ca-app-pub-9233909923389046/9096211183</string>
     <!--full_screen_unit_initilize-->
     <string name="full_screen_unit_app_id">ca-app-pub-9233909923389046/9096211183</string>
+
+    <string name="hyphen">  - </string>
 
 
 

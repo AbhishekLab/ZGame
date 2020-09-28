@@ -6,38 +6,29 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Intent
-import android.graphics.Typeface
 import android.util.Log
-import android.util.Log.e
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.anupcowkur.reservoir.Reservoir
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.ads.MobileAds
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
 import com.zgame.zgame.activity.EditProfileActivity
 import com.zgame.zgame.activity.LoginActivity
 import com.zgame.zgame.activity.PostImageActivity
 import com.zgame.zgame.activity.SettingActivity
-import com.zgame.zgame.adapter.DrawerItemAdapter
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.databinding.ActivityMainBinding
-import com.zgame.zgame.model.DrawerListModel
 import com.zgame.zgame.service.BackgroundService
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.reservoir_key
-import kotlinx.android.synthetic.main.content_drawer.view.*
 import java.io.IOException
 
 
@@ -47,10 +38,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val jobId = 100
     private lateinit var mBinding: ActivityMainBinding
     private var navController: NavController? = null
-    private var gallery: TextView? = null
-    lateinit var drawerAdapters: DrawerItemAdapter
     private var alertDialog: AlertDialog? = null
 
+    private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     override fun onPermissionsGranted(requestCode: Int) {
         when (requestCode) {
@@ -65,9 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         mBinding = binding
         mAuth = FirebaseAuth.getInstance()
 
-
-        drawerAdapters = DrawerItemAdapter(this, DrawerListModel.drawerRecyclerDataWithIcons(this))
-        mBinding.layoutDrawer.recyclerDrawer.adapter = drawerAdapters
+        mBottomSheetBehavior = BottomSheetBehavior.from(mBinding.incBottom.bsSheet)
 
         setSupportActionBar(mBinding.bottomAppBar)
         navController = findNavController(this, R.id.nav_host_fragment)
@@ -76,14 +64,83 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             fabClick()
         }
 
-        mBinding.layoutDrawer.txtLogin.setOnClickListener{
-            closeDrawer()
-            startActivity(Intent(this,LoginActivity::class.java))
-        }
         mBinding.bottomAppBar.setNavigationOnClickListener {
-            mBinding.dlLayout.openDrawer(GravityCompat.START)
+
+            if (mBottomSheetBehavior?.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_EXPANDED)
+            } else {
+                mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            }
+        }
+
+        mBottomSheetBehavior?.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                when(newState){
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                    }
+
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        mBinding.fab.hide()
+                    }
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        mBinding.fab.show()
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+                    }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+                    }
+                }
+
+            }
+            override fun onSlide(
+                bottomSheet: View,
+                slideOffset: Float
+            ) {
+            }
+
+        })
+
+        mBinding.incBottom.llProfile.setOnClickListener {
+            if(mAuth.currentUser!=null){
+                startActivity(Intent(this, EditProfileActivity::class.java))
+            }else{
+                showToast("Please Login first")
+            }
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llMailBox.setOnClickListener {
+            showToast("Mail Box")
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llCollection.setOnClickListener {
+            showToast("Collection")
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llSetting.setOnClickListener {
+            startActivity(Intent(this, SettingActivity::class.java))
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llUpgrade.setOnClickListener {
+            showToast("Upgrade")
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llAboutUs.setOnClickListener {
+            showToast("About Us")
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.llLogOut.setOnClickListener {
+            logoutDialog()
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+        mBinding.incBottom.txtLogin.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
         }
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (navController?.currentDestination?.label == "CustomerGalleryFragment" && item.toString() == "Home" || navController?.currentDestination?.label == "UserProfileFragment" &&
@@ -94,7 +151,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             item.onNavDestinationSelected(navController!!)
             true
         }
-
     }
 
     private fun logoutDialog() {
@@ -132,12 +188,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun fabClick() {
-        if(mAuth.currentUser!=null){
+        if (mAuth.currentUser != null) {
             startActivity(Intent(this, PostImageActivity::class.java))
-        }else{
+        } else {
             showToast("Please login to enable this feature")
         }
-        //startActivity(Intent(this, GalleryActivity::class.java))
     }
 
     fun permission() {
@@ -184,83 +239,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //showToast("CalllUtils")
     }
 
-    fun setUserImage(userName: String, userImageUrl: String) {
-        if(mAuth.currentUser!=null){
-            mBinding.layoutDrawer.tvName.visibility = View.VISIBLE
-            mBinding.layoutDrawer.tvCompanyName.visibility = View.VISIBLE
-            mBinding.layoutDrawer.txtLogin.visibility = View.INVISIBLE
+    fun setUserImage(userName: String, userImageUrl: String, follower: Int?) {
+        if (mAuth.currentUser != null) {
+            mBinding.incBottom.llLoginRoot.visibility = View.VISIBLE
+            mBinding.incBottom.llLogOutRoot.visibility = View.GONE
             if (userImageUrl != "null" && userImageUrl != "") {
                 Glide.with(this)
                     .load(userImageUrl).apply(
-                        RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder).circleCrop()
-                    ).into(mBinding.layoutDrawer.ivUserpic)
+                        RequestOptions().placeholder(R.drawable.ic_white_profile_place_holder)
+                    ).into(mBinding.incBottom.imgUserPic)
             } else {
-                Glide.with(this).load(R.drawable.ic_white_profile_place_holder).into(mBinding.layoutDrawer.ivUserpic)
+                Glide.with(this).load(R.drawable.ic_white_profile_place_holder)
+                    .into(mBinding.incBottom.imgUserPic)
             }
-            mBinding.layoutDrawer.tvName.text = userName
-
+            mBinding.incBottom.txtName.text = userName
+            if(follower == null){
+                mBinding.incBottom.txtFollower.text = "Followers : 0"
+            }else{
+                mBinding.incBottom.txtFollower.text = "Followers : $follower"
+            }
         }else{
-            mBinding.layoutDrawer.txtLogin.visibility = View.VISIBLE
-            mBinding.layoutDrawer.tvName.visibility = View.INVISIBLE
-            mBinding.layoutDrawer.tvCompanyName.visibility = View.INVISIBLE
-            Glide.with(this).load(R.drawable.ic_white_profile_place_holder).into(mBinding.layoutDrawer.ivUserpic)
+            mBinding.incBottom.llLoginRoot.visibility = View.GONE
+            mBinding.incBottom.llLogOutRoot.visibility = View.VISIBLE
         }
     }
 
-    private fun closeDrawer() {
-        mBinding.dlLayout.apply {
-            if (isDrawerOpen(GravityCompat.START)) {
-                closeDrawer(GravityCompat.START)
-            }
-        }
+    fun hideFloatingButton() {
+        mBinding.fab.hide()
     }
 
-    var selectedDrawerPosition = -1
-    fun onDrawerItemSelected(position: Int) {
-        drawerAdapters.apply {
-            if (selectedDrawerPosition != -1) {
-                items[selectedDrawerPosition].isChangeable = false
-                notifyItemChanged(selectedDrawerPosition)
-            } else {
-                items[position].isChangeable = true
-                notifyItemChanged(position)
-                selectedDrawerPosition = position
-            }
-        }
-        when (position) {
-            1 -> {
-                startActivity(Intent(this, EditProfileActivity::class.java))
-                closeDrawer()
-            }
-            2 -> {
-                showToast("Open 2Fragment")
-                closeDrawer()
-            }
-
-            3 -> {
-                showToast("Open 3 Fragment")
-                closeDrawer()
-
-            }
-            4 -> {
-                startActivity(Intent(this, SettingActivity::class.java))
-                closeDrawer()
-            }
-
-            5 -> {
-                showToast("Open 5 Fragment")
-                closeDrawer()
-            }
-            6 -> {
-                showToast("Open 5 Fragment")
-                closeDrawer()
-            }
-            7 -> {
-                logoutDialog()
-                closeDrawer()
-            }
-            else -> closeDrawer()
-        }
+    fun showFloatingButton() {
+        mBinding.fab.show()
     }
-
 }

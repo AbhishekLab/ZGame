@@ -2,16 +2,15 @@ package com.zgame.zgame.presenter
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zgame.zgame.contract.UserProfileContract
-import com.zgame.zgame.model.PostModel
+import com.zgame.zgame.model.ImageObj
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.firebaseGallery
-import com.zgame.zgame.utils.Constant.firebaseUserGallery
 
 class UserProfilePresenter(private val view: UserProfileContract.UserProfileView) :
     UserProfileContract.UserProfilePresenter {
 
     private var db: FirebaseFirestore? = null
-    private var userProfileImages =  PostModel()
+    private var userProfileImages =  ImageObj()
 
     override fun getUserImages(uniqueName: String?) {
         if (!uniqueName.isNullOrEmpty() && !uniqueName.isNullOrBlank()) {
@@ -23,16 +22,16 @@ class UserProfilePresenter(private val view: UserProfileContract.UserProfileView
             userImages?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     if (it.result!!.exists()) {
-                        userProfileImages = it.result?.toObject(PostModel::class.java)!!
+                        userProfileImages = (it.result?.toObject(ImageObj::class.java)!!)
+
+                        view.fetchSuccessfully(userProfileImages)
+
                     }else{
                         view.error("No Data Found")
                     }
                 } else {
                     view.error(it.exception?.message.toString())
                 }
-
-                view.fetchSuccessfully(userProfileImages)
-
 
             }?.addOnFailureListener {
                 view.error(it.message.toString())

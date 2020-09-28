@@ -1,12 +1,14 @@
 package com.zgame.zgame.presenter
 
 import android.net.Uri
+import android.util.Log.e
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.zgame.zgame.contract.PostContract
 import com.zgame.zgame.model.PostModel
+import com.zgame.zgame.model.PostModelRequestImagesLikes
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.firebaseGallery
 import com.zgame.zgame.utils.Constant.firebaseUserGallery
@@ -38,7 +40,7 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
                             if(it.isSuccessful){
                                 //    postModel.image?.put(randomImageName , it.result.toString())
                                 imageUrl = it.result.toString()
-                                addUrlToUserDatabase(imageUrl,userUniqueName)
+                                addUrlToUserDatabase(imageUrl,userUniqueName,randomImageName)
                             }
 
                          }?.addOnFailureListener {
@@ -53,17 +55,26 @@ class PostPresenter(private val view: PostContract.PostView) : PostContract.Post
             }
     }
 
-    private fun addUrlToUserDatabase(imageUrl: String, userUniqueName: String) {
+    private fun addUrlToUserDatabase(
+        imageUrl: String,
+        userUniqueName: String,
+        randomImageName: String
+    ) {
         db = FirebaseFirestore.getInstance()
-        val hashMap:HashMap<String,String> = HashMap()
-        hashMap["$userUniqueName$randomImageName"] = imageUrl
+       /* val hashMap:HashMap<String,String> = HashMap()
+        hashMap["$userUniqueName$randomImageName"] = imageUrl*/
+
+        val imgObj = PostModelRequestImagesLikes()
+        imgObj.imageId = randomImageName
+        imgObj.images = imageUrl
 
         db?.collection(Constant.DbName)?.document(userUniqueName)?.collection(userUniqueName)?.document(firebaseGallery)
-            ?.update("image",FieldValue.arrayUnion(hashMap))
+            ?.update("image",FieldValue.arrayUnion(imgObj))
             ?.addOnCompleteListener {
                 view.postSuccess()
             }?.addOnFailureListener {
                 view.postFailed(it.message!!)
+                e("Eror of Post", it.message.toString())
             }?.addOnCanceledListener {
                 view.postFailed("Cancelled!!")
             }

@@ -23,8 +23,10 @@ import com.zgame.zgame.databinding.ActivityCustomerDetailBinding
 import com.zgame.zgame.model.ContactRandomData
 import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.model.SignUpModel
+import com.zgame.zgame.model.UpdateProfileModel
 import com.zgame.zgame.presenter.CustomerDetailPresenter
 import com.zgame.zgame.utils.Constant
+import kotlinx.android.synthetic.main.activity_customer_detail.view.*
 
 
 class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
@@ -32,8 +34,6 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
 
     private lateinit var mBinding: ActivityCustomerDetailBinding
 
-    private var customerDetail: ArrayList<ContactRandomData>? = null
-    private var customerDetailResponse: ContactRandomData? = null
     private var alertDialog: AlertDialog? = null
     private var progressBar: ProgressBar? = null
     private lateinit var presenter: CustomerDetailPresenter
@@ -42,6 +42,8 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     private var followSingleTask: Boolean = true
     private var winkSingleTask : Boolean = true
     private var images : ArrayList<String>? = null
+
+    private var userProfileDetail : UpdateProfileModel? = null
 
     private lateinit var feedAdapter: FeedAdapter
 
@@ -65,6 +67,11 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         }
 
         feedAdapter = FeedAdapter(this, this)
+
+        mBinding.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mBinding.rvFeed.adapter = feedAdapter
+        images = ArrayList()
+
         presenter = CustomerDetailPresenter(this@CustomerDetailActivity)
 
         userList = intent.getSerializableExtra(Constant.uniqueName) as SignUpModel
@@ -76,16 +83,42 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         setDetailPage()
         setUserImages()
 
+
+
         mBinding.txtFollow.setOnClickListener {
             follow()
         }
         mBinding.imgUnFollow.setOnClickListener {
             unFollow()
         }
+
+        mBinding.txtPost.setOnClickListener {
+            mBinding.rvFeed.visibility = View.VISIBLE
+            mBinding.llDetails.visibility = View.GONE
+            feedAdapter.addItem(images)
+            mBinding.txtPost.setTextColor(resources.getColor(R.color.dark_brown))
+            mBinding.txtDetails.setTextColor(resources.getColor(R.color.light_gray))
+        }
+
+        mBinding.txtDetails.setOnClickListener {
+            if(userProfileDetail==null){
+                mBinding.progressBar.visibility = View.VISIBLE
+                presenter.customerDetail(followPersonName)
+            }
+
+            mBinding.response = userList
+            mBinding.rvFeed.visibility = View.GONE
+            mBinding.llDetails.visibility = View.VISIBLE
+            mBinding.txtDetails.setTextColor(resources.getColor(R.color.dark_brown))
+            mBinding.txtPost.setTextColor(resources.getColor(R.color.light_gray))
+        }
+
+        mBinding.toolbar.img_back.setOnClickListener { finish() }
         //presenter.customerDetail(nameId!!)
     }
 
     private fun setUserImages() {
+        mBinding.progressBar.visibility = View.VISIBLE
         presenter.getSelectedUserImage(uniqueName = followPersonName )
     }
 
@@ -127,13 +160,11 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
         }
     }
 
-    override fun getCustomerDetail(p0: DataSnapshot) {
-        customerDetail = ArrayList()
-        for (userData: DataSnapshot in p0.children.iterator()) {
-            customerDetailResponse = userData.getValue(ContactRandomData::class.java)
-        }
-        Glide.with(this@CustomerDetailActivity).load(customerDetailResponse?.image)
-            .into(mBinding.imgUser)
+    override fun getCustomerDetail(userProfileDetail: UpdateProfileModel) {
+        this.userProfileDetail = userProfileDetail
+        mBinding.userProfile =   this.userProfileDetail
+        mBinding.progressBar.visibility = View.GONE
+
     }
 
     override fun loginSuccess() {
@@ -214,10 +245,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     }
 
     override fun setSelectedUserImage(userImage: PostModel) {
-        mBinding.rvFeed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mBinding.rvFeed.adapter = feedAdapter
-
-        images = ArrayList()
+        mBinding.progressBar.visibility = View.GONE
         userImage.image?.map { it ->
             it.mapValues {
                 images?.add(it.value)
@@ -227,10 +255,14 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
             mBinding.rvFeed.visibility = View.VISIBLE
             mBinding.llDetails.visibility = View.GONE
             feedAdapter.addItem(images)
+            mBinding.txtPost.setTextColor(resources.getColor(R.color.dark_brown))
         }else{
+            mBinding.progressBar.visibility = View.VISIBLE
             mBinding.response = userList
             mBinding.rvFeed.visibility = View.GONE
             mBinding.llDetails.visibility = View.VISIBLE
+            mBinding.txtDetails.setTextColor(resources.getColor(R.color.dark_brown))
+            presenter.customerDetail(followPersonName)
         }
     }
 }

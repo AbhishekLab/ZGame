@@ -8,63 +8,74 @@ class DrawerListModel {
     companion object {
 
 
-        fun drawerRecyclerDataWithIcons(context: Context): ArrayList<DataModelWithBoolean> {
+        fun drawerRecyclerDataWithIcons(context: Context, hideIcon : Boolean): ArrayList<DataModelWithBoolean> {
 
             val menuHome = DataModelWithBoolean(
                 context.getString(R.string.home),
                 R.drawable.ic_home,
-                false
+                true
             )
             val menuProfile =
                 DataModelWithBoolean(
                     context.getString(R.string.profile),
                     R.drawable.ic_nav_profile,
-                    false
+                    hideIcon
                 )
             val menuMail =
                 DataModelWithBoolean(
                     context.getString(R.string.mail_box),
                     R.drawable.ic_mail,
-                    false
+                    true
                 )
             val menuCollection = DataModelWithBoolean(
                 context.getString(R.string.collection),
-                R.drawable.ic_collections, false
+                R.drawable.ic_collections, true
             )
             val menuSetting = DataModelWithBoolean(
                 context.getString(R.string.setting),
-                R.drawable.ic_nav_setting, false
+                R.drawable.ic_nav_setting, true
             )
             val menuSupport =
                 DataModelWithBoolean(
                     context.getString(R.string.support),
                     R.drawable.ic_nav_support,
-                    false
+                    true
                 )
 
             val menuAboutUs =
                 DataModelWithBoolean(
                     context.getString(R.string.about_us),
                     R.drawable.ic_nav_about_us,
-                    false
+                    true
                 )
 
             val menuLogout =
                 DataModelWithBoolean(
                     context.getString(R.string.log_out),
                     R.drawable.ic_nav_logout,
-                    false
+                    hideIcon
                 )
 
             val list = arrayListOf<DataModelWithBoolean>()
-            list.add(menuHome)
-            list.add(menuProfile)
-            list.add(menuMail)
-            list.add(menuCollection)
-            list.add(menuSetting)
-            list.add(menuSupport)
-            list.add(menuAboutUs)
-            list.add(menuLogout)
+
+            if(hideIcon){
+                list.add(menuHome)
+                list.add(menuProfile)
+                list.add(menuMail)
+                list.add(menuCollection)
+                list.add(menuSetting)
+                list.add(menuSupport)
+                list.add(menuAboutUs)
+                list.add(menuLogout)
+            }else{
+                list.add(menuHome)
+                list.add(menuMail)
+                list.add(menuCollection)
+                list.add(menuSetting)
+                list.add(menuSupport)
+                list.add(menuAboutUs)
+            }
+
             return list
         }
     }

@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/dl_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,8 +34,10 @@
                 app:menu="@menu/bottom_menu"
                 app:navigationIcon="@drawable/ic_toggel_white">
 
-
             </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <include android:id="@+id/inc_bottom"
+                layout="@layout/bottom_sheet_view"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -56,13 +52,6 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-
-        <include
-            android:id="@+id/layout_drawer"
-            layout="@layout/content_drawer" />
-
-
         <!--<com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_drawer"
             android:layout_width="wrap_content"
@@ -71,5 +60,4 @@
             app:menu="@menu/navigation_menu"
             app:headerLayout="@layout/navigation_header"/>-->
 
-    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

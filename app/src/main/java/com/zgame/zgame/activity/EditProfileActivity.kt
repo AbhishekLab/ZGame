@@ -46,6 +46,8 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
 
     private var profilePhoto : Uri? = null
 
+
+
     override fun onPermissionsGranted(requestCode: Int) {
         when (requestCode) {
             PICK_REQUEST -> setImageToProfile()
@@ -394,4 +396,7 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
 
         }
     }
+
+
+
 }
