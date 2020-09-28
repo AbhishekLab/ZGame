@@ -95,6 +95,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
 
             }
+
             override fun onSlide(
                 bottomSheet: View,
                 slideOffset: Float
