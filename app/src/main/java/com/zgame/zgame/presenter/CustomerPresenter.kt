@@ -85,7 +85,7 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
         coupleMM = PreferanceRepository.getString(Constant.coupleMM)
 
 
-        if(male!=null){
+        /*if(male!=null){
             maleQuery = userNameQuery?.whereEqualTo(Constant.male , male)
         }
         if(female!=null || currentUserData?.female!=null){
@@ -99,9 +99,9 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
         }
         if(coupleFM!=null || currentUserData?.coupleFM!=null){
             coupleFMQuery = userNameQuery?.whereEqualTo(Constant.coupleFM, coupleFM)
-        }
+        }*/
 
-        val combinedTask: Task<*> = Tasks.whenAllSuccess<QuerySnapshot>(maleQuery?.get(),femaleQuery?.get(), coupleMMQuery?.get(),
+       /* val combinedTask: Task<*> = Tasks.whenAllSuccess<QuerySnapshot>(maleQuery?.get(),femaleQuery?.get(), coupleMMQuery?.get(),
             coupleFFQuery?.get(),coupleFMQuery?.get()).addOnSuccessListener {
 
         }.addOnFailureListener {
@@ -114,6 +114,15 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
             }
             view.getUsersFilterList(userList)
 
+        }*/
+
+        userNameQuery?.whereIn("seeking", listOf(male, female, coupleFF, coupleFM, coupleMM))?.get()?.addOnCompleteListener {
+            for(a in it.result!!.iterator()){
+                userList?.add(a.toObject(SignUpModel::class.java))
+            }
+            view.getUsersFilterList(userList)
+        }?.addOnFailureListener {
+            view.getNullValue(it.message!!)
         }
     }
 
