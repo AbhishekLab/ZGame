@@ -13,6 +13,7 @@ import com.zgame.zgame.databinding.ActivitySignUp2Binding
 import com.zgame.zgame.model.AgeModule
 import com.zgame.zgame.model.GenderModule
 import com.zgame.zgame.model.Location
+import com.zgame.zgame.model.SeekingModule
 import com.zgame.zgame.presenter.SignUp2Presenter
 import com.zgame.zgame.utils.Constant
 
@@ -44,6 +45,7 @@ class SignUp2Activity : BaseActivity<ActivitySignUp2Binding>(), SignUp2Adapter.S
 
     private var ageSelectedValue: ArrayList<AgeModule>? = ArrayList()
     private var genderSelectedValue: ArrayList<GenderModule>? = ArrayList()
+    private var seekingSelectedValue: ArrayList<SeekingModule>? = ArrayList()
 
     override fun onPermissionsGranted(requestCode: Int) {
     }
@@ -56,12 +58,15 @@ class SignUp2Activity : BaseActivity<ActivitySignUp2Binding>(), SignUp2Adapter.S
         height = ArrayList()
 
         genderSelectedValue = intent.getParcelableArrayListExtra("I_Am")
+        seekingSelectedValue = intent.getParcelableArrayListExtra("Seeking")
         ageSelectedValue = intent.getParcelableArrayListExtra("Age_Range")
-        male = intent.getStringExtra(Constant.male)
+
+       /* male = intent.getStringExtra(Constant.male)
             female = intent.getStringExtra(Constant.female)
         coupleFF = intent.getStringExtra(Constant.coupleFF)
         coupleFM = intent.getStringExtra(Constant.coupleFM)
-        coupleMM = intent.getStringExtra(Constant.coupleMM)
+        coupleMM = intent.getStringExtra(Constant.coupleMM)*/
+
 
 
         mBinding.toolbar.imgBack.setOnClickListener { finish() }
@@ -174,11 +179,7 @@ class SignUp2Activity : BaseActivity<ActivitySignUp2Binding>(), SignUp2Adapter.S
                 startActivity(
                     Intent(this, SignUp3Activity::class.java)
                         .putExtra("I_Am", genderSelectedValue)
-                        .putExtra(Constant.male, male)
-                        .putExtra(Constant.female, female)
-                        .putExtra(Constant.coupleFF, coupleFF)
-                        .putExtra(Constant.coupleFM, coupleFM)
-                        .putExtra(Constant.coupleMM, coupleMM)
+                        .putExtra("Seeking", seekingSelectedValue)
                         .putExtra("Age_Range", ageSelectedValue)
                         .putExtra("Age", selectedAge)
                         .putExtra("Height", selectedHeight)

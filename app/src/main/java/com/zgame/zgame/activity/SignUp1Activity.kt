@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.zgame.zgame.R
 import com.zgame.zgame.adapter.AgeAdapter
 import com.zgame.zgame.adapter.GenderAdapter
@@ -15,6 +16,8 @@ import com.zgame.zgame.model.AgeModule
 import com.zgame.zgame.model.GenderModule
 import com.zgame.zgame.model.SeekingModule
 import com.zgame.zgame.utils.Constant
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
@@ -29,11 +32,6 @@ class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
     private var ageSelectedValue: ArrayList<AgeModule>? = ArrayList()
     private var genderSelectedValue: ArrayList<GenderModule>? = ArrayList()
 
-    private var male: String? = null
-    private var female: String? = null
-    private var coupleFM: String? = null
-    private var coupleFF: String? = null
-    private var coupleMM: String? = null
 
     override fun onPermissionsGranted(requestCode: Int) {
     }
@@ -129,37 +127,19 @@ class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {
             ageSelectedValue?.clear()
             seekingSelectedValue = seekingAdapter?.getSelected()
 
-            for (i in seekingSelectedValue!!.indices) {
-                when (seekingSelectedValue!![i].name) {
-                    "Male" -> male = "Male"
-                    "Female" -> female = "Female"
-                    "Couple(FM)" -> coupleFM = "Couple(FM)"
-                    "Couple(FF)" -> coupleFF = "Couple(FF)"
-                    "Couple(MM)" -> coupleMM = "Couple(MM)"
-                }
-            }
-
-            PreferanceRepository.setString(Constant.male, male)
-            PreferanceRepository.setString(Constant.female, female)
-            PreferanceRepository.setString(Constant.coupleFF, coupleFF)
-            PreferanceRepository.setString(Constant.coupleFM, coupleFM)
-            PreferanceRepository.setString(Constant.coupleMM, coupleMM)
+            val seekingValue: String = Gson().toJson(seekingSelectedValue)
+            PreferanceRepository.setString("SeekingValue", seekingValue)
 
             ageSelectedValue = ageAdapter?.getSelected()
             genderSelectedValue?.add(genderAdapter?.getSelected()!!)
-
-
 
             if (seekingSelectedValue?.size != 0 && ageSelectedValue?.size != 0 && genderSelectedValue?.size != 0) {
                 startActivity(
                     Intent(this, SignUp2Activity::class.java)
                         .putExtra("I_Am", genderSelectedValue)
+                        .putExtra("Seeking", seekingSelectedValue)
                         .putExtra("Age_Range", ageSelectedValue)
-                        .putExtra(Constant.male, male)
-                        .putExtra(Constant.female, female)
-                        .putExtra(Constant.coupleFF, coupleFF)
-                        .putExtra(Constant.coupleFM, coupleFM)
-                        .putExtra(Constant.coupleMM, coupleMM)
+
                 )
             } else {
                 showToast("please select SEEKING and AGE for more filter option")

@@ -6,7 +6,7 @@ object Constant{
     const val PICK_REQUEST = 102
     const val SAVE_REQUEST = 103
     const val uniqueName = "uniqueName"
-    const val seeking = "seeking"
+
     const val age = "age"
     const val email = "email"
     const val DbName = "Users"

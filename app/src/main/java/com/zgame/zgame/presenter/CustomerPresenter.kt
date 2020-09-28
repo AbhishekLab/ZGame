@@ -8,13 +8,17 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.CustomerContract
 import com.zgame.zgame.model.CircleData
+import com.zgame.zgame.model.SeekingModule
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.utils.Constant
 import com.zgame.zgame.utils.Constant.DbName
 import java.lang.NullPointerException
+import java.lang.reflect.Type
 
 
 class CustomerPresenter (private val view: CustomerContract.CustomerView) : CustomerContract.CustomerPresenter {
@@ -25,17 +29,15 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
 
     private var db : FirebaseFirestore? = null
     private var userNameQuery : CollectionReference? = null
-    private var maleQuery : Query? = null
-    private var femaleQuery : Query? = null
-    private var coupleFFQuery : Query? = null
-    private var coupleMMQuery : Query? = null
-    private var coupleFMQuery : Query? = null
 
-    private var male: String? = ""
-    private var female: String? = ""
-    private var coupleFM: String? = ""
-    private var coupleFF: String? = ""
-    private var coupleMM: String? = ""
+    private var male = ""
+    private var female = ""
+    private var coupleFF = ""
+    private var coupleMM = ""
+    private var coupleFM = ""
+
+    private var type : Type? = null
+    private var seekingSelectedValue: List<SeekingModule>? = ArrayList()
     private var currentUserData : SignUpModel? = SignUpModel()
 
     private var images : ArrayList<String> = ArrayList()
@@ -78,45 +80,32 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
         }catch (e:NullPointerException){}
 
 
-        male = PreferanceRepository.getString(Constant.male)
-        female  = PreferanceRepository.getString(Constant.female)
-        coupleFM = PreferanceRepository.getString(Constant.coupleFM)
-        coupleFF = PreferanceRepository.getString(Constant.coupleFF)
-        coupleMM = PreferanceRepository.getString(Constant.coupleMM)
 
+        val res = PreferanceRepository.getString("SeekingValue")
+        type = object : TypeToken<ArrayList<SeekingModule>>() {}.type
+        seekingSelectedValue = Gson().fromJson(res, type)
 
-        /*if(male!=null){
-            maleQuery = userNameQuery?.whereEqualTo(Constant.male , male)
-        }
-        if(female!=null || currentUserData?.female!=null){
-            femaleQuery = userNameQuery?.whereEqualTo(Constant.female,female)
-        }
-        if(coupleFF!=null || currentUserData?.coupleFF!=null){
-            coupleFFQuery = userNameQuery?.whereEqualTo(Constant.coupleFF,coupleFF)
-        }
-        if(coupleMM!=null || currentUserData?.coupleMM!=null){
-            coupleMMQuery = userNameQuery?.whereEqualTo(Constant.coupleMM, coupleMM)
-        }
-        if(coupleFM!=null || currentUserData?.coupleFM!=null){
-            coupleFMQuery = userNameQuery?.whereEqualTo(Constant.coupleFM, coupleFM)
-        }*/
-
-       /* val combinedTask: Task<*> = Tasks.whenAllSuccess<QuerySnapshot>(maleQuery?.get(),femaleQuery?.get(), coupleMMQuery?.get(),
-            coupleFFQuery?.get(),coupleFMQuery?.get()).addOnSuccessListener {
-
-        }.addOnFailureListener {
-            view.getNullValue(it.message!!)
-        }.addOnCompleteListener {
-            for (queryDocumentSnapshots in it.result!!.iterator()) {
-                for (documentSnapshot in queryDocumentSnapshots) {
-                    userList?.add(documentSnapshot.toObject(SignUpModel::class.java))
+        seekingSelectedValue?.forEach {
+            when (it.name) {
+                "Male" -> {
+                    male = it.name.toString()
+                }
+                "Female" -> {
+                    female = it.name.toString()
+                }
+                "Couple(FF)" -> {
+                    coupleFF = it.name.toString()
+                }
+                "Couple(FM)" -> {
+                    coupleFM = it.name.toString()
+                }
+                "Couple(MM)" -> {
+                    coupleMM = it.name.toString()
                 }
             }
-            view.getUsersFilterList(userList)
+        }
 
-        }*/
-
-        userNameQuery?.whereIn("seeking", listOf(male, female, coupleFF, coupleFM, coupleMM))?.get()?.addOnCompleteListener {
+        userNameQuery?.whereArrayContainsAny("seeking", listOf(male, female, coupleFF, coupleFM, coupleMM))?.get()?.addOnCompleteListener {
             for(a in it.result!!.iterator()){
                 userList?.add(a.toObject(SignUpModel::class.java))
             }

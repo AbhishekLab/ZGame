@@ -21,6 +21,7 @@ import com.zgame.zgame.contract.SignUpContract
 import com.zgame.zgame.databinding.ActivitySignUp3Binding
 import com.zgame.zgame.model.AgeModule
 import com.zgame.zgame.model.GenderModule
+import com.zgame.zgame.model.SeekingModule
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.presenter.SignUpPresenter
 import com.zgame.zgame.utils.Constant
@@ -37,6 +38,7 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
 
     private var ageSelectedValue: ArrayList<AgeModule>? = ArrayList()
     private var genderSelectedValue: ArrayList<GenderModule>? = ArrayList()
+    private var seekingSelectedValue: ArrayList<SeekingModule>? = ArrayList()
 
     private var name: String? = null
     private var email: String? = null
@@ -44,14 +46,7 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
     private var password: String? = null
     private var confirmPassword: String? = null
 
-    private var male: String? = null
-    private var female: String? = null
-    private var coupleFM: String? = null
-    private var coupleFF: String? = null
-    private var coupleMM: String? = null
-
     private var isNameChecked : Boolean = false
-
     private var alertDialog: AlertDialog? = null
 
     private lateinit var signUpModel: SignUpModel
@@ -76,11 +71,7 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
         signUpModel = SignUpModel()
 
         genderSelectedValue = intent.getParcelableArrayListExtra("I_Am")
-        male = intent.getStringExtra(Constant.male)
-        female = intent.getStringExtra(Constant.female)
-        coupleFF = intent.getStringExtra(Constant.coupleFF)
-        coupleFM = intent.getStringExtra(Constant.coupleFM)
-        coupleMM = intent.getStringExtra(Constant.coupleMM)
+        seekingSelectedValue = intent.getParcelableArrayListExtra("Seeking")
         ageSelectedValue = intent.getParcelableArrayListExtra("Age_Range")
         selectedAge = intent.getStringExtra("Age")
         selectedHeight = intent.getStringExtra("Height")
@@ -133,12 +124,11 @@ class SignUp3Activity : BaseActivity<ActivitySignUp3Binding>(), SignUpContract.S
                     signUpModel.ageRange?.add(ageSelectedValue!![i].name!!)
                 }
 
+                seekingSelectedValue?.forEach {
+                    signUpModel.seeking?.add(it.name!!)
+                }
+
                 signUpModel.name = name
-                signUpModel.male = male
-                signUpModel.female = female
-                signUpModel.coupleFF = coupleFF
-                signUpModel.coupleFM = coupleFM
-                signUpModel.coupleMM = coupleMM
                 signUpModel.age = selectedAge
                 signUpModel.height = selectedHeight
                 signUpModel.country = selectedCountry

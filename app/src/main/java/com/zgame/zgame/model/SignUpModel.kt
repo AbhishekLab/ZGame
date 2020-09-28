@@ -17,12 +17,8 @@ class GenderModule(var isChecked: Boolean = false, var name: String? = null): Pa
 class SignUpModel : Serializable {
     var gender : ArrayList<String>? = ArrayList()
     var ageRange : ArrayList<String>? = ArrayList()
+    var seeking : ArrayList<String>? = ArrayList()
     var name :  String? = null
-    var male : String? = null
-    var female : String? = null
-    var coupleFM : String? = null
-    var coupleFF : String? = null
-    var coupleMM : String? = null
     var age : String? = null
     var height : String? = null
     var country : String? = null

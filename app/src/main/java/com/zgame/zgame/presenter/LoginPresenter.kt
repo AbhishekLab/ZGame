@@ -51,11 +51,6 @@ class LoginPresenter(private val view: LoginContract.LoginView) : LoginContract.
 9
             Reservoir.putAsync(Constant.reservoir_key, currentUser, object : ReservoirPutCallback {
                 override fun onSuccess() {
-                    PreferanceRepository.setString(Constant.male, currentUser?.male)
-                    PreferanceRepository.setString(Constant.female, currentUser?.female)
-                    PreferanceRepository.setString(Constant.coupleFF, currentUser?.coupleFF)
-                    PreferanceRepository.setString(Constant.coupleFM, currentUser?.coupleFM)
-                    PreferanceRepository.setString(Constant.coupleMM, currentUser?.coupleMM)
                     PreferanceRepository.setString(Constant.uniqueName, currentUser?.userName!!)
                     PreferanceRepository.setString(Constant.name, currentUser?.name)
                     PreferanceRepository.setString(Constant.profilePic, currentUser?.profilePic.toString())
