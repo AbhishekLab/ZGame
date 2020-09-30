@@ -1,7 +1,10 @@
 package com.zgame.zgame.presenter
 
+import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.util.Log.e
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -11,6 +14,7 @@ import com.zgame.zgame.activity.SignUp3Activity
 import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.contract.SignUpContract
+import com.zgame.zgame.model.ChatUserModel
 import com.zgame.zgame.model.PostModel
 import com.zgame.zgame.model.SignUpModel
 import com.zgame.zgame.utils.Constant
@@ -36,14 +40,32 @@ class SignUpPresenter(view: SignUpContract.SignUpView) : SignUpContract.SignUpPr
         userName = signUpModel.userName
 
 
+
         mAuth.createUserWithEmailAndPassword(signUpModel.email!!, signUpModel.password!!)
             .addOnCompleteListener(context) { it ->
                 if (it.isSuccessful) {
+                    val uid = FirebaseAuth.getInstance().uid
+                        createMessageDb(uid, signUpModel)
                     createUserImageProfileModel()
                     uploadProfilePic(profilePhoto, signUpModel)
                 } else{
                     context.registerNotDone(it.exception?.message)
             }
+            }
+    }
+
+    private fun createMessageDb(uid: String?, signUpModel: SignUpModel) {
+        val userModel = ChatUserModel()
+        userModel.uid = uid
+        userModel.userid = signUpModel.email
+        userModel.usernm = signUpModel.userName
+        userModel.usermsg = "..."
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(uid!!)
+            .set(userModel)
+            .addOnSuccessListener {
+                context.showToast("user chat created")
             }
     }
 

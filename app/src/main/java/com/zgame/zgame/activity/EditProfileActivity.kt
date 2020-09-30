@@ -225,7 +225,7 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     }
 
     override fun error(message: String) {
-        showToast(message)
+        showToast(resources.getString(R.string.no_data_found))
         mBinding.progressBar.visibility = View.GONE
         mBinding.hzProgressBar.visibility = View.GONE
     }

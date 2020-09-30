@@ -138,6 +138,7 @@ class PostImageActivity : BaseActivity<ActivityPostImageBinding>(), OnPhotoEdito
             mEditor?.setBrushDrawingMode(false)
             mEmojiBSFragment?.show(supportFragmentManager, mEmojiBSFragment?.tag)
         }
+
         mBinding.imgBrush.setOnClickListener {
             mBinding.imgBrush.alpha = 1f
             mBinding.imgEmoji.alpha = 0.6f
@@ -378,6 +379,7 @@ class PostImageActivity : BaseActivity<ActivityPostImageBinding>(), OnPhotoEdito
         intent.putExtra(Intent.EXTRA_STREAM, buildFileProviderUri(mSaveImageUri!!))
         startActivity(Intent.createChooser(intent, getString(R.string.msg_share_image)))
     }
+
     private fun buildFileProviderUri(uri: Uri): Uri? {
         return FileProvider.getUriForFile(
             this,

@@ -85,27 +85,49 @@ class CustomerPresenter (private val view: CustomerContract.CustomerView) : Cust
         type = object : TypeToken<ArrayList<SeekingModule>>() {}.type
         seekingSelectedValue = Gson().fromJson(res, type)
 
-        seekingSelectedValue?.forEach {
-            when (it.name) {
-                "Male" -> {
-                    male = it.name.toString()
+        if(seekingSelectedValue.isNullOrEmpty()){
+            currentUserData?.seeking?.forEach {
+                when (it) {
+                    "Male" -> {
+                        male = it
+                    }
+                    "Female" -> {
+                        female = it
+                    }
+                    "Couple(FF)" -> {
+                        coupleFF = it
+                    }
+                    "Couple(FM)" -> {
+                        coupleFM = it
+                    }
+                    "Couple(MM)" -> {
+                        coupleMM = it
+                    }
                 }
-                "Female" -> {
-                    female = it.name.toString()
-                }
-                "Couple(FF)" -> {
-                    coupleFF = it.name.toString()
-                }
-                "Couple(FM)" -> {
-                    coupleFM = it.name.toString()
-                }
-                "Couple(MM)" -> {
-                    coupleMM = it.name.toString()
+            }
+        }else{
+            seekingSelectedValue?.forEach {
+                when (it.name) {
+                    "Male" -> {
+                        male = it.name.toString()
+                    }
+                    "Female" -> {
+                        female = it.name.toString()
+                    }
+                    "Couple(FF)" -> {
+                        coupleFF = it.name.toString()
+                    }
+                    "Couple(FM)" -> {
+                        coupleFM = it.name.toString()
+                    }
+                    "Couple(MM)" -> {
+                        coupleMM = it.name.toString()
+                    }
                 }
             }
         }
 
-        userNameQuery?.whereArrayContainsAny("seeking", listOf(male, female, coupleFF, coupleFM, coupleMM))?.get()?.addOnCompleteListener {
+        userNameQuery?.whereArrayContainsAny("seeking", listOf(male, female, coupleFF, coupleFM, coupleMM))?.limit(20)?.get()?.addOnCompleteListener {
             for(a in it.result!!.iterator()){
                 userList?.add(a.toObject(SignUpModel::class.java))
             }

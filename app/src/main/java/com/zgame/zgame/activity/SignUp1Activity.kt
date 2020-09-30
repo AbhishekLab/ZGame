@@ -15,9 +15,6 @@ import com.zgame.zgame.databinding.ActivitySignUp1Binding
 import com.zgame.zgame.model.AgeModule
 import com.zgame.zgame.model.GenderModule
 import com.zgame.zgame.model.SeekingModule
-import com.zgame.zgame.utils.Constant
-import org.json.JSONArray
-import org.json.JSONObject
 
 
 class SignUp1Activity : BaseActivity<ActivitySignUp1Binding>() {

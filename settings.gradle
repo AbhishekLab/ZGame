@@ -1,2 +1,3 @@
+include ':ananas'
 include ':app'
 rootProject.name='ZGame'

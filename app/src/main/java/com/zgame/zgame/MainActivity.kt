@@ -19,10 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
-import com.zgame.zgame.activity.EditProfileActivity
-import com.zgame.zgame.activity.LoginActivity
-import com.zgame.zgame.activity.PostImageActivity
-import com.zgame.zgame.activity.SettingActivity
+import com.zgame.zgame.activity.*
 import com.zgame.zgame.base.BaseActivity
 import com.zgame.zgame.base.PreferanceRepository
 import com.zgame.zgame.databinding.ActivityMainBinding
@@ -66,7 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         mBinding.bottomAppBar.setNavigationOnClickListener {
 
-            if (mBottomSheetBehavior?.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            if (mBottomSheetBehavior?.state != BottomSheetBehavior.STATE_EXPANDED) {
                 mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_EXPANDED)
             } else {
                 mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
@@ -145,7 +142,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (navController?.currentDestination?.label == "CustomerGalleryFragment" && item.toString() == "Home" || navController?.currentDestination?.label == "UserProfileFragment" &&
-            item.toString() == "Profile"
+            item.toString() == "Profile" || navController?.currentDestination?.label == "MessageFragment" && item.toString() == "Message"
         ) {
             false
         } else {
@@ -190,7 +187,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun fabClick() {
         if (mAuth.currentUser != null) {
-            startActivity(Intent(this, PostImageActivity::class.java))
+            startActivity(Intent(this, UploadImageActivity::class.java))
         } else {
             showToast("Please login to enable this feature")
         }

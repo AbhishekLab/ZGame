@@ -92,6 +92,16 @@
         <activity android:name=".activity.CommonSliderActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.UploadImageActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.ChatActivity"
+            android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".activity.SelectUserActivity"
+            android:screenOrientation="portrait"/>
+
 
 
 
