@@ -1,0 +1,28 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="iamutkarshtiwari.github.io.ananas"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml
+10
+11    <application>
+11-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:5:5-12:19
+12        <activity
+12-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:6:9-9:39
+13            android:name="iamutkarshtiwari.github.io.ananas.editimage.EditImageActivity"
+13-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:7:13-89
+14            android:exported="true"
+14-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:9:13-36
+15            android:label="@string/iamutkarshtiwari_github_io_ananas_library_name" />
+15-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:8:13-83
+16        <activity android:name="iamutkarshtiwari.github.io.ananas.picchooser.SelectPictureActivity" />
+16-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:11:9-70
+16-->D:\offline_project\ZGame\ZGame\ananas\src\main\AndroidManifest.xml:11:19-67
+17    </application>
+18
+19</manifest>

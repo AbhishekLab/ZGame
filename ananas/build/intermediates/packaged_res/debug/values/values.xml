@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="iamutkarshtiwari_github_io_ananas_filter_drawable_list" translatable="false">
+        <item>filter_1</item>
+        <item>filter_2</item>
+        <item>filter_3</item>
+        <item>filter_4</item>
+        <item>filter_5</item>
+        <item>filter_6</item>
+        <item>filter_7</item>
+        <item>filter_8</item>
+        <item>filter_9</item>
+        <item>filter_10</item>
+        <item>filter_11</item>
+        <item>filter_12</item>
+    </string-array>
+    <string-array name="iamutkarshtiwari_github_io_ananas_filters">
+        <item>Origin</item>
+        <item>Soft</item>
+        <item>Black</item>
+        <item>Classic</item>
+        <item>Gorgeous</item>
+        <item>Retro</item>
+        <item>Grace</item>
+        <item>Film</item>
+        <item>Memory</item>
+        <item>Yogurt</item>
+        <item>Fleeting</item>
+        <item>Shine</item>
+    </string-array>
+    <integer-array name="iamutkarshtiwari_github_io_ananas_type_count" translatable="false">
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>3</item>
+        <item>5</item>
+    </integer-array>
+    <string-array name="iamutkarshtiwari_github_io_ananas_type_names">
+        <item>Type 1</item>
+        <item>Type 2</item>
+        <item>Type 3</item>
+        <item>Type 4</item>
+        <item>Type 5</item>
+        <item>Type 6</item>
+    </string-array>
+    <string-array name="iamutkarshtiwari_github_io_ananas_types" translatable="false">
+        <item>type1</item>
+        <item>type2</item>
+        <item>type3</item>
+        <item>type4</item>
+        <item>type5</item>
+        <item>type6</item>
+    </string-array>
+    <color name="black">#000000</color>
+    <color name="dark_brown">#641E16</color>
+    <color name="hint_foreground_material_light">#00000000</color>
+    <color name="kelly_1">#F2F3F4</color>
+    <color name="kelly_10">#5fa641</color>
+    <color name="kelly_11">#d485b2</color>
+    <color name="kelly_12">#4277b6</color>
+    <color name="kelly_13">#df8461</color>
+    <color name="kelly_14">#463397</color>
+    <color name="kelly_15">#e1a11a</color>
+    <color name="kelly_16">#91218c</color>
+    <color name="kelly_17">#e8e948</color>
+    <color name="kelly_18">#7e1510</color>
+    <color name="kelly_19">#92ae31</color>
+    <color name="kelly_2">#1d1d1d</color>
+    <color name="kelly_20">#6f340d</color>
+    <color name="kelly_21">#d32b1e</color>
+    <color name="kelly_22">#2b3514</color>
+    <color name="kelly_3">#ebce2b</color>
+    <color name="kelly_4">#702c8c</color>
+    <color name="kelly_5">#db6917</color>
+    <color name="kelly_6">#96cde6</color>
+    <color name="kelly_7">#ba1c30</color>
+    <color name="kelly_8">#c0bd7f</color>
+    <color name="kelly_9">#7f7e80</color>
+    <color name="main_backgroud">#333333</color>
+    <color name="materialcolorpicker__blue">#2196f3</color>
+    <color name="materialcolorpicker__green">#4caf50</color>
+    <color name="materialcolorpicker__grey">#b3b3b3</color>
+    <color name="materialcolorpicker__red">#f44336</color>
+    <color name="text_color">#BEC2C4</color>
+    <color name="text_color_gray_3">#A6A5A5</color>
+    <color name="white">#ffffff</color>
+    <dimen name="bottom_banner_height">100dp</dimen>
+    <dimen name="delete_icon_size">20dp</dimen>
+    <dimen name="elevation_2dp">2dp</dimen>
+    <dimen name="image_edit_menu_margin">20dp</dimen>
+    <dimen name="image_edit_text_size">12sp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="materialcolorpicker__activity_horizontal_margin">16dp</dimen>
+    <dimen name="materialcolorpicker__activity_vertical_margin">16dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="rotate_icon_size">45dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    <dimen name="spacing_xsmall">4dp</dimen>
+    <dimen name="spacing_xxlarge">64dp</dimen>
+    <dimen name="spacing_xxsmall">2dp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="text_sticker_size">14sp</dimen>
+    <item name="iamutkarshtiwari_github_io_ananas_TAG_STICKERS_COUNT" translatable="false" type="id"/>
+    <item name="iamutkarshtiwari_github_io_ananas_TAG_STICKERS_PATH" translatable="false" type="id"/>
+    <string name="iamutkarshtiwari_github_io_ananas_apply">APPLY</string>
+    <string name="iamutkarshtiwari_github_io_ananas_auto_newline">AutoNewline</string>
+    <string name="iamutkarshtiwari_github_io_ananas_beauty">Beauty</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brightness">Brightness</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brush">Brush</string>
+    <string name="iamutkarshtiwari_github_io_ananas_cancel">Cancel</string>
+    <string name="iamutkarshtiwari_github_io_ananas_confirm">Confirm</string>
+    <string name="iamutkarshtiwari_github_io_ananas_crop">Crop</string>
+    <string name="iamutkarshtiwari_github_io_ananas_done">DONE</string>
+    <string name="iamutkarshtiwari_github_io_ananas_edit">Edit</string>
+    <string name="iamutkarshtiwari_github_io_ananas_eraser">Eraser</string>
+    <string name="iamutkarshtiwari_github_io_ananas_exit_without_save">The edited image is not saved. Do you want to exit? </string>
+    <string name="iamutkarshtiwari_github_io_ananas_filter">Filters</string>
+    <string name="iamutkarshtiwari_github_io_ananas_fit_image">ORIGINAL</string>
+    <string name="iamutkarshtiwari_github_io_ananas_free_size">FREE</string>
+    <string name="iamutkarshtiwari_github_io_ananas_images">%d images</string>
+    <string name="iamutkarshtiwari_github_io_ananas_input_hint">Input Text …</string>
+    <string name="iamutkarshtiwari_github_io_ananas_library_name">Photo Editor</string>
+    <string name="iamutkarshtiwari_github_io_ananas_load_error">Failed to load the image!</string>
+    <string name="iamutkarshtiwari_github_io_ananas_loading">Loading…</string>
+    <string name="iamutkarshtiwari_github_io_ananas_more">More</string>
+    <string name="iamutkarshtiwari_github_io_ananas_no_images">No image found</string>
+    <string name="iamutkarshtiwari_github_io_ananas_not_selected">Please choose an image for edit</string>
+    <string name="iamutkarshtiwari_github_io_ananas_opacity">Opacity</string>
+    <string name="iamutkarshtiwari_github_io_ananas_pick_a_color">Pick a color</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio16_9">16:9</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio3_4">3:4</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio4_3">4:3</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio9_16">9:16</string>
+    <string name="iamutkarshtiwari_github_io_ananas_rotate">Rotate</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saturation">Saturation</string>
+    <string name="iamutkarshtiwari_github_io_ananas_save_error">Save error!</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saving_image">Saving…</string>
+    <string name="iamutkarshtiwari_github_io_ananas_size">Size</string>
+    <string name="iamutkarshtiwari_github_io_ananas_smooth">Smoothness</string>
+    <string name="iamutkarshtiwari_github_io_ananas_square">SQUARE</string>
+    <string name="iamutkarshtiwari_github_io_ananas_stickers">Stickers</string>
+    <string name="iamutkarshtiwari_github_io_ananas_text">Text</string>
+    <string name="iamutkarshtiwari_github_io_ananas_white_skin">Skin Tone</string>
+    <string name="materialcolorpicker__btnSelectColor">Select</string>
+    <string name="materialcolorpicker__errHex">Hex Code Format incorrect</string>
+    <style name="edit_text_style">
+        <item name="android:singleLine">true</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="icon_style">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    <style name="option_style">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="option_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/text_sticker_size</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/menushow</item>
+        <item name="android:windowExitAnimation">@anim/menuhide</item>
+    </style>
+    <style name="setting_icon_style">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+    </style>
+</resources>

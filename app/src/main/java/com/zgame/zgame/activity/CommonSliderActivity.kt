@@ -16,6 +16,7 @@ class CommonSliderActivity : BaseActivity<ActivityCommonSliderBinding>() {
     private var listOfImages : ArrayList<String> = ArrayList()
     private var position : Int = 0
 
+
     private lateinit var mBinding: ActivityCommonSliderBinding
 
     override fun onPermissionsGranted(requestCode: Int) {

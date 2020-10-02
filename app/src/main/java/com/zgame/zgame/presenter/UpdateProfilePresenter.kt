@@ -93,7 +93,7 @@ class UpdateProfilePresenter(private val view: UpdateProfileContract.UpdateProfi
         db.collection(Constant.DbName).document(uniqueName).collection(uniqueName)
             .document(Constant.firebaseUserGallery).get()
             .addOnCompleteListener {
-                if (it.isSuccessful) {
+                if (it.isSuccessful && it.result?.data!=null) {
                     response = it.result?.toObject(UpdateProfileModel::class.java)
                     if (response != null) {
                         view.setUserProfileData(response!!)

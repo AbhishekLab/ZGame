@@ -225,7 +225,6 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
     }
 
     override fun error(message: String) {
-        showToast(message)
         mBinding.progressBar.visibility = View.GONE
         mBinding.hzProgressBar.visibility = View.GONE
     }
@@ -369,14 +368,14 @@ class EditProfileActivity : BaseActivity<ActivityEditProfileBinding>(),
             when (requestCode) {
                 PICK_REQUEST -> {
                     try {
-                       /* val imgInBitmapDrawable =  data!!.extras!!["data"] as Bitmap?
+                        /* val imgInBitmapDrawable =  data!!.extras!!["data"] as Bitmap?
 
-                        val bytes = ByteArrayOutputStream()
-                        imgInBitmapDrawable?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                        val path = MediaStore.Images.Media.insertImage(contentResolver, imgInBitmapDrawable, "ProfilePic", null)
-                        profilePhoto = Uri.parse(path.toString())
-                        Glide.with(this).load(profilePhoto).into(mBinding.imgProfile)
-*/
+                         val bytes = ByteArrayOutputStream()
+                         imgInBitmapDrawable?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                         val path = MediaStore.Images.Media.insertImage(contentResolver, imgInBitmapDrawable, "ProfilePic", null)
+                         profilePhoto = Uri.parse(path.toString())
+                         Glide.with(this).load(profilePhoto).into(mBinding.imgProfile)
+ */
 
                         val uri = data?.data
                         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)

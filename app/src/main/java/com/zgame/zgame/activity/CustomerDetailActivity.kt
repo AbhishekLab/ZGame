@@ -227,7 +227,7 @@ class CustomerDetailActivity : BaseActivity<ActivityCustomerDetailBinding>(),
     }
 
     override fun error(message: String) {
-        showToast(message)
+        mBinding.progressBar.visibility = View.GONE
     }
 
     override fun addWink(position: Int?) {

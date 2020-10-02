@@ -4,6 +4,7 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
+import com.zgame.zgame.R
 import com.zgame.zgame.activity.CustomerDetailActivity
 import com.zgame.zgame.base.BaseActivity.Companion.mAuth
 import com.zgame.zgame.contract.CustomerDetailContract
@@ -46,12 +47,11 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
 
     override fun customerDetail(userName: String) {
         db!!.collection(Constant.DbName).document(userName).collection(userName).document(Constant.firebaseUserGallery).get().addOnCompleteListener {
-            if (it.isSuccessful) {
+            if (it.result?.data.isNullOrEmpty()) {
+                view.error(context.getString(R.string.no_data_found))
+            } else {
                 profileDetail = it.result?.toObject(UpdateProfileModel::class.java)!!
                 view.getCustomerDetail(profileDetail)
-
-            } else {
-                view.error("No Data Found")
             }
 
         }?.addOnFailureListener {
@@ -63,9 +63,9 @@ class CustomerDetailPresenter(private val view: CustomerDetailContract.CustomerD
     override fun wink(myUniqueName: String) {
         db!!.collection(Constant.DbName).document(myUniqueName)
             .update("wink", FieldValue.arrayUnion(myUniqueName)).addOnCompleteListener {
-        }.addOnFailureListener {
-            context.error(it.message!!)
-        }
+            }.addOnFailureListener {
+                context.error(it.message!!)
+            }
 
     }
 
