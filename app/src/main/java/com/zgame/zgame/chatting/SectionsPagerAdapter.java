@@ -1,12 +1,8 @@
-package com.zgame.zgame.adapter;
+package com.zgame.zgame.chatting;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import com.zgame.zgame.fragment.ChatRoomFragment;
-import com.zgame.zgame.fragment.UserFragment;
-import com.zgame.zgame.fragment.UserListFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

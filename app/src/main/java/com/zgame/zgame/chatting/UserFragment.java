@@ -1,4 +1,4 @@
-package com.zgame.zgame.fragment;
+package com.zgame.zgame.chatting;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +30,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.zgame.zgame.R;
 import com.zgame.zgame.model.ChatUserModel;
-import com.zgame.zgame.utils.Util9;
 
 import java.io.ByteArrayOutputStream;
 
@@ -68,23 +68,28 @@ public class UserFragment extends Fragment {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(uid);
-        docRef.get().addOnSuccessListener(documentSnapshot -> {
-            userModel = documentSnapshot.toObject(ChatUserModel.class);
-            user_id.setText(userModel.getUserid());
-            user_name.setText(userModel.getUsernm());
-            user_msg.setText(userModel.getUsermsg());
-            if (userModel.getUserphoto()!= null && !"".equals(userModel.getUserphoto())) {
-                Glide.with(getActivity())
-                        .load(FirebaseStorage.getInstance().getReference("userPhoto/"+userModel.getUserphoto()))
-                        .into(user_photo);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userModel = documentSnapshot.toObject(ChatUserModel.class);
+                user_id.setText(userModel.getUserid());
+                user_name.setText(userModel.getUsernm());
+                user_msg.setText(userModel.getUsermsg());
+                if (userModel.getUserphoto()!= null && !"".equals(userModel.getUserphoto())) {
+                    Glide.with(getActivity())
+                            .load(FirebaseStorage.getInstance().getReference("userPhoto/"+userModel.getUserphoto()))
+                            .into(user_photo);
+                }
             }
         });
     }
 
-    Button.OnClickListener userPhotoIVClickListener = view -> {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
+    Button.OnClickListener userPhotoIVClickListener = new View.OnClickListener() {
+        public void onClick(final View view) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+            startActivityForResult(intent, PICK_FROM_ALBUM);
+        }
     };
 
     @Override
@@ -137,11 +142,7 @@ public class UserFragment extends Fragment {
         }
     };
 
-    Button.OnClickListener changePWBtnClickListener = new View.OnClickListener() {
-        public void onClick(final View view) {
-            //startActivity(new Intent(getActivity(), UserPWActivity.class));
-        }
-    };
+    Button.OnClickListener changePWBtnClickListener = view -> Toast.makeText(getActivity(),"Password Change Activity", Toast.LENGTH_LONG).show();
 
     private boolean validateForm() {
         boolean valid = true;

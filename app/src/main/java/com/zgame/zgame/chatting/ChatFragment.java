@@ -1,4 +1,4 @@
-package com.zgame.zgame.fragment;
+package com.zgame.zgame.chatting;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -66,7 +66,6 @@ import com.zgame.zgame.model.ChatModel;
 import com.zgame.zgame.model.ChatUserModel;
 import com.zgame.zgame.model.Message;
 import com.zgame.zgame.model.NotificationModel;
-import com.zgame.zgame.utils.Util9;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -302,6 +301,7 @@ public class ChatFragment extends Fragment {
             }
         });
     }
+
     public Map<String, ChatUserModel> getUserList() {
         return userList;
     }
@@ -498,6 +498,13 @@ public class ChatFragment extends Fragment {
     public void hideProgressDialog() {
         progressDialog.dismiss();
     }
+    // =======================================================================================
+
+
+
+
+
+
 
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         final private RequestOptions requestOptions = new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(90));
@@ -661,6 +668,7 @@ public class ChatFragment extends Fragment {
                     messageViewHolder.divider.setVisibility(View.VISIBLE);
                     messageViewHolder.divider.getLayoutParams().height = 60;
                 }
+
             }
             /*messageViewHolder.timestamp.setText("");
             if (message.getTimestamp()==null) {return;}
@@ -732,9 +740,11 @@ public class ChatFragment extends Fragment {
                 msgLine_item.setOnClickListener(downloadClickListener);
             }
             if (img_item!=null) {                                       // for image
-                //img_item.setOnClickListener(imageClickListener);
+                img_item.setOnClickListener(imageClickListener);
             }
         }
+
+
         // file download and open
         Button.OnClickListener downloadClickListener = new View.OnClickListener() {
             public void onClick(View view) {
@@ -792,14 +802,12 @@ public class ChatFragment extends Fragment {
             }
         };
         // photo view
-       /* Button.OnClickListener imageClickListener = new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ViewPagerActivity.class);
-                intent.putExtra("roomID", roomID);
-                intent.putExtra("realname", realname);
-                startActivity(intent);
-            }
-        };*/
+        Button.OnClickListener imageClickListener = view -> {
+           /* Intent intent = new Intent(getContext(), ViewPagerActivity.class);
+            intent.putExtra("roomID", roomID);
+            intent.putExtra("realname", realname);
+            startActivity(intent);*/
+        };
     }
 
     public void backPressed() {

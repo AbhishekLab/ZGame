@@ -1,4 +1,4 @@
-package com.zgame.zgame.activity;
+package com.zgame.zgame.chatting;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -8,12 +8,13 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.zgame.zgame.R;
-import com.zgame.zgame.fragment.ChatFragment;
-import com.zgame.zgame.fragment.UserListInRoomFragment;
+
 
 public class ChatActivity extends AppCompatActivity {
+
     private ChatFragment chatFragment;
     private UserListInRoomFragment userListInRoomFragment = null;
 
@@ -35,6 +36,22 @@ public class ChatActivity extends AppCompatActivity {
             actionBar.setTitle(roomTitle);
         }
 
+        // left drawer
+
+       /* findViewById(R.id.rightMenuBtn).setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                if (userListInRoomFragment==null) {
+                    userListInRoomFragment = UserListInRoomFragment.getInstance(roomID, chatFragment.getUserList());
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.drawerFragment, userListInRoomFragment)
+                            .commit();
+                }
+                drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        });*/
         // chatting area
         chatFragment = ChatFragment.getInstance(toUid, roomID);
         getSupportFragmentManager()

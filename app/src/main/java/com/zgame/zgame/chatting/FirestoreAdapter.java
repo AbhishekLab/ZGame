@@ -1,4 +1,4 @@
-package com.zgame.zgame.adapter;
+package com.zgame.zgame.chatting;
 
 import android.util.Log;
 

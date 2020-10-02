@@ -1,4 +1,4 @@
-package com.zgame.zgame.fragment;
+package com.zgame.zgame.chatting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.zgame.zgame.R;
-import com.zgame.zgame.activity.SelectUserActivity;
 import com.zgame.zgame.model.ChatUserModel;
 
 import java.util.ArrayList;

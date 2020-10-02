@@ -1,4 +1,4 @@
-package com.zgame.zgame.fragment;
+package com.zgame.zgame.chatting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,10 +25,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.zgame.zgame.R;
-import com.zgame.zgame.activity.ChatActivity;
-import com.zgame.zgame.adapter.FirestoreAdapter;
 import com.zgame.zgame.model.ChatUserModel;
-
 
 public class UserListFragment extends Fragment {
     private FirestoreAdapter firestoreAdapter;
@@ -48,7 +45,7 @@ public class UserListFragment extends Fragment {
     public void onStop() {
         super.onStop();
         if (firestoreAdapter != null) {
-            firestoreAdapter.stopListening();
+            //firestoreAdapter.stopListening();
         }
     }
 
@@ -106,10 +103,13 @@ public class UserListFragment extends Fragment {
                         .into(viewHolder.user_photo);
             }
 
-            viewHolder.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(getView().getContext(), ChatActivity.class);
-                intent.putExtra("toUid", user.getUid());
-                startActivity(intent);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getView().getContext(), ChatActivity.class);
+                    intent.putExtra("toUid", user.getUid());
+                    startActivity(intent);
+                }
             });
 
         }

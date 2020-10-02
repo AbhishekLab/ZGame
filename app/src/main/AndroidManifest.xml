@@ -95,17 +95,14 @@
         <activity android:name=".activity.UploadImageActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.ChatActivity"
+        <activity android:name=".chatting.ChatActivity"
             android:screenOrientation="portrait"/>
 
-
-        <activity android:name=".activity.SelectUserActivity"
+        <activity android:name=".chatting.SelectUserActivity"
             android:screenOrientation="portrait"/>
 
-
-
-
-
+        <activity android:name=".chatting.ChattingMainActivity"
+            android:screenOrientation="portrait"/>
 
 
         <!--<activity android:name=".activity.TransparentActivity"/>-->

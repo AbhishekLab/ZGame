@@ -1,4 +1,4 @@
-package com.zgame.zgame.fragment;
+package com.zgame.zgame.chatting;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +31,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.zgame.zgame.R;
-import com.zgame.zgame.activity.ChatActivity;
 import com.zgame.zgame.model.ChatRoomModel;
 import com.zgame.zgame.model.ChatUserModel;
 import com.zgame.zgame.model.Message;
@@ -45,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
+
 
 public class ChatRoomFragment extends Fragment {
 
@@ -76,7 +76,11 @@ public class ChatRoomFragment extends Fragment {
             mAdapter.stopListening();
         }
     }
+
+
     // =============================================================================================
+
+
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         final private RequestOptions requestOptions = new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(90));
         private List<ChatRoomModel> roomList = new ArrayList<>();

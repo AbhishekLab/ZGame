@@ -1,4 +1,4 @@
-package com.zgame.zgame.activity;
+package com.zgame.zgame.chatting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +30,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.zgame.zgame.R;
-import com.zgame.zgame.adapter.FirestoreAdapter;
 import com.zgame.zgame.model.ChatUserModel;
-import com.zgame.zgame.utils.Util9;
 
 import java.util.HashMap;
 import java.util.Map;
